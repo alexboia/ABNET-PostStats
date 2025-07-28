@@ -23,7 +23,7 @@ define('ABNET_POST_STATS_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('ABNET_POST_STATS_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('ABNET_POST_STATS_PLUGIN_FILE', __FILE__);
 define('ABNET_DEFAULT_MAX_BAR_HEIGHT', 200);
-define('ABNET_DEFAULT_SHOW_TITLE', true);
+define('ABNET_DEFAULT_SHOW_TITLE', false);
 define('ABNET_DEFAULT_SHOW_SUMMARY', true);
 
 define('ABNET_POST_STATS_INC_DIR', dirname(ABNET_POST_STATS_PLUGIN_FILE) . '/includes/');
@@ -109,7 +109,7 @@ class ABNet_Post_Stats {
 	}
 
 	public function renderMonthlyCountsDashboardWidget(): void {
-		$nMonths = apply_filters('abnet_posts_stats_months_count', 6);
+		$nMonths = apply_filters('abnet_posts_stats_months_count', 5);
 		if ($nMonths <= 0 || $nMonths > 6) {
 			$nMonths = 6;
 		}
