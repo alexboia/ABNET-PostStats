@@ -20,7 +20,8 @@
 
 ## Install
 
-Fetch the archive and download it as you would any WordPress plugin.
+Fetch the archive and download it as you would any WordPress plugin. 
+Not currently available on WordPress plug-in directory and will not be.
 
 ## Privacy
 
