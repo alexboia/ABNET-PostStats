@@ -40,7 +40,9 @@ class ABNet_Post_Stats_Result {
 		$this->_sumOfValues = array_sum($this->_values);
 	}
 	
-	//generate getters for fields
+	/**
+	 * @return ABNet_Post_Stats_Item
+	 */
 	public function getItems(): array {
 		return $this->_items;
 	}
@@ -57,6 +59,9 @@ class ABNet_Post_Stats_Result {
 		return !empty($this->_items);
 	}
 
+	/**
+	 * @return int[]
+	 */
 	public function getValues(): array {
 		return $this->_values;
 	}
