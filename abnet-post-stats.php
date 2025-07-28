@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: ABNet Post Stats
- * Plugin URI: https://alexboia.net
+ * Plugin URI: https://github.com/alexboia/ABNET-PostStats
  * Description: A WordPress plugin for displaying post statistics.
  * Version: 1.0.0
  * Author: Alexandru Boia
