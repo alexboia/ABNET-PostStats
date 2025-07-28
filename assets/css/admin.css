@@ -1,0 +1,136 @@
+/**
+ * Styles for the admin dashboard widget displaying post statistics.
+ *
+ * @package ABNet_Post_Stats
+ * @since 1.0.0
+ */
+
+.abnet-stats-widget {
+	background: #fff;
+	border: 1px solid #ccd0d4;
+	border-radius: 4px;
+	padding: 20px;
+	margin-bottom: 20px;
+}
+    
+#dashboard-widgets h3.abnet-widget-title {
+	margin: 0 0 20px 0;
+	font-size: 18px;
+	color: #23282d;
+	border-bottom: 1px solid #eee;
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+}
+
+.abnet-bar-graph-container {
+	text-align: center;
+}
+
+.abnet-bar-graph {
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
+	gap: 8px;
+	height: 240px;
+	padding: 20px 0;
+	border-bottom: 2px solid #ddd;
+	margin-bottom: 20px;
+	position: relative;
+}
+
+.abnet-bar-item {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	min-width: 60px;
+	cursor: pointer;
+	transition: opacity 0.3s ease;
+}
+
+.abnet-bar-item:hover {
+	opacity: 0.8;
+}
+
+.abnet-bar {
+	background: linear-gradient(to top, #0073aa, #005177);
+	border-radius: 4px 4px 0 0;
+	min-height: 5px;
+	width: 40px;
+	position: relative;
+	transition: all 0.3s ease;
+	margin-bottom: 10px;
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	padding-top: 5px;
+}
+
+.abnet-bar:hover {
+	background: linear-gradient(to top, #005177, #0073aa);
+}
+
+.abnet-bar-value {
+	color: white;
+	font-size: 11px;
+	font-weight: bold;
+	text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+.abnet-bar-label {
+	font-size: 12px;
+	color: #666;
+	text-align: center;
+	line-height: 1.2;
+}
+
+.abnet-bar-label small {
+	font-size: 10px;
+	color: #999;
+}
+
+.abnet-graph-stats {
+	display: flex;
+	justify-content: space-around;
+	background: #f8f9fa;
+	border-radius: 4px;
+	padding: 15px;
+	gap: 20px;
+}
+
+.abnet-stat-item {
+	text-align: center;
+	flex: 1;
+}
+
+.abnet-stat-label {
+	display: block;
+	font-size: 12px;
+	color: #666;
+	margin-bottom: 5px;
+}
+
+.abnet-stat-value {
+	display: block;
+	font-size: 18px;
+	font-weight: bold;
+	color: #0073aa;
+}
+
+@media (max-width: 768px) {
+	.abnet-bar-graph {
+		gap: 4px;
+	}
+	
+	.abnet-bar-item {
+		min-width: 40px;
+	}
+	
+	.abnet-bar {
+		width: 30px;
+	}
+	
+	.abnet-graph-stats {
+		flex-direction: column;
+		gap: 10px;
+	}
+}
