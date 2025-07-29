@@ -23,6 +23,28 @@
 Fetch the archive and download it as you would any WordPress plugin. 
 Not currently available on WordPress plug-in directory and will not be.
 
+## Building Installation Kit
+
+### Use `build\package-plugin.ps1`
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `OutputPath` | String | `.\dist` | Directory where the ZIP file will be created |
+| `PluginName` | String | `abnet-post-stats` | Name of the plugin (used for folder and file names) |
+| `Version` | String | `1.0.0` | Version number to embed in files |
+| `IncludeDevFiles` | Switch | `false` | Include development files (examples, tests, etc.) |
+| `Verbose` | Switch | `false` | Show detailed logging output |
+
+Call it either from the root plugin directory or from the `build` directory.
+
+### Example
+
+```powershell
+.\build\package-plugin.ps1 -Version "1.0.1"
+```
+
+Will create an archive in the local `.\dist` folder (within the plugin root).
+
 ## Privacy
 
 The plugin does not collect any data. It uses the current WordPress posts table to compute its statistics
