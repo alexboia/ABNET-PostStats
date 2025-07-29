@@ -5,7 +5,7 @@
 <h1 align="center">ABNet Post Stats</h1>
 
 <p align="center">
-   A WordPress plugin for displaying statistics about published post counts per month and per year. Initially built for usage on [my own website](https://alexboia.net/).
+   A WordPress plugin for displaying statistics about published post counts per month and per year. Initially built for usage on my own website: https://alexboia.net/.
 </p>
 
 <p align="center">
