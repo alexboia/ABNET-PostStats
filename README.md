@@ -53,8 +53,6 @@ The plugin does not collect any data. It uses the current WordPress posts table 
 
 The plugin provides several filter hooks to customize its behavior:
 
-### Core Filter Hooks
-
 #### `abnet_posts_stats_months_count`
 
 Controls the number of months displayed in the monthly statistics dashboard widget.
