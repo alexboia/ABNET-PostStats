@@ -64,7 +64,7 @@ $showSummary = apply_filters('abnet_posts_stats_show_widget_summary',
 				?>
 				<div class="abnet-bar-item" title="<?php echo esc_attr($label . ': ' . $item->getValue() . ' posts'); ?>">
 					<div class="abnet-bar" style="height: <?php echo $height; ?>px;">
-						<span class="abnet-bar-value"><?php echo $item->getValue(); ?></span>
+						<span class="abnet-bar-value"><?php echo $item->hasValue() ? $item->getValue() : ''; ?></span>
 					</div>
 					<div class="abnet-bar-label">
 						<?php echo esc_html($label); ?>

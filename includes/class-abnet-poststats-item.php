@@ -25,6 +25,10 @@ class ABNet_Post_Stats_Item {
 		return $this->_value;
 	}			
 
+	public function hasValue(): bool {
+		return $this->_value > 0;
+	}
+
 	public function getLabel(): string {
 		return $this->_label;
 	}

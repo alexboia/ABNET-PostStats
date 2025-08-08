@@ -49,6 +49,62 @@ Will create an archive in the local `.\dist` folder (within the plugin root).
 
 The plugin does not collect any data. It uses the current WordPress posts table to compute its statistics
 
+## Filter Hooks
+
+The plugin provides several filter hooks to customize its behavior:
+
+### Core Filter Hooks
+
+#### `abnet_posts_stats_months_count`
+
+Controls the number of months displayed in the monthly statistics dashboard widget.
+
+**Parameters:**
+- `$months` _(int)_ - Number of months to display (default: 5)
+
+**Validation:** 
+
+Value is automatically clamped between 1 and 6. If outside this range, defaults to 6.
+
+#### `abnet_posts_stats_years_count`
+
+Controls the number of years displayed in the yearly statistics dashboard widget.
+
+**Parameters:**
+- `$years` _(int)_ - Number of years to display (default: `5`)
+
+**Validation:** 
+
+Value is automatically clamped between 1 and 5. If outside this range, defaults to 5.
+
+#### `abnet_posts_stats_max_bar_height`
+
+Controls the maximum height of the chart bars. Expressed in pixels.
+
+**Parameters:**
+- `$maxHeight` _(int)_ - The maximum height (default: `200`)
+- `$data` _(ABNet_Post_Stats_Result)_ - The current data set being rendered
+
+**Validation:** 
+
+Value is automatically set to `200` if greater than OR equal to `0`.
+
+#### `abnet_posts_stats_show_widget_title`
+
+Controls whether or not the dashboard widget's chart title is displayed.
+
+**Parameters:**
+- `$showTitle` _(bool)_ - Whether to display it or not (default: `false`)
+- `$data` _(ABNet_Post_Stats_Result)_ - The current data set being rendered
+
+#### `abnet_posts_stats_show_widget_summary`
+
+Controls whether or not the dashboard widget's summary box is displayed.
+
+**Parameters:**
+- `$showSummary` _(bool)_ - Whether to display it or not (default: `true`)
+- `$data` _(ABNet_Post_Stats_Result)_ - The current data set being rendered
+
 ## Next?
 
 I don't really intend to update the code unless there's something really wrong with it or if I need anything else on top of what's already here.

@@ -24,24 +24,15 @@ $PluginPath = if ((Split-Path $CurrentPath -Leaf) -eq "build") {
 $TempPath = Join-Path $env:TEMP "abnet-plugin-build"
 $ArchiveName = "$PluginName-v$Version.zip"
 
-
 # Files and directories to exclude from the package
 $ExcludePatterns = @(
     "*.log",
     "*.tmp",
     ".git*",
-    ".svn*",
-    ".DS_Store",
-    "Thumbs.db",
-    "node_modules",
 	"build",
 	"dist",
-    "*.sublime-*",
     "*.code-workspace",
     ".vscode",
-    ".idea",
-    "package-lock.json",
-    "composer.lock",
 	".gitignore",
     "*.bak",
     "*~"
@@ -53,12 +44,10 @@ $DevFiles = @(
     "tests",
     "docs",
     "*.md",
-    "gulpfile.js",
     "webpack.config.js",
     "package.json",
     "composer.json",
     ".editorconfig",
-    ".eslintrc*",
     ".phpcs.xml",
     "phpunit.xml"
 )
