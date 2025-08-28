@@ -29,8 +29,8 @@ $ExcludePatterns = @(
     "*.log",
     "*.tmp",
     ".git*",
-	"build",
-	"dist",
+	"*build*",
+	"*dist*",
     "*.code-workspace",
     ".vscode",
 	".gitignore",
@@ -40,9 +40,9 @@ $ExcludePatterns = @(
 
 # Development files to exclude unless explicitly included
 $DevFiles = @(
-    "examples",
-    "tests",
-    "docs",
+    "*examples*",
+    "*tests*",
+    "*docs*",
     "*.md",
     "webpack.config.js",
     "package.json",
