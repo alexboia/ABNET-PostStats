@@ -20,20 +20,20 @@ if (!defined('ABSPATH')) {
  */
 
 $maxHeight = apply_filters('abnet_posts_stats_max_bar_height', 
-	ABNET_DEFAULT_MAX_BAR_HEIGHT, 
+	ABNET_POST_STATS_DEFAULT_MAX_BAR_HEIGHT, 
 	$data);
 
 if ($maxHeight <= 0) {
-	$maxHeight = ABNET_DEFAULT_MAX_BAR_HEIGHT;
+	$maxHeight = ABNET_POST_STATS_DEFAULT_MAX_BAR_HEIGHT;
 }
 
 $showTitle = apply_filters('abnet_posts_stats_show_widget_title', 
-	ABNET_DEFAULT_SHOW_TITLE, 
+	ABNET_POST_STATS_DEFAULT_SHOW_TITLE, 
 	$data) 
 	=== true; 
 
 $showSummary = apply_filters('abnet_posts_stats_show_widget_summary', 
-	ABNET_DEFAULT_SHOW_SUMMARY, 
+	ABNET_POST_STATS_DEFAULT_SHOW_SUMMARY, 
 	$data)
 	=== true;
 ?>
@@ -59,11 +59,20 @@ $showSummary = apply_filters('abnet_posts_stats_show_widget_summary',
 						$item, 
 						$data);
 
+					$color = apply_filters('abnet_post_stats_item_bar_color', 
+						$item->getBarColor(), 
+						$item, 
+						$data);
+
+					if (empty($color)) {
+						$color = $item->getBarColor();
+					}
+
 					$height = max(1, $height);
 					$label = $item->getLabel();
 				?>
 				<div class="abnet-bar-item" title="<?php echo esc_attr($label . ': ' . $item->getValue() . ' posts'); ?>">
-					<div class="abnet-bar" style="height: <?php echo $height; ?>px;">
+					<div class="abnet-bar" style="height: <?php echo $height; ?>px; background: linear-gradient(to top, <?php echo $color ?>cc, <?php echo $color ?>66);">
 						<span class="abnet-bar-value"><?php echo $item->hasValue() ? $item->getValue() : ''; ?></span>
 					</div>
 					<div class="abnet-bar-label">

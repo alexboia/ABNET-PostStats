@@ -16,9 +16,12 @@ class ABNet_Post_Stats_Item {
 
 	private string $_label;
 
-	public function __construct(int $value, string $label) {	
+	private string $_barColor;
+
+	public function __construct(int $value, string $label, string $barColor) {	
 		$this->_value = $value;
 		$this->_label = $label;
+		$this->_barColor = $barColor;
 	}
 
 	public function getValue(): int {	
@@ -31,5 +34,9 @@ class ABNet_Post_Stats_Item {
 
 	public function getLabel(): string {
 		return $this->_label;
+	}
+
+	public function getBarColor(): string {
+		return $this->_barColor;
 	}
 }

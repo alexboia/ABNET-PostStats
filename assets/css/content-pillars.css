@@ -1,0 +1,157 @@
+#abnet-category-selector {
+	position: relative;
+	max-width: 750px;
+}
+
+.category-search-container {
+	position: relative;
+}
+
+#category_search {
+	width: 100%;
+	padding: 8px 12px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	font-size: 14px;
+}
+
+.category-dropdown {
+	display: none;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	right: 0;
+	background: white;
+	border: 1px solid #ddd;
+	border-top: none;
+	border-radius: 0 0 4px 4px;
+	max-height: 200px;
+	overflow-y: auto;
+	z-index: 1000;
+	box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.category-option {
+	padding: 8px 12px;
+	cursor: pointer;
+	border-bottom: 1px solid #f0f0f0;
+}
+
+.category-option:hover {
+	background-color: #f5f5f5;
+}
+
+.category-section-header {
+	padding: 8px 12px;
+	background-color: #f8f9fa;
+	border-bottom: 1px solid #ddd;
+	font-weight: bold;
+	font-size: 12px;
+	color: #666;
+	text-transform: uppercase;
+	cursor: default;
+}
+
+.category-count {
+	color: #666;
+	font-size: 11px;
+	font-weight: normal;
+}
+
+.selected-categories {
+	margin-top: 10px;
+	min-height: 40px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	padding: 8px;
+	background: #fafafa;
+}
+
+.selected-category {
+	display: inline-block;
+	background: #0073aa;
+	color: white;
+	padding: 4px 8px;
+	margin: 2px;
+	border-radius: 3px;
+	font-size: 12px;
+	position: relative;
+}
+
+.remove-category {
+	margin-left: 5px;
+	cursor: pointer;
+	font-weight: bold;
+	opacity: 0.8;
+}
+
+.remove-category:hover {
+	opacity: 1;
+}
+
+#abnet-content-pillars-container .card {
+	margin-bottom: 20px;
+	max-width: 750px;
+	box-sizing: content-box;
+	border-radius: 4px;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+#abnet-content-pillars-container .card p.submit {
+	padding-bottom: 5px;
+}
+
+#abnet-content-pillars-container .card .abnet-content-pillars-table {
+	margin-bottom: 10px;
+}
+
+#abnet-content-pillars-container .form-table {
+	max-width: 750px;
+}
+
+#abnet-content-pillars-container .wp-list-table {
+	max-width: 750px;
+}
+
+/* Notification banner styling */
+#abnet-content-pillars-container + .notice,
+.wrap .notice {
+	max-width: 750px;
+	border-radius: 4px;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* Color picker styling */
+.color-picker {
+	width: 60px;
+	height: 30px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+.color-preview {
+	display: inline-flex;
+	align-items: center;
+}
+
+.color-swatch {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	margin-right: 8px;
+}
+
+/* Category actions styling */
+.category-actions {
+	margin-top: 10px;
+}
+
+#clear-all-categories {
+	font-size: 12px;
+	line-height: 20px;
+	padding: 4px 8px;
+	height: auto;
+}
