@@ -3,7 +3,7 @@
  * Plugin Name: Simple Post Stats for WordPress
  * Plugin URI: https://github.com/alexboia/ABNET-PostStats
  * Description: A WordPress plugin for displaying simple content creation statistics.
- * Version: 1.0.0
+ * Version: 1.1.0
  * Author: Alexandru Boia
  * Author URI: https://alexboia.net
  * License: GPL v2 or later
@@ -18,7 +18,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Define plugin constants
-define('ABNET_POST_STATS_VERSION', '1.0.0');
+define('ABNET_POST_STATS_VERSION', '1.1.0');
 define('ABNET_POST_STATS_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('ABNET_POST_STATS_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('ABNET_POST_STATS_PLUGIN_FILE', __FILE__);
