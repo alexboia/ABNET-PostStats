@@ -25,6 +25,7 @@ require_once ABNET_POST_STATS_INC_DIR . 'class-abnet-poststats-datasource.php';
 require_once ABNET_POST_STATS_INC_DIR . 'class-abnet-poststats-db.php';
 require_once ABNET_POST_STATS_INC_DIR . 'class-abnet-poststats-content-pillar.php';
 require_once ABNET_POST_STATS_INC_DIR . 'class-abnet-poststats-content-pillar-datasource.php';
+require_once ABNET_POST_STATS_INC_DIR . 'class-abnet-poststats-widget-manager.php';
 
 require_once ABNET_POST_STATS_PLUGIN_DIR . 'abnet-post-stats-plugin-class.php';
 require_once ABNET_POST_STATS_PLUGIN_DIR . 'abnet-post-stats-plugin-functions.php';
