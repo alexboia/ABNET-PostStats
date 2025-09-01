@@ -12,7 +12,7 @@ if (!defined('ABSPATH')) {
 /**
  * @see https://www.paradigma.ro/p/asl
  */
-class ABNet_PostStats_StyleMetricAverageSentenceLength implements ABNet_PostStats_StyleMetricProvider {
+class ABNet_PostStats_StyleMetricAverageSentenceLengthProvider implements ABNet_PostStats_StyleMetricProvider {
 	private const DEFAULT_PRECISION = 0;
 
 	public function compute(ABNet_PostStats_StyleSource $source): ABNet_PostStats_StyleMetric {
