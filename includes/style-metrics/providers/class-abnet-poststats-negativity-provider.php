@@ -40,7 +40,7 @@ class ABNet_PostStats_StyleMetricNegativityProvider implements ABNet_PostStats_S
 	}
 
 	public static function getDefaultNegativeWordListRo(): array {
-		return self::_readWordList('default-negative-word-list-ro');
+		return self::_readWordList('default-negative-word-list-ro.json');
 	}
 
 	public static function getDefaultNegativeWordListEn(): array {

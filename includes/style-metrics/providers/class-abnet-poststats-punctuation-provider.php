@@ -23,7 +23,7 @@ class ABNet_PostStats_StyleMetricPunctuationProvider implements ABNet_PostStats_
 		$punctuationCount = $source->getRawPunctuationCount();
 		$totalWordCount = $source->getRawWordCount();
 		
-		$punctuation = round($punctuationCount / $totalWordCount * 100, 0);
+		$punctuation = round(($punctuationCount / $totalWordCount) * 100, 0);
 		$friendly = $this->_friendlyRepresentation($punctuation);
 
 		return new ABNet_PostStats_StyleMetric(
