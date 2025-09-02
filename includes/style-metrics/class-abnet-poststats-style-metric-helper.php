@@ -25,7 +25,7 @@ class ABNet_PostStats_StyleMetricHelper {
 
 		// Count sentences by looking for sentence-ending punctuation
 		// followed by whitespace or end of string, or newlines as sentence terminators
-		$sentenceCount = preg_match_all('/[.!?\n]+(?:\s|$)/u', $text);
+		$sentenceCount = preg_match_all(ABNet_PostStats_StyleSource::SENTENCE_BOUNDARY_REGEX, $text);
 		return max(1, $sentenceCount);
 	}
 }

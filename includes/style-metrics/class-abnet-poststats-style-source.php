@@ -14,6 +14,8 @@ class ABNet_PostStats_StyleSource {
 
 	public const PUNCTUATION_REGEX = '/[.,;:?|\-…\'"()\[\]{}\/\\@#*_]/u';
 
+	public const SENTENCE_BOUNDARY_REGEX = '/[.!?\n]+/u';
+
 	private string $_rawText;
 
 	private string $_plainText;

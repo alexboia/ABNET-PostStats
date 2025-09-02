@@ -63,7 +63,7 @@ class ABNet_PostStats_StyleMetricNegativityProvider implements ABNet_PostStats_S
 
 	public function compute(ABNet_PostStats_StyleSource $source): ABNet_PostStats_StyleMetric {	
 		$plainText = $source->getPlainText();
-		$sentences = preg_split('/[.!?\n]+/', $plainText, -1, PREG_SPLIT_NO_EMPTY);
+		$sentences = preg_split(ABNet_PostStats_StyleSource::SENTENCE_BOUNDARY_REGEX, $plainText, -1, PREG_SPLIT_NO_EMPTY);
 		
 		$sentenceCount = count($sentences);
 		$negativeSenteceCount  = $this->_computeNegativeSentenceCount($sentences);
