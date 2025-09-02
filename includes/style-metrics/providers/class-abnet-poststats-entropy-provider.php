@@ -18,16 +18,7 @@ class ABNet_PostStats_StyleMetricEntropyProvider implements ABNet_PostStats_Styl
 	private const DEFAULT_PRECISION = 1;
 	
 	public function compute(ABNet_PostStats_StyleSource $source): ABNet_PostStats_StyleMetric {
-		$sum = 0;
-
-		foreach ($source->getWordCountMap() as $word => $count) {
-			if ($count > 0) {
-				$proportion = $count / $source->getRawWordCount();
-				$sum += $proportion * log($proportion, 2);
-			}
-		}
-
-		$entropy = round((-1) * $sum, self::DEFAULT_PRECISION);
+		$entropy = $this->_computeEntropy($source);
 		$friendly = $this->_friendlyRepresentation($entropy);
 
 		return new ABNet_PostStats_StyleMetric(
@@ -38,6 +29,22 @@ class ABNet_PostStats_StyleMetricEntropyProvider implements ABNet_PostStats_Styl
 			'%', 
 			$friendly
 		);
+	}
+
+	private function _computeEntropy(ABNet_PostStats_StyleSource $source): float {
+		$sum = 0;
+
+		if ($source->getRawWordCount() > 0) {
+			foreach ($source->getWordCountMap() as $word => $count) {
+				if ($count > 0) {
+					$proportion = $count / $source->getRawWordCount();
+					$sum += $proportion * log($proportion, 2);
+				}
+			}
+		}
+
+		$entropy = round((-1) * $sum, self::DEFAULT_PRECISION);
+		return $entropy;
 	}
 
 	private function _friendlyRepresentation(float $entropy): string {
