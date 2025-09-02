@@ -4,6 +4,8 @@
  * @since 1.0.0
  */
 
+declare(strict_types=1);
+
 // Prevent direct access
 if (!defined('ABSPATH')) {
 	exit;
@@ -13,6 +15,8 @@ if (!defined('ABSPATH')) {
  * @see https://www.paradigma.ro/p/negativitate
  */
 class ABNet_PostStats_StyleMetricNegativityProvider implements ABNet_PostStats_StyleMetricProvider {
+	public const WORD_BOUNDARY_REGEX = ABNet_PostStats_StyleSource::WORD_BOUNDARY_REGEX;
+	
 	private const DEFAULT_PRECISION = 1;
 
 	private const SIMILARITY_THRESHOLD = 80;
@@ -20,7 +24,7 @@ class ABNet_PostStats_StyleMetricNegativityProvider implements ABNet_PostStats_S
 	private array $_negativeWordList;
 
 	public function __construct(array $negativeWordList = array()) {
-		$this->_negativeWordList = $this->_prepareWordList($negativeWordList ?: self::getNegativeWordListRo());
+		$this->_negativeWordList = $this->_prepareWordList($negativeWordList ?: self::getDefaultNegativeWordListRo());
 	}
 
 	private function _prepareWordList(array $negativeWordList): array {
@@ -29,7 +33,7 @@ class ABNet_PostStats_StyleMetricNegativityProvider implements ABNet_PostStats_S
 		}, $negativeWordList);
 	}
 
-	public static function getNegativeWordListRo(): array {
+	public static function getDefaultNegativeWordListRo(): array {
 		return [
 			'rau', 'urat', 'groaznic', 'teribil', 'ingrozitor', 'oribil', 'scarbos', 
 			'dezgustator', 'respingator', 'repugnant', 'neplacut', 'deranjant',
@@ -61,7 +65,7 @@ class ABNet_PostStats_StyleMetricNegativityProvider implements ABNet_PostStats_S
 		];
 	}
 
-	public static function getNegativeWordListEn(): array {
+	public static function getDefaultNegativeWordListEn(): array {
 		return [
 			'bad', 'ugly', 'horrible', 'terrible', 'dreadful', 'awful', 'disgusting',
 			'revolting', 'repulsive', 'repugnant', 'unpleasant', 'disturbing',
@@ -120,8 +124,8 @@ class ABNet_PostStats_StyleMetricNegativityProvider implements ABNet_PostStats_S
 		foreach ($sentences as $sentence) {
 			$sentence = $this->_prepare($sentence);
 
-			preg_match_all('/\b\w+\b/u', $sentence, $sentenceWords);
-			if (empty($sentenceWords)) {
+			preg_match_all(self::WORD_BOUNDARY_REGEX, $sentence, $sentenceWords);
+			if (empty($sentenceWords[0]) || !is_array($sentenceWords[0])) {
 				continue;
 			}
 

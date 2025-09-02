@@ -10,6 +10,10 @@ if (!defined('ABSPATH')) {
 }
 
 class ABNet_PostStats_StyleSource {
+	public const WORD_BOUNDARY_REGEX = '/\b\w+\b/u';
+
+	public const PUNCTUATION_REGEX = '/[.,;:?|\-…\'"()\[\]{}\/\\@#*_]/u';
+
 	private string $_rawText;
 
 	private string $_plainText;
@@ -30,7 +34,7 @@ class ABNet_PostStats_StyleSource {
 		$this->_computeMarkers();
 	}
 
-	private function _cleanRawText(string $rawText, array $completelyRemoveTags) {
+	private function _cleanRawText(string $rawText, array $completelyRemoveTags): string {
 		foreach ($completelyRemoveTags as $tag) {
 			$pattern = '/<' . preg_quote($tag, '/') . '\b[^>]*>.*?<\/' . preg_quote($tag, '/') . '>/is';
 			$rawText = preg_replace($pattern, '', $rawText);
@@ -51,7 +55,7 @@ class ABNet_PostStats_StyleSource {
 		 * The matches are stored in the $matches array where $matches[0] contains
 		 * all found words as separate array elements.
 		 */
-		preg_match_all('/\b\w+\b/u', $this->_plainText, $matches);
+		preg_match_all(self::WORD_BOUNDARY_REGEX, $this->_plainText, $matches);
 		if (!empty($matches[0])) {
 			$this->_allWords = function_exists('mb_strtoupper')
 				? array_map('mb_strtoupper', $matches[0])
@@ -64,7 +68,7 @@ class ABNet_PostStats_StyleSource {
 		$this->_rawWordCount = count($this->_allWords);
 		
 		// Extract punctuation and count frequencies
-		preg_match_all('/[.,;:?|\-…\'"()\[\]{}\/\\@#*_]/u', $this->_plainText, $punctMatches);
+		preg_match_all(self::PUNCTUATION_REGEX, $this->_plainText, $punctMatches);
 		if (!empty($punctMatches[0])) {
 			$this->_punctuationCountMap = array_count_values($punctMatches[0]);
 			$this->_rawPunctuationCount = count($punctMatches[0]);
