@@ -121,7 +121,7 @@ class ABNet_PostStats_StyleMetricNegativityProvider implements ABNet_PostStats_S
 	}
 
 	private function _friendlyRepresentation(float $negativity): string {
-		return sprintf('%.' . self::DEFAULT_PRECISION . 'f/10 (N%%)', $negativity / 10);
+		return sprintf('%d%% (N%%)', (int)$negativity);
 	}
 
 	private function _prepare(string $str): string {

@@ -48,7 +48,7 @@ class ABNet_PostStats_StyleMetricEntropyProvider implements ABNet_PostStats_Styl
 	}
 
 	private function _friendlyRepresentation(float $entropy): string {
-		return sprintf('%d/10 (E)', $entropy * 10);
+		return sprintf('%.' . self::DEFAULT_PRECISION . 'f/10 (E)', $entropy);
 	}
 
 	public function getKey(): string {

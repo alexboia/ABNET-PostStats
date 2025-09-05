@@ -37,7 +37,7 @@ class ABNet_PostStats_StyleMetricPunctuationProvider implements ABNet_PostStats_
 	}
 
 	private function _friendlyRepresentation(float $punctuation): string {
-		return sprintf('%.' . self::DEFAULT_PRECISION . 'f/10 (P%%)', $punctuation / 10);
+		return sprintf('%d%% (P%%)', (int)$punctuation);
 	}
 
 	public function getKey(): string {

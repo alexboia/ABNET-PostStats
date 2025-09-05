@@ -28,7 +28,7 @@ class ABNet_PostStats_StyleMetricLixProvider implements ABNet_PostStats_StyleMet
 			+ (($longWordCount / $totalWordCount) * 100);
 
 		$lix = round($lix, self::DEFAULT_PRECISION);
-		$friendly = sprintf('%f (LIX)', $lix);
+		$friendly = sprintf('%d (LIX)', (int)$lix);
 
 		return new ABNet_PostStats_StyleMetric(
 			$this->getKey(),
