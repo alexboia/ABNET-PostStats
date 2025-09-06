@@ -4,6 +4,8 @@
  * @since 1.0.0
  */
 
+declare(strict_types=1);
+
 // Prevent direct access
 if (!defined('ABSPATH')) {
 	exit;
@@ -18,10 +20,18 @@ class ABNet_PostStats_StyleMetricOptions {
 
 	private bool $_usePunctuation = true;
 
+	private bool $_useLix = true;
+
+	private bool $_useYulesK = true;
+
+	private bool $_useHapaxToTypes = true;
+
 	/**
 	 * @var string[]
 	 */
 	private array $_negativeWordList = array();
+
+	private int $_yulesKMultiplier = 10000;
 
 	public static function defaults(): ABNet_PostStats_StyleMetricOptions {
 		$defaults = new ABNet_PostStats_StyleMetricOptions();
@@ -51,5 +61,21 @@ class ABNet_PostStats_StyleMetricOptions {
 
 	public function getNegativeWordList(): array {
 		return $this->_negativeWordList;
+	}
+
+	public function getUseLix(): bool {
+		return $this->_useLix;
+	}
+
+	public function getUseYulesK(): bool {
+		return $this->_useYulesK;
+	}
+
+	public function getUseHapaxToTypes(): bool {
+		return $this->_useHapaxToTypes;
+	}
+
+	public function getYulesKMultiplier(): int {
+		return $this->_yulesKMultiplier;
 	}
 }

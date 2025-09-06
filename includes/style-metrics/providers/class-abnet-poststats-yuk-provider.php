@@ -14,17 +14,17 @@ if (!defined('ABSPATH')) {
 /**
  * @see https://www.paradigma.ro/p/yuk
  */
-class ABNet_PostStats_StyleMetricYuleKProvider implements ABNet_PostStats_StyleMetricProvider {
-	private const DEFAULT_YULES_K_C = 10000;
+class ABNet_PostStats_StyleMetricYulesKProvider implements ABNet_PostStats_StyleMetricProvider {
+	private const DEFAULT_YULESK_MULTIPLIER = 10000;
 
 	private const DEFAULT_PRECISION = 0;
 	
-	private int $_yulesKC = self::DEFAULT_YULES_K_C;
+	private int $_yulesKMultiplier = self::DEFAULT_YULESK_MULTIPLIER;
 
-	public function __construct(int $yulsesKC) {
-		$this->_yulesKC = $yulsesKC;
-		if ($this->_yulesKC <= 0) {
-			$this->_yulesKC = self::DEFAULT_YULES_K_C;
+	public function __construct(int $yulsesKMultiplier = 0) {
+		$this->_yulesKMultiplier = $yulsesKMultiplier;
+		if ($this->_yulesKMultiplier <= 0) {
+			$this->_yulesKMultiplier = self::DEFAULT_YULESK_MULTIPLIER;
 		}
 	}
 
@@ -33,7 +33,7 @@ class ABNet_PostStats_StyleMetricYuleKProvider implements ABNet_PostStats_StyleM
 		$secondMoment = $this->_computeYulesKSecondMoment($distribution);
 		$totalWordCount = $source->getRawWordCount();
 
-		$yulesK = $this->_yulesKC * (
+		$yulesK = $this->_yulesKMultiplier * (
 			($secondMoment - $totalWordCount) / 
 			($totalWordCount * $totalWordCount)
 		);
@@ -56,6 +56,7 @@ class ABNet_PostStats_StyleMetricYuleKProvider implements ABNet_PostStats_StyleM
 
 	private function  _getWordCountDistibution(ABNet_PostStats_StyleSource $source) :array {
 		$distribution = array();
+
 		foreach ($source->getWordCountMap() as $count) {
 			if (!isset($distribution[$count])) {
 				$distribution[$count] = 0;
