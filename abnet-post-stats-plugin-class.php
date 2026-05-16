@@ -40,19 +40,29 @@ class ABNet_PostStats {
 	}
 
 	public function activate(): void {
-		$this->_createContentPillarsTable();
-		$this->_migrateContentPillarsTable();
+		if (!self::_currentUserCanActivatePlugins()) {
+			return;
+		}
+
+		$this->_createTables();
+		$this->_migrateTables();
 		do_action('abnet_post_stats_activated');
 	}
 
-	private function _createContentPillarsTable(): void {
-		$db = new ABNet_PostStats_Db();
-		$db->createContentPillarsTable();
+	private static function _currentUserCanActivatePlugins() {
+		return current_user_can('activate_plugins');
 	}
 
-	private function _migrateContentPillarsTable(): void {
+	private function _createTables(): void {
+		$db = new ABNet_PostStats_Db();
+		$db->createContentPillarsTable();
+		$db->createStyleMetricsTable();
+	}
+
+	private function _migrateTables(): void {
 		$db = new ABNet_PostStats_Db();
 		$db->migrateContentPillarsTable();
+		$db->migrateStyleMetricsTable();
 	}
 
 	public function init(): void {

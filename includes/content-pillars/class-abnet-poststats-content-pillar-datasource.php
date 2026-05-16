@@ -14,14 +14,16 @@ if (!defined('ABSPATH')) {
 class ABNet_PostStats_ContentPillar_DataSource {
 	
 	private function _getTableName(): string {
-		global $wpdb;
-		return $wpdb->prefix . 'abnet_post_stats_content_pillars';
+		return ABNet_PostStats_Db::getContentPillarsTableName();
 	}
 	
 	/**
 	 * @return ABNet_PostStats_ContentPillar[]
 	 */
 	public function getAllContentPillars(): array {
+		/**
+		 * @var \wpdb $wpdb
+		 */
 		global $wpdb;
 		$tableName = $this->_getTableName();
 		

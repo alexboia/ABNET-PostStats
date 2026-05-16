@@ -1,15 +1,15 @@
 <?php
-/**
- * @package ABNet_Post_Stats
- * @since 1.0.0
- */
-
 declare(strict_types=1);
 
 // Prevent direct access
 if (!defined('ABSPATH')) {
 	exit;
 }
+
+/**
+ * @package ABNet_Post_Stats
+ * @since 1.0.0
+ */
 
 class ABNet_PostStats_StyleMetric_DataSource {
 	
@@ -20,11 +20,7 @@ class ABNet_PostStats_StyleMetric_DataSource {
 	}
 
 	private function _getTableName(): string {
-		/**
-		 * @var \wpdb $wpdb
-		 */
-		global $wpdb;
-		return $wpdb->prefix . 'abnet_post_stats_style_metrics';
+		return ABNet_PostStats_Db::getStyleMetricsTableName();
 	}
 
 	public function getStyleInfo(int $postId): ABNet_PostStats_StyleInfo|null {
@@ -83,6 +79,9 @@ class ABNet_PostStats_StyleMetric_DataSource {
 			return false;
 		}
 		
+		/**
+		 * @var \wpdb $wpdb
+		 */
 		global $wpdb;
 		$tableName = $this->_getTableName();
 
@@ -147,12 +146,12 @@ class ABNet_PostStats_StyleMetric_DataSource {
 			return false;
 		}
 
-		global $wpdb;	
-		$tableName = $this->_getTableName();
-		
 		/**
 		 * @var \wpdb $wpdb
 		 */
+		global $wpdb;	
+		$tableName = $this->_getTableName();
+
 		return $wpdb->delete(
 			$tableName,
 			array('post_id' => $postId),
@@ -165,12 +164,12 @@ class ABNet_PostStats_StyleMetric_DataSource {
 			return false;
 		}
 
-		global $wpdb;
-		$tableName = $this->_getTableName();
-		
 		/**
 		 * @var \wpdb $wpdb
 		 */
+		global $wpdb;
+		$tableName = $this->_getTableName();
+
 		$count = $wpdb->get_var(
 			$wpdb->prepare(
 				"SELECT COUNT(*) FROM {$tableName} WHERE post_id = %d",
@@ -189,12 +188,12 @@ class ABNet_PostStats_StyleMetric_DataSource {
 			return array();
 		}
 
-		global $wpdb;
-		$tableName = $this->_getTableName();
-		
 		/**
 		 * @var \wpdb $wpdb
 		 */
+		global $wpdb;
+		$tableName = $this->_getTableName();
+
 		$results = $wpdb->get_col(
 			$wpdb->prepare(
 				"SELECT metric_key FROM {$tableName} WHERE post_id = %d ORDER BY metric_key",
@@ -214,6 +213,9 @@ class ABNet_PostStats_StyleMetric_DataSource {
 			return 0;
 		}
 
+		/**
+		 * @var \wpdb $wpdb
+		 */
 		global $wpdb;
 		$tableName = $this->_getTableName();
 		$postIds = $this->_sanitizePostIds($postIds);
@@ -222,11 +224,11 @@ class ABNet_PostStats_StyleMetric_DataSource {
 			return 0;
 		}
 		
-		$placeholders = implode(',', array_fill(0, count($postIds), '%d'));
+		$placeholders = implode(',', 
+			array_fill(0, 
+				count($postIds), 
+				'%d'));
 
-		/**
-		 * @var \wpdb $wpdb
-		 */
 		return $wpdb->query(
 			$wpdb->prepare(
 				"DELETE FROM {$tableName} WHERE post_id IN ({$placeholders})",
