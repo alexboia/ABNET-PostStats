@@ -19,7 +19,7 @@ class ABNet_PostStats_ContentPillar_DataSource {
 	}
 	
 	/**
-	 * @return ABNet_Post_Stats_Content_Pillar[]
+	 * @return ABNet_PostStats_ContentPillar[]
 	 */
 	public function getAllContentPillars(): array {
 		global $wpdb;
@@ -31,14 +31,14 @@ class ABNet_PostStats_ContentPillar_DataSource {
 		);
 		
 		return !empty($dbRows) && is_array($dbRows) 
-			? ABNet_Post_Stats_Content_Pillar::fromResultList($dbRows)
+			? ABNet_PostStats_ContentPillar::fromResultList($dbRows)
 			: array();
 	}
 	
 	/**
-	 * @return ABNet_Post_Stats_Content_Pillar|null
+	 * @return ABNet_PostStats_ContentPillar|null
 	 */
-	public function getContentPillarById(int $id): ?ABNet_Post_Stats_Content_Pillar {
+	public function getContentPillarById(int $id): ?ABNet_PostStats_ContentPillar {
 		/**
 		 * @var \wpdb $wpdb
 		 * @see https://developer.wordpress.org/reference/classes/wpdb/
@@ -53,7 +53,7 @@ class ABNet_PostStats_ContentPillar_DataSource {
 		);
 		
 		return !empty($dbRow) 
-			? new ABNet_Post_Stats_Content_Pillar($dbRow) 
+			? new ABNet_PostStats_ContentPillar($dbRow) 
 			: null;
 	}
 

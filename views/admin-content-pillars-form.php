@@ -8,10 +8,10 @@
  * Variables passed from the main plugin file:
  * @var string $message Success/error message
  * @var string $messageType 'success' or 'error'
- * @var ABNet_Post_Stats_Content_Pillar[] $contentPillars Array of content pillars
+ * @var ABNet_PostStats_ContentPillar[] $contentPillars Array of content pillars
  * @var WP_Term[] $categories All categories
  * @var WP_Term[] $mostUsedCategories Top 10 most used categories
- * @var ABNet_Post_Stats_Content_Pillar|null $editingPillar Pillar being edited, if any
+ * @var ABNet_PostStats_ContentPillar|null $editingPillar Pillar being edited, if any
  */
 
 // Prevent direct access

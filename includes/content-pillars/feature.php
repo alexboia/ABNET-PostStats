@@ -5,5 +5,5 @@ if (!defined('ABSPATH')) {
 
 // Get the current directory
 $currentDir = dirname(__FILE__);
-$styleMetrics = new ABNet_PostStats_Feature($currentDir);
-$styleMetrics->setup();
+$contentPillars = new ABNet_PostStats_Feature($currentDir);
+$contentPillars->setup();

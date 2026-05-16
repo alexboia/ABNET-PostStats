@@ -80,7 +80,7 @@ class ABNet_PostStats_WidgetManager {
 		$this->_renderDashboardWidget($data);
 	}
 
-	private function _renderDashboardWidget(ABNet_Post_Stats_Result $data): void {
+	private function _renderDashboardWidget(ABNet_PostStats_Result $data): void {
 		require ABNET_POST_STATS_VIEWS_DIR . '/dashboard-widget.php';
 	}
 
@@ -121,7 +121,7 @@ class ABNet_PostStats_WidgetManager {
 		}
 	}
 
-	private function _renderContentPillarMonthlyWidget(ABNet_Post_Stats_Content_Pillar $pillar): void {
+	private function _renderContentPillarMonthlyWidget(ABNet_PostStats_ContentPillar $pillar): void {
 		$nMonths = apply_filters('abnet_posts_stats_months_count', 
 			self::DEFAULT_MONTLY_UPPER_LIMIT, 
 			$pillar);
@@ -134,7 +134,7 @@ class ABNet_PostStats_WidgetManager {
 		$this->_renderDashboardWidget($data);
 	}
 
-	private function _renderContentPillarYearlyWidget(ABNet_Post_Stats_Content_Pillar $pillar): void {
+	private function _renderContentPillarYearlyWidget(ABNet_PostStats_ContentPillar $pillar): void {
 		$nYears = apply_filters('abnet_posts_stats_years_count', 
 			self::DEFAULT_YEARLY_UPPER_LIMIT, 
 			$pillar);

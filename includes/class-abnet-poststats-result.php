@@ -11,9 +11,9 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-class ABNet_Post_Stats_Result {
+class ABNet_PostStats_Result {
 	/**
-	 * @var ABNet_Post_Stats_Item[]
+	 * @var ABNet_PostStats_Item[]
 	 */
 	private array $_items;
 
@@ -41,7 +41,7 @@ class ABNet_Post_Stats_Result {
 	}
 	
 	/**
-	 * @return ABNet_Post_Stats_Item
+	 * @return ABNet_PostStats_Item
 	 */
 	public function getItems(): array {
 		return $this->_items;

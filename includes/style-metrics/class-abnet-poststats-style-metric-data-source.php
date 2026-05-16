@@ -20,6 +20,9 @@ class ABNet_PostStats_StyleMetric_DataSource {
 	}
 
 	private function _getTableName(): string {
+		/**
+		 * @var \wpdb $wpdb
+		 */
 		global $wpdb;
 		return $wpdb->prefix . 'abnet_post_stats_style_metrics';
 	}
@@ -29,13 +32,12 @@ class ABNet_PostStats_StyleMetric_DataSource {
 			return null;
 		}
 		
+		global $wpdb;	
+		$tableName = $this->_getTableName();
+		
 		/**
 		 * @var \wpdb $wpdb
 		 */
-		global $wpdb;
-		
-		$tableName = $this->_getTableName();
-		
 		$results = $wpdb->get_results(
 			$wpdb->prepare(
 				"SELECT metric_key, metric_value, metric_unit, metric_friendly_representation 
@@ -81,12 +83,12 @@ class ABNet_PostStats_StyleMetric_DataSource {
 			return false;
 		}
 		
+		global $wpdb;
+		$tableName = $this->_getTableName();
+
 		/**
 		 * @var \wpdb $wpdb
 		 */
-		global $wpdb;
-		
-		$tableName = $this->_getTableName();
 		$wpdb->query('START TRANSACTION');
 		
 		try {
@@ -145,13 +147,12 @@ class ABNet_PostStats_StyleMetric_DataSource {
 			return false;
 		}
 
+		global $wpdb;	
+		$tableName = $this->_getTableName();
+		
 		/**
 		 * @var \wpdb $wpdb
 		 */
-		global $wpdb;
-		
-		$tableName = $this->_getTableName();
-		
 		return $wpdb->delete(
 			$tableName,
 			array('post_id' => $postId),
@@ -163,14 +164,13 @@ class ABNet_PostStats_StyleMetric_DataSource {
 		if (empty($postId) || $postId < 0) {
 			return false;
 		}
+
+		global $wpdb;
+		$tableName = $this->_getTableName();
 		
 		/**
 		 * @var \wpdb $wpdb
 		 */
-		global $wpdb;
-		
-		$tableName = $this->_getTableName();
-		
 		$count = $wpdb->get_var(
 			$wpdb->prepare(
 				"SELECT COUNT(*) FROM {$tableName} WHERE post_id = %d",
@@ -189,13 +189,12 @@ class ABNet_PostStats_StyleMetric_DataSource {
 			return array();
 		}
 
+		global $wpdb;
+		$tableName = $this->_getTableName();
+		
 		/**
 		 * @var \wpdb $wpdb
 		 */
-		global $wpdb;
-		
-		$tableName = $this->_getTableName();
-		
 		$results = $wpdb->get_col(
 			$wpdb->prepare(
 				"SELECT metric_key FROM {$tableName} WHERE post_id = %d ORDER BY metric_key",
@@ -215,11 +214,7 @@ class ABNet_PostStats_StyleMetric_DataSource {
 			return 0;
 		}
 
-		/**
-		 * @var \wpdb $wpdb
-		 */
 		global $wpdb;
-		
 		$tableName = $this->_getTableName();
 		$postIds = $this->_sanitizePostIds($postIds);
 		
@@ -228,7 +223,10 @@ class ABNet_PostStats_StyleMetric_DataSource {
 		}
 		
 		$placeholders = implode(',', array_fill(0, count($postIds), '%d'));
-		
+
+		/**
+		 * @var \wpdb $wpdb
+		 */
 		return $wpdb->query(
 			$wpdb->prepare(
 				"DELETE FROM {$tableName} WHERE post_id IN ({$placeholders})",
@@ -245,12 +243,8 @@ class ABNet_PostStats_StyleMetric_DataSource {
 		if (empty($postIds)) {
 			return array();
 		}
-		
-		/**
-		 * @var \wpdb $wpdb
-		 */
-		global $wpdb;
-		
+
+		global $wpdb;	
 		$tableName = $this->_getTableName();		
 		$postIds = $this->_sanitizePostIds($postIds);
 		
@@ -260,6 +254,9 @@ class ABNet_PostStats_StyleMetric_DataSource {
 		
 		$placeholders = implode(',', array_fill(0, count($postIds), '%d'));
 		
+		/**
+		 * @var \wpdb $wpdb
+		 */
 		$results = $wpdb->get_results(
 			$wpdb->prepare(
 				"SELECT post_id, metric_key, metric_value, metric_unit, metric_friendly_representation 

@@ -12,7 +12,7 @@ if (!defined('ABSPATH')) {
 }
 
 class ABNet_PostStats_DataSource {
-	public function getPostCountsPerMonth(int $limit = 12): ABNet_Post_Stats_Result {
+	public function getPostCountsPerMonth(int $limit = 12): ABNet_PostStats_Result {
 		if ($limit <= 0) {
 			$limit = 12;
 		}
@@ -51,24 +51,24 @@ class ABNet_PostStats_DataSource {
 		
 		/**
 		 * var ABNet_Post_Stats_Item[] $resultItems
-		 * @see ABNet_Post_Stats_Item
+		 * @see ABNet_PostStats_Item
 		 */
 		$resultItems = array();
 		foreach ($normalizedResults as $month => $count) {
-			$resultItems[] = new ABNet_Post_Stats_Item(
+			$resultItems[] = new ABNet_PostStats_Item(
 				(int) $count, 
 				$month, 
 				ABNET_POST_STATS_DEFAULT_CHART_COLOR
 			);
 		}
 		
-		return new ABNet_Post_Stats_Result(
+		return new ABNet_PostStats_Result(
 			__('Post Counts Per Month', 'abnet-post-stats'),
 			$resultItems
 		);
 	}
 
-	public function getPostCountsPerYear(int $limit = 5): ABNet_Post_Stats_Result {
+	public function getPostCountsPerYear(int $limit = 5): ABNet_PostStats_Result {
 		/**
 		 * @var \wpdb $wpdb
 		 * @see https://developer.wordpress.org/reference/classes/wpdb/
@@ -106,21 +106,22 @@ class ABNet_PostStats_DataSource {
 			$normalizedResults[$row['year_key']] = (int) $row['post_count'];
 		}
 
+		$resultItems = array();
 		foreach ($normalizedResults as $year => $count) {
-			$resultItems[] = new ABNet_Post_Stats_Item(
+			$resultItems[] = new ABNet_PostStats_Item(
 				(int) $count, 
 				$year, 
 				ABNET_POST_STATS_DEFAULT_CHART_COLOR
 			);
 		}
 		
-		return new ABNet_Post_Stats_Result(
+		return new ABNet_PostStats_Result(
 			__('Post Counts Per Year', 'abnet-post-stats'),
 			$resultItems
 		);
 	}
 
-	public function getContentPillarPostCountsPerMonth(ABNet_Post_Stats_Content_Pillar $contentPillar, int $limit = 12): ABNet_Post_Stats_Result {
+	public function getContentPillarPostCountsPerMonth(ABNet_PostStats_ContentPillar $contentPillar, int $limit = 12): ABNet_PostStats_Result {
 		if ($limit <= 0) {
 			$limit = 12;
 		}
@@ -136,7 +137,7 @@ class ABNet_PostStats_DataSource {
 			$contentPillar->getName());
 
 		if (empty($categoryIds)) {
-			return new ABNet_Post_Stats_Result(
+			return new ABNet_PostStats_Result(
 				$pillarTitle,
 				array()
 			);
@@ -176,20 +177,20 @@ class ABNet_PostStats_DataSource {
 		
 		$resultItems = array();
 		foreach ($normalizedResults as $month => $count) {
-			$resultItems[] = new ABNet_Post_Stats_Item(
+			$resultItems[] = new ABNet_PostStats_Item(
 				(int) $count, 
 				$month, 
 				$contentPillar->getColor()
 			);
 		}
 		
-		return new ABNet_Post_Stats_Result(
+		return new ABNet_PostStats_Result(
 			$pillarTitle,
 			$resultItems
 		);
 	}
 
-	public function getContentPillarPostCountsPerYear(ABNet_Post_Stats_Content_Pillar $contentPillar, int $limit = 5): ABNet_Post_Stats_Result {
+	public function getContentPillarPostCountsPerYear(ABNet_PostStats_ContentPillar $contentPillar, int $limit = 5): ABNet_PostStats_Result {
 		if ($limit <= 0) {
 			$limit = 5;
 		}
@@ -205,13 +206,16 @@ class ABNet_PostStats_DataSource {
 			$contentPillar->getName());
 
 		if (empty($categoryIds)) {
-			return new ABNet_Post_Stats_Result(
+			return new ABNet_PostStats_Result(
 				$pillarTitle,
 				array()
 			);
 		}
 		
-		$categoryIdsPlaceholder = implode(',', array_fill(0, count($categoryIds), '%d'));
+		$categoryIdsPlaceholder = implode(',', 
+			array_fill(0, 
+			count($categoryIds), 
+			'%d'));
 		
 		$sql = $wpdb->prepare(
 			"SELECT 
@@ -245,14 +249,14 @@ class ABNet_PostStats_DataSource {
 
 		$resultItems = array();
 		foreach ($normalizedResults as $year => $count) {
-			$resultItems[] = new ABNet_Post_Stats_Item(
+			$resultItems[] = new ABNet_PostStats_Item(
 				(int) $count, 
 				$year, 
 				$contentPillar->getColor()
 			);
 		}
 		
-		return new ABNet_Post_Stats_Result(
+		return new ABNet_PostStats_Result(
 			$pillarTitle,
 			$resultItems
 		);

@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Represents a content pillar
  * 
@@ -11,7 +13,7 @@ if (!defined('ABSPATH')) {
 	exit;
 }
 
-class ABNet_Post_Stats_Content_Pillar {
+class ABNet_PostStats_ContentPillar {
 	private int $_id;
 
 	private string $_name;
@@ -59,7 +61,7 @@ class ABNet_Post_Stats_Content_Pillar {
 	}
 	
 	/**
-	 * @return ABNet_Post_Stats_Content_Pillar[]
+	 * @return ABNet_PostStats_ContentPillar[]
 	 */
 	public static function fromResultList(array $dbRows): array {
 		$pillars = array();

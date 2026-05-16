@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-class ABNet_Post_Stats_Item {
+class ABNet_PostStats_Item {
 	private int $_value;
 
 	private string $_label;

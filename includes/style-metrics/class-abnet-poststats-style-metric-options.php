@@ -40,6 +40,8 @@ class ABNet_PostStats_StyleMetricOptions {
 
 	public static function configured(): ABNet_PostStats_StyleMetricOptions {
 		$defaults = self::defaults();
+		$options = new ABNet_PostStats_StyleMetricOptions();
+		
 		return $defaults;
 	}
 

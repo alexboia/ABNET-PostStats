@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * @var ABNet_Post_Stats_Result $data The data to render, passed from the dashboard renderer method that invokes this view
+ * @var ABNet_PostStats_Result $data The data to render, passed from the dashboard renderer method that invokes this view
  * @var int $maxHeight The maximum height for the bars, can be filtered
  * @var bool $showTitle Whether to show the widget title, can be filtered
  * @var bool $showSummary Whether to show the summary stats, can be filtered
@@ -48,7 +48,7 @@ $showSummary = apply_filters('abnet_posts_stats_show_widget_summary',
 			<?php foreach ($data->getItems() as $item): ?>
 				<?php
 					/**
-					 * @var ABNet_Post_Stats_Item $item
+					 * @var ABNet_PostStats_Item $item
 					 */
 					$defaultItemHeight = $data->getMaxValue() > 0 
 						? ($item->getValue() / $data->getMaxValue()) * $maxHeight 
