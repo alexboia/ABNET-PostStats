@@ -20,6 +20,8 @@ class ABNet_PostStats {
 
 	private ABNet_PostStats_ContentPillar_Manager $_contentPillarManager;
 
+	private ABNet_PostStats_StyleMetric_Manager $_styleMetricManager;
+
 	public static function getInstance(): ABNet_PostStats {
 		if (null === self::$_instance) {
 			self::$_instance = new self();
@@ -31,6 +33,7 @@ class ABNet_PostStats {
 		$this->_dataSource = new ABNet_PostStats_DataSource();
 		$this->_contentPillarDataSource = new ABNet_PostStats_ContentPillar_DataSource();
 		$this->_contentPillarManager = new ABNet_PostStats_ContentPillar_Manager();
+		$this->_styleMetricManager = new ABNet_PostStats_StyleMetric_Manager();
 		$this->_widgetManger = new ABNet_PostStats_WidgetManager($this->_dataSource, $this->_contentPillarDataSource);
 	}
 
@@ -74,6 +77,7 @@ class ABNet_PostStats {
 		add_action('admin_enqueue_scripts', array($this, 'enqueueAdminScripts'));
 		add_action('admin_menu', array($this, 'addAdminMenu'));
 
+		$this->_styleMetricManager->init();
 		$this->_widgetManger->init();
 	}
 
@@ -83,14 +87,19 @@ class ABNet_PostStats {
 
 	public function addAdminMenu(): void {
 		$this->_contentPillarManager->setupMenu();
+		$this->_styleMetricManager->setupMenu();
 	}
 
 	public function enqueueAdminScripts(): void {
 		$isOnContentPillarsPage = $this->_contentPillarManager
 			->setupScriptsAndStyles();
+
+		$isOnStyleMetricsOptionsPage = $this->_styleMetricManager
+			->isOnOptionsPage();
 		
 		$includeAdminCss = $this->_shouldIncludeDashboardWidgets() 
-			|| $isOnContentPillarsPage;
+			|| $isOnContentPillarsPage
+			|| $isOnStyleMetricsOptionsPage;
 		
 		if ($includeAdminCss) {
 			wp_enqueue_style(

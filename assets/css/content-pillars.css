@@ -155,3 +155,7 @@
 	padding: 4px 8px;
 	height: auto;
 }
+
+.abnet-poststats-admin-container .abnet-poststats-content-pillar-list-container h2 {
+	margin-bottom: 13px;
+}

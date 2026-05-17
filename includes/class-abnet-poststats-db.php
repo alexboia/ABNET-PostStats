@@ -2,7 +2,7 @@
 /**
  * Database operations for ABNet Post Stats
  * 
- * @package ABNet_Post_Stats
+ * @package ABNet_PostStats
  * @since 1.0.0
  */
 

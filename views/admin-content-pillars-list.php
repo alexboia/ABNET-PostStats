@@ -2,7 +2,7 @@
 /**
  * Admin page for managing content pillars - LIST EXISTING PILLARS
  * 
- * @package ABNet_Post_Stats
+ * @package ABNet_PostStats
  * @since 1.0.0
  * 
  * Variables passed from the main plugin file:
@@ -21,7 +21,7 @@ if (!defined('ABSPATH')) {
 ?>
 
 <!-- Content Pillars List -->
-<div class="card">
+<div class="card abnet-poststats-content-pillar-list-container">
 	<h2><?php _e('Existing Content Pillars', 'abnet-post-stats'); ?></h2>
 	<?php if (empty($contentPillars)): ?>
 		<p><?php _e('No content pillars defined yet.', 'abnet-post-stats'); ?></p>

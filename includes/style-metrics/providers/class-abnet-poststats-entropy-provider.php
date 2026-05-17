@@ -1,6 +1,6 @@
 <?php
 /**
- * @package ABNet_Post_Stats
+ * @package ABNet_PostStats
  * @since 1.0.0
  */
 

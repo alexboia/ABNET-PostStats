@@ -4,7 +4,7 @@ declare(strict_types=1);
 /**
  * Represents a content pillar
  * 
- * @package ABNet_Post_Stats
+ * @package ABNet_PostStats
  * @since 1.0.0
  */
 

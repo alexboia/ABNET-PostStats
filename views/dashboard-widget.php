@@ -3,7 +3,7 @@
  * Dashboard Widget View - Simple Vertical Bar Graph
  * Renders a vertical bar graph for ABNet_Post_Stats_Result data
  * 
- * @package ABNet_Post_Stats
+ * @package ABNet_PostStats
  * @since 1.0.0
  */
 

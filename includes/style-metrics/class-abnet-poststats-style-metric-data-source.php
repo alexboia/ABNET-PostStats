@@ -7,7 +7,7 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * @package ABNet_Post_Stats
+ * @package ABNet_PostStats
  * @since 1.0.0
  */
 
@@ -27,13 +27,13 @@ class ABNet_PostStats_StyleMetric_DataSource {
 		if (empty($postId) || $postId < 0) {
 			return null;
 		}
-		
-		global $wpdb;	
-		$tableName = $this->_getTableName();
-		
+
 		/**
 		 * @var \wpdb $wpdb
 		 */
+		global $wpdb;	
+		$tableName = $this->_getTableName();
+
 		$results = $wpdb->get_results(
 			$wpdb->prepare(
 				"SELECT metric_key, metric_value, metric_unit, metric_friendly_representation 
@@ -85,9 +85,6 @@ class ABNet_PostStats_StyleMetric_DataSource {
 		global $wpdb;
 		$tableName = $this->_getTableName();
 
-		/**
-		 * @var \wpdb $wpdb
-		 */
 		$wpdb->query('START TRANSACTION');
 		
 		try {

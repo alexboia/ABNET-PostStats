@@ -2,7 +2,7 @@
 /**
  * Admin page for managing content pillars - EDIT FORM
  * 
- * @package ABNet_Post_Stats
+ * @package ABNet_PostStats
  * @since 1.0.0
  * 
  * Variables passed from the main plugin file:
@@ -20,7 +20,7 @@ if (!defined('ABSPATH')) {
 }
 ?>
 
-<form method="post" id="abnet-content-pillar-form">
+<form method="post" id="abnet-content-pillar-form" class="abnet-poststats-form">
 	<?php wp_nonce_field('abnet_content_pillar_action', 'abnet_content_pillar_nonce'); ?>
 	<input type="hidden" name="action" value="<?php echo $editingPillar ? 'update' : 'create'; ?>">
 	<?php if ($editingPillar): ?>

@@ -18,11 +18,7 @@ class ABNet_PostStats_ContentPillar_Manager {
 		 * @var \WP_Screen $screen
 		 */
 		$screen = get_current_screen();
-		
-		$isOnContentPillarsPage = ($screen && $screen->id 
-			=== 'settings_page_abnet-post-stats-content-pillars');
-
-		return $isOnContentPillarsPage;
+		return ($screen && $screen->id === 'settings_page_abnet-post-stats-content-pillars');
 	}
 
 	public function setupScriptsAndStyles(): bool {
@@ -104,8 +100,8 @@ class ABNet_PostStats_ContentPillar_Manager {
 
 	public function setupMenu(): void {
 		add_options_page(
-			__('Simple Post Stats - Content Pillars Definitions', 'abnet-post-stats'),
-			__('Simple Post Stats - Content Pillars Definitions', 'abnet-post-stats'),
+			__('Condei Simple Post Stats - Content Pillars Definitions', 'abnet-post-stats'),
+			__('Condei Simple Post Stats - Content Pillars Definitions', 'abnet-post-stats'),
 			'manage_options',
 			'abnet-post-stats-content-pillars',
 			array($this, 'renderContentPillarsPage')

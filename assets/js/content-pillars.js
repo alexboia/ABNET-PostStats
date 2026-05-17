@@ -2,7 +2,7 @@
  * Content Pillars Admin Page JavaScript
  * Handles category search, selection, and multi-select functionality
  * 
- * @package ABNet_Post_Stats
+ * @package ABNet_PostStats
  * @since 1.0.0
  */
 
