@@ -26,7 +26,7 @@ class ABNet_PostStats_ContentPillar_Manager {
 
 		if ($isOnContentPillarsPage) {
 			wp_enqueue_style(
-				'abnet-post-stats-content-pillars',
+				'abnet-post-stats-content-pillars-styles',
 				ABNET_POST_STATS_PLUGIN_URL . 'assets/css/content-pillars.css',
 				array(),
 				ABNET_POST_STATS_VERSION
@@ -99,9 +99,12 @@ class ABNet_PostStats_ContentPillar_Manager {
 	}
 
 	public function setupMenu(): void {
+		$optionsTitle = __('Condei Simple Post Stats - Content Pillars Definitions', 
+			'abnet-post-stats');
+
 		add_options_page(
-			__('Condei Simple Post Stats - Content Pillars Definitions', 'abnet-post-stats'),
-			__('Condei Simple Post Stats - Content Pillars Definitions', 'abnet-post-stats'),
+			$optionsTitle,
+			$optionsTitle,
 			'manage_options',
 			'abnet-post-stats-content-pillars',
 			array($this, 'renderContentPillarsPage')

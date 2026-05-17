@@ -1,7 +1,7 @@
 <?php
 /**
  * @package ABNet_PostStats
- * @since 1.0.0
+ * @since 1.1.0
  */
 
 declare(strict_types=1);
@@ -29,5 +29,9 @@ class ABNet_PostStats_StyleInfo {
      */
     public function getMetrics(): array {
         return $this->_metrics;
+    }
+
+    public function hasMetrics(): bool {
+        return !empty($this->_metrics);
     }
 }

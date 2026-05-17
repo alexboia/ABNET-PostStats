@@ -59,6 +59,10 @@ class ABNet_PostStats_StyleMetric {
 		return $this->_unit;
 	}
 
+	public function hasUnit(): bool {
+		return !empty($this->_unit);
+	}
+
 	public function getFriendlyRepresentation(): string {
 		return $this->_friendlyRepresentation;
 	}

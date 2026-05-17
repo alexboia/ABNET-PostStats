@@ -32,7 +32,7 @@ class ABNet_PostStats_StyleSource {
 
 	private int $_rawPunctuationCount;
 
-	public function __construct(string $rawText, array $completelyRemoveTags = array('pre', 'code', 'table')) {
+	public function __construct(string $rawText, array $completelyRemoveTags = array('pre', 'code', 'table', 'img')) {
 		$this->_rawText = $rawText;
 		$this->_plainText = $this->_cleanRawText($rawText, $completelyRemoveTags);
 		$this->_computeMarkers();

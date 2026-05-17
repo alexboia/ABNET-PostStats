@@ -94,12 +94,12 @@ class ABNet_PostStats {
 		$isOnContentPillarsPage = $this->_contentPillarManager
 			->setupScriptsAndStyles();
 
-		$isOnStyleMetricsOptionsPage = $this->_styleMetricManager
-			->isOnOptionsPage();
+		$isOnAnyStyleMetricsPage = $this->_styleMetricManager
+			->setupScriptsAndStyles();
 		
 		$includeAdminCss = $this->_shouldIncludeDashboardWidgets() 
 			|| $isOnContentPillarsPage
-			|| $isOnStyleMetricsOptionsPage;
+			|| $isOnAnyStyleMetricsPage;
 		
 		if ($includeAdminCss) {
 			wp_enqueue_style(

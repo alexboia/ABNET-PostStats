@@ -36,14 +36,13 @@ class ABNet_PostStats_StyleMetricHapaxToTypesProvider implements ABNet_PostStats
 
 	private function _countWordsThatAppearOnlyOnce(ABNet_PostStats_StyleSource $source): int {
 		$uniqeWordCount = 0;
-		
 		foreach ($source->getWordCountMap() as $perWordCount) {
 			if ($perWordCount == 1) {
 				$uniqeWordCount ++;
 			}
 		}
 
-		return $uniqeWordCount = 0;
+		return $uniqeWordCount;
 	}
 
 	private function _friendlyRepresentation(float $hapax): string {

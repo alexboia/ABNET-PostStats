@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) {
 
 /**
  * @package ABNet_PostStats
- * @since 1.0.0
+ * @since 1.1.0
  */
 
 class ABNet_PostStats_StyleMetric_DataSource {
@@ -24,7 +24,7 @@ class ABNet_PostStats_StyleMetric_DataSource {
 	}
 
 	public function getStyleInfo(int $postId): ABNet_PostStats_StyleInfo|null {
-		if (empty($postId) || $postId < 0) {
+		if (empty($postId) || $postId <= 0) {
 			return null;
 		}
 
@@ -66,6 +66,8 @@ class ABNet_PostStats_StyleMetric_DataSource {
 					$row['metric_friendly_representation']
 				);
 			}
+		} else {
+			return null;
 		}
 		
 		return new ABNet_PostStats_StyleInfo($metrics);
