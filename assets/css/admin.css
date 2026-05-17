@@ -130,9 +130,10 @@ textarea.large-text.abnet-poststats-options-textarea {
 
 .abnet-poststats-admin-container h2,
 .abnet-poststats-form h2 {
-	background-color: #1F2937;
-	color: #c07A2A;
-	padding: 8px;
+	/*background-color: #1F2937;*/
+	/*/color: #c07A2A;*/
+	padding: 4px;
+	padding-left: 0px;
 	border-radius: 4px;
 	display: inline-block;
 	margin-bottom: 0px;

@@ -20,7 +20,6 @@ if (!defined('ABSPATH')) {
 					<th class="row-title" style="width: 60%;"><?php echo esc_html($metric->getName()); ?></th>
 					<td>
 						<?php echo esc_html($metric->getFriendlyRepresentation()) ?>
-						
 					</td>
 				</tr>
 			<?php endforeach; ?>
