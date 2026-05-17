@@ -1,5 +1,4 @@
 <?php
-// Previne accesul direct
 if (!defined('ABSPATH')) {
 	exit;
 }
