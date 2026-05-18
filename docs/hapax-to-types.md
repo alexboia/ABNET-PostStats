@@ -1,94 +1,25 @@
 # Hapax Legomena
 
-In linguistics and stylometry, hapax legomena are words that appear only once in a text.
+Hapax-to-Types shows how much of my vocabulary appears only once.
 
-The term comes from ancient Greek: hapax (once) + legomenon (what is said). It is the plural of hapax legomenon and refers to those unique, unrepeatable words within a work or corpus.
+## How is it calculated?
 
-The frequency of hapax words offers a clear perspective on:
-
-- **Lexical richness**
-- **Vocabulary originality** 
-- **Degree of repetition or redundancy**
-- **Author's style** (formal vs creative, technical vs literary)
-
-In stylometric analysis, hapax words function as a kind of "lexical fingerprint" - the more words an author uses only once, the more varied and less repetitive their writing is.
-
-## Measurement Methods
-
-There are several ways to use hapax words in analysis:
-
-### 1. Simple Count
-How many words appear only once in a given text? (e.g., 182 hapax words)
-
-This is an absolute value, useful only in relation to text size.
-
-### 2. Hapax / Token Ratio
-Shows how "rare" words are in the general flow of the text. It is strongly influenced by text length.
-
-### 3. Hapax / Types Ratio
-Shows what percentage of vocabulary is used only once. It is independent of text length and faithfully reflects lexical variety. **This is the score we use here.**
-
-### 4. Honoré Index (R)
-**R = 100 × ln(N) / (1 - V₁/V)**
+``HTR = (V1 / V) × 100``
 
 Where:
-- **N** = total words (tokens)
-- **V** = unique words (types) 
-- **V₁** = hapax words
+- **V1** = number of hapax legomena (words appearing exactly once);
+- **V** = total number of unique words (vocabulary size).
 
-This is a more complex formula that combines rarity with text length. Values can vary greatly and are harder to interpret intuitively.
+## Description
 
-## Why We Chose the Hapax/Types Ratio (Hapax-to-Types)
+This metric looks at the words that appear only once in a text and compares them to the total number of unique words. It gives me a sense of lexical variety, originality, and exploratory range.
 
-- **Easy to interpret** (values between 0 and 100)
-- **Stable** - doesn't "explode" based on length
-- **Provides clear measure** of vocabulary diversity
-- **Allows direct comparisons** between texts of different sizes
+A higher value suggests that the text uses a wide vocabulary and does not keep returning to the same small pool of words. This can be a sign of a vivid, personal, or essayistic style.
 
-## Interpretive Examples
+A lower value suggests a more controlled, repetitive, or formulaic text. That may be fine for documentation, instructions, or focused technical writing. But in essays, criticism, memoir-like writing, or literary commentary, a low value may show that the prose is not opening enough windows.
 
-| Hapax (%) | Interpretation |
-|-----------|----------------|
-| Under 40% | Repetitive, formal, template-like text |
-| 50–60% | Balance between variety and coherence |
-| 65–75% | Diverse vocabulary, personal style |
-| Over 75% | Exploratory, poetic, free style |
+## How I use this to improve
 
-## Formula
+If the ratio is low, I check whether the article is trapped in a narrow vocabulary. I may need more concrete examples, more precise nouns, more varied verbs, or more images.
 
-**HTR = (V₁ / V) × 100**
-
-Where:
-- **V₁** = number of hapax legomena (words appearing exactly once)
-- **V** = total number of unique words (vocabulary size)
-
-## Applications
-
-The Hapax-to-Types Ratio is particularly valuable for:
-
-- **Author attribution**: Different authors have characteristic hapax patterns
-- **Style analysis**: Distinguishing between formal and creative writing
-- **Text classification**: Identifying technical vs. literary content
-- **Quality assessment**: Measuring vocabulary richness in educational materials
-- **Comparative analysis**: Evaluating lexical diversity across different texts
-
-## Advanced Applications
-
-There are many other ways hapax legomena could be used for analysis, such as:
-
-- **Positional analysis**: Tracking where hapax words appear more frequently (introduction, conclusion, etc.)
-- **Statistical distribution**: Measuring whether they have uniform distribution or are random
-- **Temporal analysis**: Observing how hapax usage changes throughout a text
-
-However, for the purpose of general and intuitive information, the percentage of words that appear only once out of the total unique words is sufficient.
-
-## Key Insights
-
-- **Higher percentages** indicate more experimental, creative writing styles
-- **Lower percentages** suggest more controlled, repetitive, or formal writing
-- **Independent of text length**, making it ideal for comparative analysis
-- **Complements other metrics** like Yule's K and Type-Token Ratio for comprehensive stylometric analysis
-
----
-
-*Source: Translated from [Paradigma.ro - Hapax legomena](https://www.paradigma.ro/p/hapax)*
+If the ratio is very high, I check the opposite problem: maybe the text is too scattered, too ornamental, or too eager to show all its feathers at once. Variety should create life, not decorative fog.

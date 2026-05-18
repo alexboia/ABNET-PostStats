@@ -4,7 +4,7 @@ Somewhat nerd alert.
 
 ## Word boundaries
 
-Regex Pattern: `/\b\w+\b/u`
+Regex Pattern: `/\b\w+\b/u`, matching: `a`-`z`, `A`-`Z`, `0`-`9`, `_`; bounded by spaces, punctuation, newlines, or string edges.
 
 What it does:
 
@@ -23,9 +23,13 @@ Notes:
 - Because it relies on `\w`, behavior for diacritics depends on PCRE Unicode character handling.
 - Numbers and underscore-based tokens can also be matched as words.
 
+## Long words
+
+Long words are considered words longer than `6` characters.
+
 ## Recognized punctuation
 
-Pattern: `/[.,;:?|\-…\'"()\[\]{}\/\\@#*_]/u`
+Pattern: `/[.,;:?|\-…\'"()\[\]{}\/\\@#*_]/u`, matching: `.`, `,`, `;`, `:`, `?`, `|`, `-`, `…`, `'`, `"`, `(`, `)`, `[`, `]`, `{`, `}`, `/`, `\`, `@`, `#`, `*`, `_`.
 
 What it does:
 
@@ -46,7 +50,7 @@ Notes:
 
 ## Sentence boundaries
 
-Pattern: `/[.!?\n]+/u`
+Pattern: `/[.!?\n]+/u`, matching: `.`, `?`, `!`.
 
 What it does:
 

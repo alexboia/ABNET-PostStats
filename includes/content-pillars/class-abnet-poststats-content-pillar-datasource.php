@@ -3,7 +3,7 @@
  * Handles data operations for content pillars
  * 
  * @package ABNet_PostStats
- * @since 1.0.0
+ * @since 1.1.0
  */
 
 // Prevent direct access
