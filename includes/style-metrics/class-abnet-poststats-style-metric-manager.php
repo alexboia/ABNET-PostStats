@@ -220,40 +220,17 @@ class ABNet_PostStats_StyleMetric_Manager {
 			self::PAGE_SLUG
 		);
 
-		$this->_registerToggleField(
-			ABNet_PostStats_StyleMetricOptions::KEY_USE_AVERAGE_SENTENCE_LENGTH,
-			__('Average sentence length', 'abnet-post-stats')
-		);
+		$providerToggles = $this->_getProviderOptionToggles();
+		$styleInfoProvider = new ABNet_PostStats_StyleInfoProvider($this->_getOptions());
 
-		$this->_registerToggleField(
-			ABNet_PostStats_StyleMetricOptions::KEY_USE_ENTROPY,
-			__('Entropy', 'abnet-post-stats')
-		);
+		foreach ($providerToggles as $key => $toggleKey) {
+			$label = $styleInfoProvider->getName($key);
+			$description = $styleInfoProvider->getShortDescription($key);
 
-		$this->_registerToggleField(
-			ABNet_PostStats_StyleMetricOptions::KEY_USE_NEGATIVITY,
-			__('Negativity', 'abnet-post-stats')
-		);
-
-		$this->_registerToggleField(
-			ABNet_PostStats_StyleMetricOptions::KEY_USE_PUNCTUATION,
-			__('Punctuation', 'abnet-post-stats')
-		);
-
-		$this->_registerToggleField(
-			ABNet_PostStats_StyleMetricOptions::KEY_USE_LIX,
-			__('LIX', 'abnet-post-stats')
-		);
-
-		$this->_registerToggleField(
-			ABNet_PostStats_StyleMetricOptions::KEY_USE_YULES_K,
-			__("Yule's K", 'abnet-post-stats')
-		);
-
-		$this->_registerToggleField(
-			ABNet_PostStats_StyleMetricOptions::KEY_USE_HAPAX_TO_TYPES,
-			__('Hapax-to-types ratio', 'abnet-post-stats')
-		);
+			$this->_registerToggleField($toggleKey, 
+				$label, 
+				$description);
+		}
 
 		add_settings_field(
 			ABNet_PostStats_StyleMetricOptions::KEY_YULES_K_MULTIPLIER,
@@ -272,7 +249,26 @@ class ABNet_PostStats_StyleMetric_Manager {
 		);
 	}
 
-	private function _registerToggleField(string $key, string $label): void {
+	private function _getProviderOptionToggles(): array {
+		return array(
+			ABNet_PostStats_StyleMetricAverageSentenceLengthProvider::KEY 
+				=> ABNet_PostStats_StyleMetricOptions::KEY_USE_AVERAGE_SENTENCE_LENGTH,
+			ABNet_PostStats_StyleMetricEntropyProvider::KEY 
+				=> ABNet_PostStats_StyleMetricOptions::KEY_USE_ENTROPY,
+			ABNet_PostStats_StyleMetricNegativityProvider::KEY
+				=> ABNet_PostStats_StyleMetricOptions::KEY_USE_NEGATIVITY,
+			ABNet_PostStats_StyleMetricPunctuationProvider::KEY
+				=> ABNet_PostStats_StyleMetricOptions::KEY_USE_PUNCTUATION,
+			ABNet_PostStats_StyleMetricLixProvider::KEY
+				=> ABNet_PostStats_StyleMetricOptions::KEY_USE_LIX,
+			ABNet_PostStats_StyleMetricYulesKProvider::KEY
+				=> ABNet_PostStats_StyleMetricOptions::KEY_USE_YULES_K,
+			ABNet_PostStats_StyleMetricHapaxToTypesProvider::KEY
+				=> ABNet_PostStats_StyleMetricOptions::KEY_USE_HAPAX_TO_TYPES
+		);
+	}
+
+	private function _registerToggleField(string $key, string $label, string $description): void {
 		add_settings_field(
 			$key,
 			$label,
@@ -281,7 +277,8 @@ class ABNet_PostStats_StyleMetric_Manager {
 			'abnet_post_stats_style_metrics_main',
 			array(
 				'key' => $key,
-				'label' => $label
+				'label' => $label,
+				'description' => $description
 			)
 		);
 	}
@@ -295,6 +292,7 @@ class ABNet_PostStats_StyleMetric_Manager {
 	public function renderBooleanToggleField(array $args): void {
 		$key = $args['key'] ?? '';
 		$label = $args['label'] ?? '';
+		$description = $args['description'] ?? '';
 
 		if ($key === '') {
 			return;
@@ -307,6 +305,9 @@ class ABNet_PostStats_StyleMetric_Manager {
 		echo 	'<input type="checkbox" name="' . esc_attr(ABNet_PostStats_StyleMetricOptions::OPTION_NAME . '[' . $key . ']') . '" value="1" ' . checked(true, $enabled, false) . ' /> ';
 		echo 	esc_html__('Enabled', 'abnet-post-stats');
 		echo '</label>';
+		echo '<p class="description">' . 
+				esc_html($description) . 
+			'</p>';
 	}
 
 	public function renderYulesKMultiplierField(): void {

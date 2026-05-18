@@ -15,6 +15,8 @@ if (!defined('ABSPATH')) {
  * @see https://www.paradigma.ro/p/asl
  */
 class ABNet_PostStats_StyleMetricAverageSentenceLengthProvider implements ABNet_PostStats_StyleMetricProvider {
+	public const KEY = 'average-sentence-length';
+
 	private const DEFAULT_PRECISION = 0;
 
 	public function compute(ABNet_PostStats_StyleSource $source): ABNet_PostStats_StyleMetric {
@@ -39,7 +41,7 @@ class ABNet_PostStats_StyleMetricAverageSentenceLengthProvider implements ABNet_
 	}
 
 	public function getKey(): string {
-		return 'average-sentence-length';
+		return self::KEY;
 	}
 
 	public function getName(): string {

@@ -1,12 +1,12 @@
 <?php
-declare(strict_types=1);
-
 /**
- * Represents a content pillar
+ * Represents a content pillar data object
  * 
  * @package ABNet_PostStats
  * @since 1.0.0
  */
+
+declare(strict_types=1);
 
 // Prevent direct access
 if (!defined('ABSPATH')) {

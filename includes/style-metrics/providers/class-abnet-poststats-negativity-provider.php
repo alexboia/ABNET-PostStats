@@ -15,6 +15,8 @@ if (!defined('ABSPATH')) {
  * @see https://www.paradigma.ro/p/negativitate
  */
 class ABNet_PostStats_StyleMetricNegativityProvider implements ABNet_PostStats_StyleMetricProvider {
+	public const KEY = 'negativity';
+
 	public const WORD_BOUNDARY_REGEX = ABNet_PostStats_StyleSource::WORD_BOUNDARY_REGEX;
 	
 	private const DEFAULT_PRECISION = 1;
@@ -132,7 +134,7 @@ class ABNet_PostStats_StyleMetricNegativityProvider implements ABNet_PostStats_S
 	}
 
 	public function getKey(): string {
-		return 'negativity';
+		return self::KEY;
 	}
 
 	public function getName(): string {

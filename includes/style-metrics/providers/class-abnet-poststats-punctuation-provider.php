@@ -15,6 +15,8 @@ if (!defined('ABSPATH')) {
  * @see https://www.paradigma.ro/p/punctuatie
  */
 class ABNet_PostStats_StyleMetricPunctuationProvider implements ABNet_PostStats_StyleMetricProvider {
+	public const KEY = 'punctuation';
+
 	private const DEFAULT_PRECISION = 1;
 	
 	public const PUNCTUATION_REGEX = ABNet_PostStats_StyleSource::PUNCTUATION_REGEX;
@@ -41,7 +43,7 @@ class ABNet_PostStats_StyleMetricPunctuationProvider implements ABNet_PostStats_
 	}
 
 	public function getKey(): string {
-		return 'punctuation';
+		return self::KEY;
 	}
 
 	public function getName(): string {

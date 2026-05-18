@@ -15,7 +15,9 @@ if (!defined('ABSPATH')) {
  * @see https://www.paradigma.ro/p/lix
  */
 class ABNet_PostStats_StyleMetricLixProvider implements ABNet_PostStats_StyleMetricProvider {
-    private const DEFAULT_PRECISION = 0;
+	public const KEY = 'lix';
+
+	private const DEFAULT_PRECISION = 0;
 	
 	private int $_longWordThreshold = 6;
 	
@@ -62,7 +64,7 @@ class ABNet_PostStats_StyleMetricLixProvider implements ABNet_PostStats_StyleMet
 	}
 
     public function getKey(): string { 
-		return 'lix';
+		return self::KEY;
 	}
 
     public function getName(): string { 

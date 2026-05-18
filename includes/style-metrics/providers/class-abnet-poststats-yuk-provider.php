@@ -15,6 +15,8 @@ if (!defined('ABSPATH')) {
  * @see https://www.paradigma.ro/p/yuk
  */
 class ABNet_PostStats_StyleMetricYulesKProvider implements ABNet_PostStats_StyleMetricProvider {
+	public const KEY = 'yuk';
+
 	private const DEFAULT_YULESK_MULTIPLIER = 10000;
 
 	private const DEFAULT_PRECISION = 0;
@@ -78,7 +80,7 @@ class ABNet_PostStats_StyleMetricYulesKProvider implements ABNet_PostStats_Style
 	}
 
     public function getKey(): string { 
-		return 'yuk';
+		return self::KEY;
 	}
 
     public function getName(): string { 

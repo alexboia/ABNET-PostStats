@@ -15,7 +15,9 @@ if (!defined('ABSPATH')) {
  * @see https://www.paradigma.ro/p/hapax
  */
 class ABNet_PostStats_StyleMetricHapaxToTypesProvider implements ABNet_PostStats_StyleMetricProvider {
-    private const DEFAULT_PRECISION = 1;
+	public const KEY = 'hapax-to-types';
+
+	private const DEFAULT_PRECISION = 1;
 	
 	public function compute(ABNet_PostStats_StyleSource $source): ABNet_PostStats_StyleMetric { 
 		$wordsThatAppearOnlyOnce = $this->_countWordsThatAppearOnlyOnce($source);
@@ -50,7 +52,7 @@ class ABNet_PostStats_StyleMetricHapaxToTypesProvider implements ABNet_PostStats
 	}
 
     public function getKey(): string { 
-		return 'hapax-to-types';
+		return self::KEY;
 	}
 
     public function getName(): string { 

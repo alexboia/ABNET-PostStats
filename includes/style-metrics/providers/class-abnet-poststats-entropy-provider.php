@@ -15,6 +15,8 @@ if (!defined('ABSPATH')) {
  * @see https://www.paradigma.ro/p/entropie 
  */
 class ABNet_PostStats_StyleMetricEntropyProvider implements ABNet_PostStats_StyleMetricProvider {
+	public const KEY = 'shannon-entropy';
+
 	private const DEFAULT_PRECISION = 1;
 	
 	public function compute(ABNet_PostStats_StyleSource $source): ABNet_PostStats_StyleMetric {
@@ -52,7 +54,7 @@ class ABNet_PostStats_StyleMetricEntropyProvider implements ABNet_PostStats_Styl
 	}
 
 	public function getKey(): string {
-		return 'shannon-entropy';
+		return self::KEY;
 	}
 
 	public function getName(): string {

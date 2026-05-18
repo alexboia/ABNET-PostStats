@@ -147,6 +147,10 @@ textarea.large-text.abnet-poststats-options-textarea {
 	max-width: 750px;
 }
 
+.abnet-poststats-wrap .description {
+	font-style: italic;
+}
+
 @media (max-width: 768px) {
 	.abnet-bar-graph {
 		gap: 4px;
