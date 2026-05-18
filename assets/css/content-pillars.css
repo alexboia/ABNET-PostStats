@@ -1,3 +1,10 @@
+/**
+ * Styles for the admin dashboard content pillar management page
+ *
+ * @package ABNet_PostStats
+ * @since 1.1.0
+ */
+
 #abnet-category-selector {
 	position: relative;
 	max-width: 750px;
