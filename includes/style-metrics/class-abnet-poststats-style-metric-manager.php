@@ -1,15 +1,15 @@
 <?php
+/**
+ * @package ABNet_PostStats
+ * @since 1.0.0
+ */
+
 declare(strict_types=1);
 
 // Prevent direct access
 if (!defined('ABSPATH')) {
 	exit;
 }
-
-/**
- * @package ABNet_PostStats
- * @since 1.0.0
- */
 
 class ABNet_PostStats_StyleMetric_Manager {
 	private const SETTINGS_GROUP = 'abnet_post_stats_style_metrics';
@@ -72,6 +72,7 @@ class ABNet_PostStats_StyleMetric_Manager {
 	public function init(): void {
 		add_action('add_meta_boxes', array($this, 'addPostMetaboxes'));
 		add_action('admin_init', array($this, 'registerSettings'));
+		add_action('save_post', array($this, 'recomputeStyleMetricsOnPostSave'));
 	}
 
 	public function setupMenu(): void {
@@ -157,6 +158,8 @@ class ABNet_PostStats_StyleMetric_Manager {
 		$styleInfo = $dataSource->getStyleInfo($postId);
 		if ($styleInfo === null) {
 			$styleInfo = $this->_computeStyleInfo($post);
+		} else {
+			error_log('[DEBUG] Using pre-computed style metrics.');
 		}
 
 		require_once ABNET_POST_STATS_VIEWS_DIR . '/admin-style-metrics-metabox.php';
@@ -169,9 +172,34 @@ class ABNet_PostStats_StyleMetric_Manager {
 		$styleInfoProvider = new ABNet_PostStats_StyleInfoProvider($this->_getOptions());
 		
 		$info = $styleInfoProvider->calculateStyleInfo($styleSource);
-		$this->_styleMetricsDataSource->saveStyleInfo($postId, $info);
+		if ($postId > 0) {
+			$dataSource = $this->_getStyleMetricsDataSource();
+			$result = $dataSource->saveStyleInfo($postId, $info);
+			if (!$result) {
+				error_log('[ERROR] Failed to save style metrics.');	
+			} else {
+				error_log('[INFO] Style metrics successfully saved.');
+			}
+		} else {
+			error_log('[DEBUG] Post ID was empty. Style metrics info was not saved.');
+		}
 
 		return $info;
+	}
+
+	public function recomputeStyleMetricsOnPostSave($postId): void {
+		$usePostId = intval($postId);
+		if ($usePostId <= 0) {
+			error_log('[DEBUG] Post ID was empty. Style metrics did not recompute on save.');
+			return;
+		}
+
+		$post = get_post($usePostId);
+		if (!!$post) {
+			$this->_computeStyleInfo($post);
+		} else {
+			error_log('[DEBUG] Post not found. Style metrics did not recompute on save.');
+		}
 	}
 
 	public function registerSettings(): void {

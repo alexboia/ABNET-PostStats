@@ -1,15 +1,15 @@
 <?php
+/**
+ * @package ABNet_PostStats
+ * @since 1.1.0
+ */
+
 declare(strict_types=1);
 
 // Prevent direct access
 if (!defined('ABSPATH')) {
 	exit;
 }
-
-/**
- * @package ABNet_PostStats
- * @since 1.1.0
- */
 
 class ABNet_PostStats_StyleMetric_DataSource {
 	
@@ -133,6 +133,10 @@ class ABNet_PostStats_StyleMetric_DataSource {
 			
 		} catch (Exception $e) {
 			$wpdb->query('ROLLBACK');
+			error_log(sprintf('[ERROR] Error saving style metrics: %s [%s]. %s.', 
+				$e->getMessage(), 
+				$e->getCode(), 
+				$e->getTraceAsString()));
 			return false;
 		}
 	}

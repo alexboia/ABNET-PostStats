@@ -114,7 +114,7 @@ class ABNet_PostStats_Db {
 			post_id BIGINT(20) UNSIGNED NOT NULL,
 			metric_key varchar(100) NOT NULL,
 			metric_value FLOAT NOT NULL DEFAULT 0,
-			metric_unit varchar(250) NOT NULL,
+			metric_unit varchar(250),
 			metric_friendly_representation text NOT NULL,
 			created_at datetime DEFAULT CURRENT_TIMESTAMP,
 			updated_at datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
