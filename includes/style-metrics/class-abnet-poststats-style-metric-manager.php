@@ -305,6 +305,7 @@ class ABNet_PostStats_StyleMetric_Manager {
 		echo 	'<input type="checkbox" name="' . esc_attr(ABNet_PostStats_StyleMetricOptions::OPTION_NAME . '[' . $key . ']') . '" value="1" ' . checked(true, $enabled, false) . ' /> ';
 		echo 	esc_html__('Enabled', 'abnet-post-stats');
 		echo '</label>';
+
 		echo '<p class="description">' . 
 				esc_html($description) . 
 			'</p>';
@@ -314,7 +315,10 @@ class ABNet_PostStats_StyleMetric_Manager {
 		$options = $this->_getOptions();
 		$value = (int) ($options->getYulesKMultiplier() ?? 10000);
 
-		echo '<input type="number" min="1" step="1" class="regular-text" name="' . esc_attr(ABNet_PostStats_StyleMetricOptions::OPTION_NAME . '[' . ABNet_PostStats_StyleMetricOptions::KEY_YULES_K_MULTIPLIER . ']') . '" value="' . esc_attr((string) $value) . '" />';
+		echo '<input type="number" min="1" step="1" class="regular-text" ' . 
+			'name="' . (ABNet_PostStats_StyleMetricOptions::OPTION_NAME . '[' . ABNet_PostStats_StyleMetricOptions::KEY_YULES_K_MULTIPLIER . ']') . '" ' . 
+			'value="' . esc_attr((string) $value) . '" />';
+
 		echo '<p class="description">' . 
 				esc_html__('Used by the Yule\'s K provider. Must be a positive integer.', 'abnet-post-stats') . 
 			'</p>';
@@ -346,6 +350,7 @@ class ABNet_PostStats_StyleMetric_Manager {
 
 		$pageSlug = self::PAGE_SLUG;
 		$settingsGroup = self::SETTINGS_GROUP;
+		$options = $this->_getOptions();
 		
 		require_once ABNET_POST_STATS_VIEWS_DIR . '/admin-style-metrics-settings-page.php';
 	}

@@ -6,6 +6,7 @@ if (!defined('ABSPATH')) {
 /**
  * @var string $pageSlug
  * @var string $settingsGroup
+ * @var \ABNet_PostStats_StyleMetricOptions $options
  */
 ?>
 
@@ -14,11 +15,16 @@ if (!defined('ABSPATH')) {
 
 	<div class="card abnet-poststats-stylemetrics-settings-form-container">
 		<form id="abnet-poststats-stylemetrics-settings-form" class="abnet-poststats-form abnet-poststats-settings-form" method="post" action="options.php">
+			<?php do_action('abnet_posts_stats_before_style_metrics_settings_form', $options); ?>
+			
 			<?php 
 				settings_fields($settingsGroup);
-				do_settings_sections($pageSlug);
-				submit_button();
+				do_settings_sections($pageSlug); 
 			?>
+
+			<?php do_action('abnet_posts_stats_before_style_metrics_settings_savebtn', $options); ?>
+			<?php submit_button();  ?>
+			<?php do_action('abnet_posts_stats_after_style_metrics_settings_form', $options); ?>
 		</form>
 	</div>
 </div>
