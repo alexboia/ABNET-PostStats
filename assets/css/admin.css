@@ -151,6 +151,19 @@ textarea.large-text.abnet-poststats-options-textarea {
 	font-style: italic;
 }
 
+.abnet-post-stats-interval-input-container  {
+	display: inline-block;
+}
+
+.abnet-post-stats-interval-input-min-container {
+	margin-right: 12px;
+}
+
+.abnet-post-stats-interval-input-label {
+	margin-bottom: 4px;
+	display: inline-block;
+}
+
 @media (max-width: 768px) {
 	.abnet-bar-graph {
 		gap: 4px;

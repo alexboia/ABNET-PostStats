@@ -13,11 +13,18 @@ if (!defined('ABSPATH')) {
 
 /**
  * @see https://www.paradigma.ro/p/hapax
+ * @see https://github.com/alexboia/ABNET-PostStats/blob/main/docs/hapax-to-types.md
  */
 class ABNet_PostStats_StyleMetricHapaxToTypesProvider implements ABNet_PostStats_StyleMetricProvider {
 	public const KEY = 'hapax-to-types';
 
 	private const DEFAULT_PRECISION = 1;
+
+	private ABNet_PostStats_StyleMetricBracket $_bracket;
+
+	public function __construct(?ABNet_PostStats_StyleMetricBracket $bracket = null) {
+		$this->_bracket = $bracket ?? ABNet_PostStats_StyleMetricBracket::unbounded();
+	}
 	
 	public function compute(ABNet_PostStats_StyleSource $source): ABNet_PostStats_StyleMetric { 
 		$wordsThatAppearOnlyOnce = $this->_countWordsThatAppearOnlyOnce($source);
@@ -32,7 +39,8 @@ class ABNet_PostStats_StyleMetricHapaxToTypesProvider implements ABNet_PostStats
 			$this->getShortDescription(),
 			$hapax,
 			'%',
-			$friendly
+			$friendly,
+			$this->_bracket
 		);
 	}
 
@@ -61,5 +69,9 @@ class ABNet_PostStats_StyleMetricHapaxToTypesProvider implements ABNet_PostStats
 
     public function getShortDescription(): string { 
 		return __('In linguistics and stylometry, hapax legomena are words that appear only once in a text.', 'abnet-post-stats');
+	}
+
+	public function getBracket(): ABNet_PostStats_StyleMetricBracket {
+		return $this->_bracket;
 	}
 }

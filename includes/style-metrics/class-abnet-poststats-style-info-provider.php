@@ -85,33 +85,44 @@ class ABNet_PostStats_StyleInfoProvider {
 			$providers = [];
 
 			if ($this->_options->getUseAverageSentenceLength()) {
-				$providers[] = new ABNet_PostStats_StyleMetricAverageSentenceLengthProvider();
+				$aslBracket = $this->_options->getAverageSentenceLengthBracket();
+				$providers[] = new ABNet_PostStats_StyleMetricAverageSentenceLengthProvider($aslBracket);
 			}
 			
 			if ($this->_options->getUseEntropy()) {
-				$providers[] = new ABNet_PostStats_StyleMetricEntropyProvider();
+				$entropyBracket = $this->_options->getEntropyBracket();
+				$providers[] = new ABNet_PostStats_StyleMetricEntropyProvider($entropyBracket);
 			}
 			
 			if ($this->_options->getUseNegativity()) {
-				$negativeWordList = $this->_options->getNegativeWordList();
-				$providers[] = new ABNet_PostStats_StyleMetricNegativityProvider($negativeWordList);
+				if ($this->_options->hasNegativeWordList()) {
+					$negativeWordList = $this->_options->getNegativeWordList();
+					$negativityBracket = $this->_options->getNegativityBracket();
+					$providers[] = new ABNet_PostStats_StyleMetricNegativityProvider($negativeWordList, $negativityBracket);
+				} else {
+					write_log('[DEBUG] Negativity provider enabled, but no negative word list configured. Will not register.');
+				}				
 			}
 			
 			if ($this->_options->getUsePunctuation()) {
-				$providers[] = new ABNet_PostStats_StyleMetricPunctuationProvider();
+				$punctuationBracket = $this->_options->getPunctuationBracket();
+				$providers[] = new ABNet_PostStats_StyleMetricPunctuationProvider($punctuationBracket);
 			}
 			
 			if ($this->_options->getUseLix()) {
-				$providers[] = new ABNet_PostStats_StyleMetricLixProvider();
+				$lixBracket = $this->_options->getLixBracket();
+				$providers[] = new ABNet_PostStats_StyleMetricLixProvider($lixBracket);
 			}
 
 			if ($this->_options->getUseYulesK()) {
 				$yulsesKMultiplier = $this->_options->getYulesKMultiplier();
-				$providers[] = new ABNet_PostStats_StyleMetricYulesKProvider($yulsesKMultiplier);
+				$yulesKBracket = $this->_options->getYulesKBracket();
+				$providers[] = new ABNet_PostStats_StyleMetricYulesKProvider($yulsesKMultiplier, $yulesKBracket);
 			}
 
 			if ($this->_options->getUseHapaxToTypes()) {
-				$providers[] = new ABNet_PostStats_StyleMetricHapaxToTypesProvider();
+				$hapaxBracket = $this->_options->getHapaxToTypesBracket();
+				$providers[] = new ABNet_PostStats_StyleMetricHapaxToTypesProvider($hapaxBracket);
 			}
 			
 			$providers = apply_filters('abnet_posts_stats_style_metric_providers', 

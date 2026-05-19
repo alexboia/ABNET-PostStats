@@ -17,4 +17,6 @@ interface ABNet_PostStats_StyleMetricProvider {
 	function getName(): string;
 
 	function getShortDescription(): string;
+
+	function getBracket(): ABNet_PostStats_StyleMetricBracket;
 }

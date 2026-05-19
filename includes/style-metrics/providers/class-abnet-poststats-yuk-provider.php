@@ -13,6 +13,7 @@ if (!defined('ABSPATH')) {
 
 /**
  * @see https://www.paradigma.ro/p/yuk
+ * @see https://github.com/alexboia/ABNET-PostStats/blob/main/docs/yuk.md
  */
 class ABNet_PostStats_StyleMetricYulesKProvider implements ABNet_PostStats_StyleMetricProvider {
 	public const KEY = 'yuk';
@@ -23,11 +24,15 @@ class ABNet_PostStats_StyleMetricYulesKProvider implements ABNet_PostStats_Style
 	
 	private int $_yulesKMultiplier = self::DEFAULT_YULESK_MULTIPLIER;
 
-	public function __construct(int $yulsesKMultiplier = 0) {
+	private ABNet_PostStats_StyleMetricBracket $_bracket;
+
+	public function __construct(int $yulsesKMultiplier = 0, ?ABNet_PostStats_StyleMetricBracket $bracket = null) {
 		$this->_yulesKMultiplier = $yulsesKMultiplier;
 		if ($this->_yulesKMultiplier <= 0) {
 			$this->_yulesKMultiplier = self::DEFAULT_YULESK_MULTIPLIER;
 		}
+
+		$this->_bracket = $bracket ?? ABNet_PostStats_StyleMetricBracket::unbounded();
 	}
 
     public function compute(ABNet_PostStats_StyleSource $source): ABNet_PostStats_StyleMetric { 
@@ -44,12 +49,15 @@ class ABNet_PostStats_StyleMetricYulesKProvider implements ABNet_PostStats_Style
 
 		$friendly = $this->_getFriendRepresentation($yulesK);;
 
-		return new ABNet_PostStats_StyleMetric($this->getKey(), 
+		return new ABNet_PostStats_StyleMetric(
+			$this->getKey(), 
 			$this->getName(), 
 			$this->getShortDescription(), 
 			$yulesK, 
 			null, 
-			$friendly);
+			$friendly,
+			$this->_bracket
+		);
 	}
 
 	private function _getFriendRepresentation($yuleK) {
@@ -89,5 +97,9 @@ class ABNet_PostStats_StyleMetricYulesKProvider implements ABNet_PostStats_Style
 
     public function getShortDescription(): string { 
 		return __("Yule's K is a stylometric index that measures the richness of vocabulary in a text.", 'abnet-post-stats');
+	}
+
+	public function getBracket(): ABNet_PostStats_StyleMetricBracket {
+		return $this->_bracket;
 	}
 }

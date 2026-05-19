@@ -24,12 +24,15 @@ class ABNet_PostStats_StyleMetric {
 
 	private string $_friendlyRepresentation;
 
+	private ABNet_PostStats_StyleMetricBracket $_bracket;
+
 	public function __construct(string $key, 
 		string $name, 
 		string $shortDescription, 
 		float $value, 
 		string|null $unit, 
-		string $friendlyRepresentation) {
+		string $friendlyRepresentation,  
+		ABNet_PostStats_StyleMetricBracket $bracket ) {
 
 		$this->_key = $key;
 		$this->_name = $name;
@@ -37,6 +40,7 @@ class ABNet_PostStats_StyleMetric {
 		$this->_value = $value;
 		$this->_unit = $unit;
 		$this->_friendlyRepresentation = $friendlyRepresentation;
+		$this->_bracket = $bracket;
 	}
 
 	public function getKey(): string {
@@ -65,5 +69,13 @@ class ABNet_PostStats_StyleMetric {
 
 	public function getFriendlyRepresentation(): string {
 		return $this->_friendlyRepresentation;
+	}
+
+	public function getBracket(): ABNet_PostStats_StyleMetricBracket {
+		return $this->_bracket;
+	}
+
+	public function isWithingBracket(): bool {
+		return $this->_bracket->containsValue($this->_value);
 	}
 }

@@ -32,6 +32,20 @@ class ABNet_PostStats_StyleMetricOptions {
 
 	public const KEY_YULES_K_MULTIPLIER = 'yules_k_multiplier';
 
+	public const KEY_AVERAGE_SENTENCE_LENGTH_BRACKET = 'average_sentence_length_bracket';
+
+	public const KEY_ENTROPY_BRACKET = 'entropy_bracket';
+
+	public const KEY_NEGATIVITY_BRACKET = 'negativity_bracket';
+
+	public const KEY_PUNCTUATION_BRACKET = 'punctuation_bracket';
+
+	public const KEY_LIX_BRACKET = 'lix_bracket';
+
+	public const KEY_YULES_K_BRACKET = 'yules_k_bracket';
+
+	public const KEY_HAPAX_TO_TYPES_BRACKET = 'hapax_to_types_bracket';
+
 	private bool $_useAverageSentenceLength = true;
 
 	private bool $_useEntropy = true;
@@ -46,12 +60,38 @@ class ABNet_PostStats_StyleMetricOptions {
 
 	private bool $_useHapaxToTypes = true;
 
+	private ABNet_PostStats_StyleMetricBracket $_averageSentenceLengthBracket;
+
+	private ABNet_PostStats_StyleMetricBracket $_entryopyBracket;
+
+	private ABNet_PostStats_StyleMetricBracket $_yulesKBracket;
+
+	private ABNet_PostStats_StyleMetricBracket $_negativityBracket;
+
+	private ABNet_PostStats_StyleMetricBracket $_punctuationBracket;
+
+	private ABNet_PostStats_StyleMetricBracket $_lixBracket;
+
+	private ABNet_PostStats_StyleMetricBracket $_hapaxBracket;
+
+	private ?array $_asArray = null;
+
 	/**
 	 * @var string[]
 	 */
 	private array $_negativeWordList = array();
 
 	private int $_yulesKMultiplier = 10000;
+
+	public function __construct(){
+		$this->_averageSentenceLengthBracket = new ABNet_PostStats_StyleMetricBracket(14, 21);
+		$this->_entryopyBracket = new ABNet_PostStats_StyleMetricBracket(4, 6);
+		$this->_yulesKBracket = new ABNet_PostStats_StyleMetricBracket(45, 68);
+		$this->_negativityBracket = new ABNet_PostStats_StyleMetricBracket(10, 25);
+		$this->_punctuationBracket = new ABNet_PostStats_StyleMetricBracket(20, 40);
+		$this->_lixBracket = new ABNet_PostStats_StyleMetricBracket(42, 56);
+		$this->_hapaxBracket = new ABNet_PostStats_StyleMetricBracket(55, 75);
+	}
 
 	public static function defaults(): ABNet_PostStats_StyleMetricOptions {
 		$defaults = new ABNet_PostStats_StyleMetricOptions();
@@ -90,6 +130,34 @@ class ABNet_PostStats_StyleMetricOptions {
 			?? $defaults->_negativeWordList;
 		$options->_yulesKMultiplier = $sanitized[self::KEY_YULES_K_MULTIPLIER] 
 			?? $defaults->_yulesKMultiplier;
+		$options->_averageSentenceLengthBracket = ABNet_PostStats_StyleMetricBracket::fromArray(
+			$sanitized[self::KEY_AVERAGE_SENTENCE_LENGTH_BRACKET]
+				?? $defaults->_averageSentenceLengthBracket->toArray()
+		);
+		$options->_entryopyBracket = ABNet_PostStats_StyleMetricBracket::fromArray(
+			$sanitized[self::KEY_ENTROPY_BRACKET]
+				?? $defaults->_entryopyBracket->toArray()
+		);
+		$options->_negativityBracket = ABNet_PostStats_StyleMetricBracket::fromArray(
+			$sanitized[self::KEY_NEGATIVITY_BRACKET]
+				?? $defaults->_negativityBracket->toArray()
+		);
+		$options->_punctuationBracket = ABNet_PostStats_StyleMetricBracket::fromArray(
+			$sanitized[self::KEY_PUNCTUATION_BRACKET]
+				?? $defaults->_punctuationBracket->toArray()
+		);
+		$options->_lixBracket = ABNet_PostStats_StyleMetricBracket::fromArray(
+			$sanitized[self::KEY_LIX_BRACKET]
+				?? $defaults->_lixBracket->toArray()
+		);
+		$options->_yulesKBracket = ABNet_PostStats_StyleMetricBracket::fromArray(
+			$sanitized[self::KEY_YULES_K_BRACKET]
+				?? $defaults->_yulesKBracket->toArray()
+		);
+		$options->_hapaxBracket = ABNet_PostStats_StyleMetricBracket::fromArray(
+			$sanitized[self::KEY_HAPAX_TO_TYPES_BRACKET]
+				?? $defaults->_hapaxBracket->toArray()
+		);
 
 		return $options;
 	}
@@ -112,6 +180,42 @@ class ABNet_PostStats_StyleMetricOptions {
 		if ($yulesKMultiplier <= 0) {
 			$yulesKMultiplier = $defaults->_yulesKMultiplier;
 		}
+
+		$averageSentenceLengthBracket = self::_sanitizeRawBracket(
+			$rawOptions,
+			self::KEY_AVERAGE_SENTENCE_LENGTH_BRACKET,
+			$defaults->_averageSentenceLengthBracket
+		);
+		$entropyBracket = self::_sanitizeRawBracket(
+			$rawOptions,
+			self::KEY_ENTROPY_BRACKET,
+			$defaults->_entryopyBracket
+		);
+		$negativityBracket = self::_sanitizeRawBracket(
+			$rawOptions,
+			self::KEY_NEGATIVITY_BRACKET,
+			$defaults->_negativityBracket
+		);
+		$punctuationBracket = self::_sanitizeRawBracket(
+			$rawOptions,
+			self::KEY_PUNCTUATION_BRACKET,
+			$defaults->_punctuationBracket
+		);
+		$lixBracket = self::_sanitizeRawBracket(
+			$rawOptions,
+			self::KEY_LIX_BRACKET,
+			$defaults->_lixBracket
+		);
+		$yulesKBracket = self::_sanitizeRawBracket(
+			$rawOptions,
+			self::KEY_YULES_K_BRACKET,
+			$defaults->_yulesKBracket
+		);
+		$hapaxToTypesBracket = self::_sanitizeRawBracket(
+			$rawOptions,
+			self::KEY_HAPAX_TO_TYPES_BRACKET,
+			$defaults->_hapaxBracket
+		);
 
 		return array(
 			self::KEY_USE_AVERAGE_SENTENCE_LENGTH => isset($rawOptions[self::KEY_USE_AVERAGE_SENTENCE_LENGTH]) 
@@ -143,7 +247,50 @@ class ABNet_PostStats_StyleMetricOptions {
 				: $defaults->_useHapaxToTypes,
 
 			self::KEY_NEGATIVE_WORD_LIST => $negativeWordList,
-			self::KEY_YULES_K_MULTIPLIER => $yulesKMultiplier
+			self::KEY_YULES_K_MULTIPLIER => $yulesKMultiplier,
+			self::KEY_AVERAGE_SENTENCE_LENGTH_BRACKET => $averageSentenceLengthBracket,
+			self::KEY_ENTROPY_BRACKET => $entropyBracket,
+			self::KEY_NEGATIVITY_BRACKET => $negativityBracket,
+			self::KEY_PUNCTUATION_BRACKET => $punctuationBracket,
+			self::KEY_LIX_BRACKET => $lixBracket,
+			self::KEY_YULES_K_BRACKET => $yulesKBracket,
+			self::KEY_HAPAX_TO_TYPES_BRACKET => $hapaxToTypesBracket
+		);
+	}
+
+	private static function _sanitizeRawBracket(array $rawOptions, string $key, 
+		ABNet_PostStats_StyleMetricBracket $defaultBracket): array {
+		
+		if (empty($rawOptions[$key]) || !is_array($rawOptions[$key])) {
+			return $defaultBracket->toArray();
+		}
+
+		$rawBracket = $rawOptions[$key];
+		
+		$min = isset($rawBracket['min'])
+			? (float) $rawBracket['min']
+			: $defaultBracket->getMin();
+		$max = isset($rawBracket['max'])
+			? (float) $rawBracket['max']
+			: $defaultBracket->getMax();
+
+		if (!is_finite($min)) {
+			$min = $defaultBracket->getMin();
+		}
+
+		if (!is_finite($max)) {
+			$max = $defaultBracket->getMax();
+		}
+
+		if ($min > $max) {
+			$temp = $min;
+			$min = $max;
+			$max = $temp;
+		}
+
+		return array(
+			'min' => $min,
+			'max' => $max
 		);
 	}
 
@@ -181,17 +328,27 @@ class ABNet_PostStats_StyleMetricOptions {
 	}
 
 	public function toArray(): array {
-		return array(
-			self::KEY_USE_AVERAGE_SENTENCE_LENGTH => $this->_useAverageSentenceLength,
-			self::KEY_USE_ENTROPY => $this->_useEntropy,
-			self::KEY_USE_NEGATIVITY => $this->_useNegativity,
-			self::KEY_USE_PUNCTUATION => $this->_usePunctuation,
-			self::KEY_USE_LIX => $this->_useLix,
-			self::KEY_USE_YULES_K => $this->_useYulesK,
-			self::KEY_USE_HAPAX_TO_TYPES => $this->_useHapaxToTypes,
-			self::KEY_NEGATIVE_WORD_LIST => $this->_negativeWordList,
-			self::KEY_YULES_K_MULTIPLIER => $this->_yulesKMultiplier
-		);
+		if ($this->_asArray === null) {
+			$this->_asArray = array(
+				self::KEY_USE_AVERAGE_SENTENCE_LENGTH => $this->_useAverageSentenceLength,
+				self::KEY_USE_ENTROPY => $this->_useEntropy,
+				self::KEY_USE_NEGATIVITY => $this->_useNegativity,
+				self::KEY_USE_PUNCTUATION => $this->_usePunctuation,
+				self::KEY_USE_LIX => $this->_useLix,
+				self::KEY_USE_YULES_K => $this->_useYulesK,
+				self::KEY_USE_HAPAX_TO_TYPES => $this->_useHapaxToTypes,
+				self::KEY_NEGATIVE_WORD_LIST => $this->_negativeWordList,
+				self::KEY_YULES_K_MULTIPLIER => $this->_yulesKMultiplier,
+				self::KEY_AVERAGE_SENTENCE_LENGTH_BRACKET => $this->_averageSentenceLengthBracket->toArray(),
+				self::KEY_ENTROPY_BRACKET => $this->_entryopyBracket->toArray(),
+				self::KEY_NEGATIVITY_BRACKET => $this->_negativityBracket->toArray(),
+				self::KEY_PUNCTUATION_BRACKET => $this->_punctuationBracket->toArray(),
+				self::KEY_LIX_BRACKET => $this->_lixBracket->toArray(),
+				self::KEY_YULES_K_BRACKET => $this->_yulesKBracket->toArray(),
+				self::KEY_HAPAX_TO_TYPES_BRACKET => $this->_hapaxBracket->toArray()
+			);
+		}
+		return $this->_asArray;
 	}
 
 	public function getUseAverageSentenceLength(): bool {
@@ -214,6 +371,10 @@ class ABNet_PostStats_StyleMetricOptions {
 		return $this->_negativeWordList;
 	}
 
+	public function hasNegativeWordList(): bool {
+		return !empty($this->_negativeWordList);
+	}
+
 	public function getUseLix(): bool {
 		return $this->_useLix;
 	}
@@ -228,5 +389,33 @@ class ABNet_PostStats_StyleMetricOptions {
 
 	public function getYulesKMultiplier(): int {
 		return $this->_yulesKMultiplier;
+	}
+
+	public function getAverageSentenceLengthBracket(): ABNet_PostStats_StyleMetricBracket {
+		return $this->_averageSentenceLengthBracket;
+	}
+
+	public function getEntropyBracket(): ABNet_PostStats_StyleMetricBracket {
+		return $this->_entryopyBracket;
+	}
+
+	public function getYulesKBracket(): ABNet_PostStats_StyleMetricBracket {
+		return $this->_yulesKBracket;
+	}
+
+	public function getNegativityBracket(): ABNet_PostStats_StyleMetricBracket {
+		return $this->_negativityBracket;
+	}
+
+	public function getPunctuationBracket(): ABNet_PostStats_StyleMetricBracket {
+		return $this->_punctuationBracket;
+	}
+
+	public function getLixBracket(): ABNet_PostStats_StyleMetricBracket {
+		return $this->_lixBracket;
+	}
+
+	public function getHapaxToTypesBracket(): ABNet_PostStats_StyleMetricBracket {
+		return $this->_hapaxBracket;
 	}
 }

@@ -13,6 +13,7 @@ if (!defined('ABSPATH')) {
 
 /**
  * @see https://www.paradigma.ro/p/lix
+ * @see https://github.com/alexboia/ABNET-PostStats/blob/main/docs/lix.md
  */
 class ABNet_PostStats_StyleMetricLixProvider implements ABNet_PostStats_StyleMetricProvider {
 	public const KEY = 'lix';
@@ -20,6 +21,12 @@ class ABNet_PostStats_StyleMetricLixProvider implements ABNet_PostStats_StyleMet
 	private const DEFAULT_PRECISION = 0;
 	
 	private int $_longWordThreshold = 6;
+
+	private ABNet_PostStats_StyleMetricBracket $_bracket;
+
+	public function __construct(?ABNet_PostStats_StyleMetricBracket $bracket = null) {
+		$this->_bracket = $bracket ?? ABNet_PostStats_StyleMetricBracket::unbounded();
+	}
 	
 	public function compute(ABNet_PostStats_StyleSource $source): ABNet_PostStats_StyleMetric { 
 		$totalWordCount = $source->getRawWordCount();
@@ -38,7 +45,8 @@ class ABNet_PostStats_StyleMetricLixProvider implements ABNet_PostStats_StyleMet
 			$this->getShortDescription(),
 			$lix, 
 			null,
-			$friendly
+			$friendly,
+			$this->_bracket
 		);
 	}
 
@@ -78,4 +86,7 @@ class ABNet_PostStats_StyleMetricLixProvider implements ABNet_PostStats_StyleMet
 		);
 	}
 
+	public function getBracket(): ABNet_PostStats_StyleMetricBracket {
+		return $this->_bracket;
+	}
 }

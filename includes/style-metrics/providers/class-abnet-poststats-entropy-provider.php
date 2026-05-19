@@ -13,11 +13,18 @@ if (!defined('ABSPATH')) {
 
 /**
  * @see https://www.paradigma.ro/p/entropie 
+ * @see https://github.com/alexboia/ABNET-PostStats/blob/main/docs/shannon-entropy.md
  */
 class ABNet_PostStats_StyleMetricEntropyProvider implements ABNet_PostStats_StyleMetricProvider {
 	public const KEY = 'shannon-entropy';
 
 	private const DEFAULT_PRECISION = 1;
+
+	private ABNet_PostStats_StyleMetricBracket $_bracket;
+
+	public function __construct(?ABNet_PostStats_StyleMetricBracket $bracket = null){
+		$this->_bracket = $bracket ?? ABNet_PostStats_StyleMetricBracket::unbounded();
+	}
 	
 	public function compute(ABNet_PostStats_StyleSource $source): ABNet_PostStats_StyleMetric {
 		$entropy = $this->_computeEntropy($source);
@@ -29,7 +36,8 @@ class ABNet_PostStats_StyleMetricEntropyProvider implements ABNet_PostStats_Styl
 			$this->getShortDescription(), 
 			$entropy, 
 			'%', 
-			$friendly
+			$friendly,
+			$this->_bracket
 		);
 	}
 
@@ -66,5 +74,9 @@ class ABNet_PostStats_StyleMetricEntropyProvider implements ABNet_PostStats_Styl
 			"In stylometry, entropy measures the diversity and unpredictability of the language used in a text. It indicates how much new information each unit (word or character) brings and how predictable their distribution is.", 
 			'abnet-post-stats'
 		);
+	}
+
+	public function getBracket(): ABNet_PostStats_StyleMetricBracket{
+		return $this->_bracket;
 	}
 }

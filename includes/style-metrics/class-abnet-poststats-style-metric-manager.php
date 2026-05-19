@@ -221,6 +221,7 @@ class ABNet_PostStats_StyleMetric_Manager {
 		);
 
 		$providerToggles = $this->_getProviderOptionToggles();
+		$providerBracketKeys = $this->_getProviderBracketOptionKeys();
 		$styleInfoProvider = new ABNet_PostStats_StyleInfoProvider($this->_getOptions());
 
 		foreach ($providerToggles as $key => $toggleKey) {
@@ -230,6 +231,15 @@ class ABNet_PostStats_StyleMetric_Manager {
 			$this->_registerToggleField($toggleKey, 
 				$label, 
 				$description);
+
+			$bracketOptionKey = $providerBracketKeys[$key] ?? null;
+			if (!empty($bracketOptionKey)) {
+				$this->_registerBracketField(
+					$bracketOptionKey,
+					sprintf(__('%s bracket', 'abnet-post-stats'), $label),
+					__('Controls the minimum and maximum expected values used to evaluate this metric.', 'abnet-post-stats')
+				);
+			}
 		}
 
 		add_settings_field(
@@ -268,6 +278,25 @@ class ABNet_PostStats_StyleMetric_Manager {
 		);
 	}
 
+	private function _getProviderBracketOptionKeys(): array {
+		return array(
+			ABNet_PostStats_StyleMetricAverageSentenceLengthProvider::KEY
+				=> ABNet_PostStats_StyleMetricOptions::KEY_AVERAGE_SENTENCE_LENGTH_BRACKET,
+			ABNet_PostStats_StyleMetricEntropyProvider::KEY
+				=> ABNet_PostStats_StyleMetricOptions::KEY_ENTROPY_BRACKET,
+			ABNet_PostStats_StyleMetricNegativityProvider::KEY
+				=> ABNet_PostStats_StyleMetricOptions::KEY_NEGATIVITY_BRACKET,
+			ABNet_PostStats_StyleMetricPunctuationProvider::KEY
+				=> ABNet_PostStats_StyleMetricOptions::KEY_PUNCTUATION_BRACKET,
+			ABNet_PostStats_StyleMetricLixProvider::KEY
+				=> ABNet_PostStats_StyleMetricOptions::KEY_LIX_BRACKET,
+			ABNet_PostStats_StyleMetricYulesKProvider::KEY
+				=> ABNet_PostStats_StyleMetricOptions::KEY_YULES_K_BRACKET,
+			ABNet_PostStats_StyleMetricHapaxToTypesProvider::KEY
+				=> ABNet_PostStats_StyleMetricOptions::KEY_HAPAX_TO_TYPES_BRACKET
+		);
+	}
+
 	private function _registerToggleField(string $key, string $label, string $description): void {
 		add_settings_field(
 			$key,
@@ -278,6 +307,20 @@ class ABNet_PostStats_StyleMetric_Manager {
 			array(
 				'key' => $key,
 				'label' => $label,
+				'description' => $description
+			)
+		);
+	}
+
+	private function _registerBracketField(string $key, string $label, string $description): void {
+		add_settings_field(
+			$key,
+			$label,
+			array($this, 'renderBracketField'),
+			self::PAGE_SLUG,
+			'abnet_post_stats_style_metrics_main',
+			array(
+				'key' => $key,
 				'description' => $description
 			)
 		);
@@ -324,6 +367,30 @@ class ABNet_PostStats_StyleMetric_Manager {
 			'</p>';
 	}
 
+	public function renderBracketField(array $args): void {
+		$optionKey = $args['key'] ?? '';
+		$optionName = ABNet_PostStats_StyleMetricOptions::OPTION_NAME;
+
+		$description = $args['description'] ?? '';
+
+		if (empty($optionKey)) {
+			return;
+		}
+
+		$options = $this->_getOptions()->toArray();
+		$bracket = $options[$optionKey] ?? array();
+
+		$min = is_array($bracket) && isset($bracket['min']) 
+			? (float) $bracket['min'] 
+			: 0.0;
+
+		$max = is_array($bracket) && isset($bracket['max']) 
+			? (float) $bracket['max'] 
+			: 0.0;
+
+		require ABNET_POST_STATS_VIEWS_DIR . '/settings-controls/admin-min-max-input-control.php';
+	}
+
 	public function renderNegativeWordListField(): void {
 		$options = $this->_getOptions();
 		$words = $options->getNegativeWordList() ?? array();
@@ -339,7 +406,7 @@ class ABNet_PostStats_StyleMetric_Manager {
 			'</textarea>';
 
 		echo '<p class="description">' . 
-				esc_html__('One word per line. Used by the negativity provider.', 'abnet-post-stats') . 
+				esc_html__('One word per line. Used by the negativity provider. The provider will not be used unless at least a word is provided.', 'abnet-post-stats') . 
 			'</p>';
 	}
 

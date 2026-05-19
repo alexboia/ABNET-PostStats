@@ -13,11 +13,18 @@ if (!defined('ABSPATH')) {
 
 /**
  * @see https://www.paradigma.ro/p/asl
+ * @see https://github.com/alexboia/ABNET-PostStats/blob/main/docs/average-sentence-length.md
  */
 class ABNet_PostStats_StyleMetricAverageSentenceLengthProvider implements ABNet_PostStats_StyleMetricProvider {
 	public const KEY = 'average-sentence-length';
 
 	private const DEFAULT_PRECISION = 0;
+
+	private ABNet_PostStats_StyleMetricBracket $_bracket;
+
+	public function __construct(?ABNet_PostStats_StyleMetricBracket $bracket = null) {
+		$this->_bracket = $bracket ?? ABNet_PostStats_StyleMetricBracket::unbounded();
+	}
 
 	public function compute(ABNet_PostStats_StyleSource $source): ABNet_PostStats_StyleMetric {
 		$wordCount = $source->getRawWordCount();
@@ -32,7 +39,8 @@ class ABNet_PostStats_StyleMetricAverageSentenceLengthProvider implements ABNet_
 			$this->getShortDescription(),
 			$asl, 
 			null,
-			$friendly
+			$friendly,
+			$this->_bracket
 		);
 	}
 
@@ -53,5 +61,9 @@ class ABNet_PostStats_StyleMetricAverageSentenceLengthProvider implements ABNet_
 			"ASL (Average Sentence Length) is a classic indicator of readability and clarity of expression.", 
 			'abnet-post-stats'
 		);
+	}
+
+	public function getBracket(): ABNet_PostStats_StyleMetricBracket {
+		return $this->_bracket;
 	}
 }

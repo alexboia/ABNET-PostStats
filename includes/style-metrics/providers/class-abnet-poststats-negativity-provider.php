@@ -13,6 +13,7 @@ if (!defined('ABSPATH')) {
 
 /**
  * @see https://www.paradigma.ro/p/negativitate
+ * @see https://github.com/alexboia/ABNET-PostStats/blob/main/docs/negativity.md
  */
 class ABNet_PostStats_StyleMetricNegativityProvider implements ABNet_PostStats_StyleMetricProvider {
 	public const KEY = 'negativity';
@@ -25,9 +26,13 @@ class ABNet_PostStats_StyleMetricNegativityProvider implements ABNet_PostStats_S
 
 	private array $_negativeWordList;
 
-	public function __construct(array $negativeWordList = array()) {
+	private ABNet_PostStats_StyleMetricBracket $_bracket;
+	
+	public function __construct(array $negativeWordList = array(), ?ABNet_PostStats_StyleMetricBracket $bracket = null) {
 		$negativeWordList = $negativeWordList ?: self::getDefaultNegativeWordList();
 		$this->_negativeWordList = $this->_prepareWordList($negativeWordList);
+
+		$this->_bracket = $bracket ?? ABNet_PostStats_StyleMetricBracket::unbounded();
 	}
 
 	private function _prepareWordList(array $negativeWordList): array {
@@ -79,7 +84,8 @@ class ABNet_PostStats_StyleMetricNegativityProvider implements ABNet_PostStats_S
 			$this->getShortDescription(), 
 			$negativity,
 			'%',
-			$friendly
+			$friendly,
+			$this->_bracket
 		);
 	}
 
@@ -146,5 +152,9 @@ class ABNet_PostStats_StyleMetricNegativityProvider implements ABNet_PostStats_S
 			"Negativity is a simple score that estimates the negative tone of a text by measuring the percentage of negative sentences.", 
 			'abnet-post-stats'
 		);
+	}
+
+	public function getBracket(): ABNet_PostStats_StyleMetricBracket {
+		return $this->_bracket;
 	}
 }
