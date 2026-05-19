@@ -29,6 +29,11 @@ class ABNet_PostStats_StyleInfoProvider {
 	 */
 	private ?array $_styleMetricNameMap = null;
 
+	/**
+	 * @var array<string, ABNet_PostStats_StyleMetricBracket>
+	 */
+	private ?array $_styleMetricBracketMap = null;
+
 	public function __construct(ABNet_PostStats_StyleMetricOptions $options) {
 		$this->_options = $options;
 	}
@@ -46,6 +51,22 @@ class ABNet_PostStats_StyleInfoProvider {
 		}
 
 		return $this->_styleMetricDescriptionMap[$key] ?? null;
+	}
+
+	public function getBracket(string $key): ABNet_PostStats_StyleMetricBracket {
+		if (empty($key)) {
+			return ABNet_PostStats_StyleMetricBracket::unbounded();
+		}
+
+		if ($this->_styleMetricBracketMap === null) {
+			$providers = $this->_getProviders();
+			foreach ($providers as $p) {
+				$this->_styleMetricBracketMap[$p->getKey()] = $p->getBracket();
+			}
+		}
+
+		return $this->_styleMetricBracketMap[$key]
+			?? ABNet_PostStats_StyleMetricBracket::unbounded();
 	}
 
 	public function getName(string $key) {

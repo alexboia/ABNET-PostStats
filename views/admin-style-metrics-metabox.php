@@ -16,9 +16,19 @@ if (!defined('ABSPATH')) {
 	<table id="abnet-poststats-metabox-metrics-list" class="striped abnet-poststats-metabox-metrics-list">
 		<tbody>
 			<?php foreach($styleInfo->getMetrics() as $metric): ?>
-				<tr>
-					<th class="row-title" style="width: 60%;"><?php echo esc_html($metric->getName()); ?></th>
-					<td>
+				<?php 
+					$isWithinBracket = $metric->isWithingBracket(); 
+					$bracketMarkerCssClass = $isWithinBracket 
+						? 'abnet-post-stats-metric-ok' 
+						: 'abnet-post-stats-metric-outside';
+
+					$bracketDescription = sprintf(__('Between %s and %s'), 
+						$metric->getBracket()->getMin(), 
+						$metric->getBracket()->getMax());
+				?>
+				<tr class="<?php echo esc_attr($bracketMarkerCssClass) ?>">
+					<th class="row-title" style="width: 60%;" title="<?php echo esc_attr($bracketDescription); ?>"><?php echo esc_html($metric->getName()); ?></th>
+					<td title="<?php echo esc_attr($bracketDescription); ?>">
 						<?php echo esc_html($metric->getFriendlyRepresentation()) ?>
 					</td>
 				</tr>

@@ -51,6 +51,7 @@ class ABNet_PostStats_StyleMetric_DataSource {
 				$metricKey = $row['metric_key'];
 				$metricName = $this->_styleInfoProvider->getName($metricKey);
 				$metricDescription = $this->_styleInfoProvider->getShortDescription($metricKey);
+				$bracket = $this->_styleInfoProvider->getBracket($metricKey);
 				
 				// Skip metrics where name/description lookup fails
 				if ($metricName === null || $metricDescription === null) {
@@ -63,7 +64,8 @@ class ABNet_PostStats_StyleMetric_DataSource {
 					$metricDescription,
 					(float) $row['metric_value'],
 					$row['metric_unit'],
-					$row['metric_friendly_representation']
+					$row['metric_friendly_representation'],
+					$bracket
 				);
 			}
 		} else {
@@ -287,6 +289,7 @@ class ABNet_PostStats_StyleMetric_DataSource {
 				$metricKey = $row['metric_key'];
 				$metricName = $this->_styleInfoProvider->getName($metricKey);
 				$metricDescription = $this->_styleInfoProvider->getShortDescription($metricKey);
+				$bracket = $this->_styleInfoProvider->getBracket($metricKey);
 				
 				// Skip metrics where name/description lookup fails
 				if ($metricName === null || $metricDescription === null) {
@@ -299,7 +302,8 @@ class ABNet_PostStats_StyleMetric_DataSource {
 					$metricDescription,
 					(float) $row['metric_value'],
 					$row['metric_unit'],
-					$row['metric_friendly_representation']
+					$row['metric_friendly_representation'],
+					$bracket
 				);
 			}
 		}
