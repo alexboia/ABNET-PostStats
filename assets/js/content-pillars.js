@@ -3,7 +3,7 @@
  * Handles category search, selection, and multi-select functionality
  * 
  * @package ABNet_PostStats
- * @since 1.0.0
+ * @since 1.1.0
  */
 
 (function($) {
@@ -15,7 +15,9 @@
 	var selectedCategoryIds = new Set();
 	
 	// DOM elements
-	var categorySearch, categoryDropdown, selectedCategories;
+	var categorySearch = null, 
+		categoryDropdown = null, 
+		selectedCategories = null;
 	
 	/**
 	 * Initialize the content pillars functionality
@@ -105,8 +107,8 @@
 		
 		var filteredCategories = categories.filter(function(category) {
 			var categoryName = removeDiacritics(category.name.toLowerCase());
-			return categoryName.includes(searchTerm) && 
-				   !selectedCategoryIds.has(category.id);
+			return categoryName.includes(searchTerm) 
+				&& !selectedCategoryIds.has(category.id);
 		});
 		
 		showCategoryDropdown(filteredCategories);
@@ -119,13 +121,17 @@
 	function handleCategorySelection(e) {
 		if (e.target.classList.contains('category-option')) {
 			var categoryId = parseInt(e.target.dataset.categoryId);
-			var categoryName = e.target.dataset.categoryName || 
-							   e.target.textContent.replace(/\s*\(\d+\)\s*$/, '').trim();
+			var categoryName = getSelectedCategoryName(e);
 			
 			addSelectedCategory(categoryId, categoryName);
 			categorySearch.value = '';
 			categoryDropdown.style.display = 'none';
 		}
+	}
+
+	function getSelectedCategoryName(e) {
+		return e.target.dataset.categoryName 
+			|| e.target.textContent.replace(/\s*\(\d+\)\s*$/, '').trim()
 	}
 	
 	/**
@@ -149,19 +155,30 @@
 		var availableMostUsed = mostUsedCategories.filter(function(category) {
 			return !selectedCategoryIds.has(category.id);
 		});
-		
+
 		if (availableMostUsed.length > 0) {
-			categoryDropdown.innerHTML = '<div class="category-section-header">Most Used Categories</div>' +
-				availableMostUsed.map(function(category) {
-					return '<div class="category-option" data-category-id="' + category.id + 
-						   '" data-category-name="' + escapeHtml(category.name) + '">' + 
-						   escapeHtml(category.name) + ' <span class="category-count">(' + 
-						   category.count + ')</span></div>';
-				}).join('');
+			categoryDropdown.innerHTML = renderMostUsedCategoryDropdownContents(availableMostUsed);
 			categoryDropdown.style.display = 'block';
 		} else {
 			categoryDropdown.style.display = 'none';
 		}
+	}
+
+	function renderMostUsedCategoryDropdownContents(availableMostUsed) {
+		return [
+			'<div class="category-section-header">' + window.abnetContentPillars?.strings?.mostUsedCategoriesTitle + '</div>',
+				availableMostUsed.map(renderMostUsedCategory).join(''),
+			'</div>'
+		].join('');
+	}
+
+	function renderMostUsedCategory(category) {
+		return [
+			'<div class="category-option" data-category-id="' + category.id +  '" data-category-name="' + escapeHtml(category.name) + '">',
+				escapeHtml(category.name),
+				'<span class="category-count">(' + category.count + ')',
+			'</div>'
+		].join('');
 	}
 	
 	/**
@@ -170,15 +187,22 @@
 	 */
 	function showCategoryDropdown(filteredCategories) {
 		if (filteredCategories.length > 0) {
-			categoryDropdown.innerHTML = filteredCategories.map(function(category) {
-				return '<div class="category-option" data-category-id="' + category.id + 
-					   '" data-category-name="' + escapeHtml(category.name) + '">' + 
-					   escapeHtml(category.name) + '</div>';
-			}).join('');
+			categoryDropdown.innerHTML = filteredCategories
+				.map(renderCategoryDropdownOption)
+				.join('');
+
 			categoryDropdown.style.display = 'block';
 		} else {
 			categoryDropdown.style.display = 'none';
 		}
+	}
+
+	function renderCategoryDropdownOption(category) {
+		return [
+			'<div class="category-option" data-category-id="' + category.id + '" data-category-name="' + escapeHtml(category.name) + '">',
+				escapeHtml(category.name),
+			'</div>'
+		].join('');
 	}
 	
 	/**
@@ -192,11 +216,17 @@
 		var categorySpan = document.createElement('span');
 		categorySpan.className = 'selected-category';
 		categorySpan.dataset.categoryId = categoryId;
-		categorySpan.innerHTML = escapeHtml(categoryName) + 
-			'<span class="remove-category">&times;</span>' +
-			'<input type="hidden" name="category_ids[]" value="' + categoryId + '">';
+		categorySpan.innerHTML = renderSelectedCategory(categoryId, categoryName);
 		
 		selectedCategories.appendChild(categorySpan);
+	}
+
+	function renderSelectedCategory(categoryId, categoryName) {
+		return [
+			escapeHtml(categoryName),
+			'<span class="remove-category">&times;</span>',
+			'<input type="hidden" name="category_ids[]" value="' + categoryId + '">'
+		].join('');
 	}
 	
 	/**
@@ -213,7 +243,8 @@
 	 */
 	function clearAllCategories() {
 		// Get confirmation message from localized strings
-		var confirmMessage = window.abnetContentPillars?.strings?.confirmClearAll || 'Are you sure you want to remove all selected categories?';
+		var confirmMessage = window.abnetContentPillars?.strings?.confirmClearAll 
+			|| 'Are you sure you want to remove all selected categories?';
 		
 		// Confirm action
 		if (!confirm(confirmMessage)) {

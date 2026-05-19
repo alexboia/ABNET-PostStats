@@ -74,9 +74,7 @@ class ABNet_PostStats_ContentPillar_Manager {
 			'number' => 10
 		));
 
-		$translatedStrings = array(
-			'confirmClearAll' => __('Are you sure you want to remove all selected categories?', 'abnet-post-stats')
-		);
+		$translatedStrings = $this->_getTranslatedStrings();
 		
 		$localizeData = array(
 			'categories' => array_map(function($cat) {
@@ -103,6 +101,15 @@ class ABNet_PostStats_ContentPillar_Manager {
 		);
 	}
 
+	private function _getTranslatedStrings() {
+		return  array(
+			'confirmClearAll' 
+				=> __('Are you sure you want to remove all selected categories?', 'abnet-post-stats'),
+			'mostUsedCategoriesTitle' 
+				=> __('Most Used Categories', 'abnet-post-stats')
+		);
+	}
+
 	public function setupMenu(): void {
 		$optionsTitle = __('Condei Simple Post Stats - Content Pillars Definitions', 
 			'abnet-post-stats');
@@ -121,9 +128,7 @@ class ABNet_PostStats_ContentPillar_Manager {
 		$messageType = '';
 		
 		// Process form submissions
-		if (!empty($_SERVER['REQUEST_METHOD']) &&
-			$_SERVER['REQUEST_METHOD'] === 'POST' && 
-			isset($_POST['abnet_content_pillar_nonce'])) {
+		if ($this->_isContentPillarFormSubmitted()) {
 			$result = $this->_processContentPillarForm();
 			$message = $result['message'];
 			$messageType = $result['type'];
@@ -144,13 +149,28 @@ class ABNet_PostStats_ContentPillar_Manager {
 		));
 		
 		// Get editing pillar if edit mode
-		$editingPillar = null;
-		if (isset($_GET['edit']) && is_numeric($_GET['edit'])) {
-			$editingPillar = $this->_contentPillarDataSource->getContentPillarById(intval($_GET['edit']));
-		}
-		
-		// Include the view
+		$editingPillar = $this->_getContentPillarToEditFromHttpGet();
+
 		require ABNET_POST_STATS_VIEWS_DIR . '/admin-content-pillars.php';
+	}
+
+	private function _isContentPillarFormSubmitted(): bool {
+		return !empty($_SERVER['REQUEST_METHOD']) 
+			&& strtoupper($_SERVER['REQUEST_METHOD']) === 'POST' 
+			&& isset($_POST['abnet_content_pillar_nonce']);
+	}
+
+	private function _getContentPillarToEditFromHttpGet(): ?ABNet_PostStats_ContentPillar {
+		$editingPillar = null;
+
+		if (isset($_GET['edit']) && is_numeric($_GET['edit'])) {
+			$editPillarId = intval($_GET['edit']);
+			if ($editPillarId > 0) {
+				$editingPillar = $this->_contentPillarDataSource->getContentPillarById($editPillarId);
+			}
+		}
+
+		return $editingPillar;
 	}
 
 	private function _processContentPillarForm(): array {
