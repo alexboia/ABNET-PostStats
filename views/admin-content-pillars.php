@@ -20,7 +20,7 @@ if (!defined('ABSPATH')) {
 }
 ?>
 
-<div class="wrap">
+<div class="wrap abnet-poststats-wrap">
 	<h1><?php _e('Condei Simple Post Stats - Content Pillars Definitions', 'abnet-post-stats'); ?></h1>
 	
 	<?php if ($message): ?>

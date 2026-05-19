@@ -111,6 +111,7 @@ if (!defined('ABSPATH')) {
 					value="yes" 
 					<?php echo $showByDefaultChecked ? 'checked="checked"' : ''; ?>
 				/>
+				<p class="description"><?php _e('Whether the dashboard chart widgets are automatically displayed on the WP Admin dashboard. Unchecking this will require you add them manually using the standard dashboard configuration panel.', 'abnet-post-stats'); ?></p>
 			</td>
 		</tr>
 	</table>
