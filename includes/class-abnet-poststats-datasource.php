@@ -36,7 +36,8 @@ class ABNet_PostStats_DataSource {
 			LIMIT %d", 
 			$limit, 
 			$limit);
-		
+
+		/* phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- $sql is prepared immediately above. */
 		$rawResults = $wpdb->get_results($sql, ARRAY_A);
 
 		$normalizedResults = array();
@@ -93,7 +94,8 @@ class ABNet_PostStats_DataSource {
 			$limit, 
 			$limit
 		);
-	
+
+		/* phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- $sql is prepared immediately above. */
 		$rawResults = $wpdb->get_results($sql, ARRAY_A);
 
 		$normalizedResults = array();
@@ -144,12 +146,14 @@ class ABNet_PostStats_DataSource {
 			);
 		}
 		
-		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 		$categoryIdsPlaceholder = implode(',', 
 			array_fill(0, 
 				count($categoryIds), 
 				'%d')
 		);
+		
+		/* phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $categoryIdsPlaceholder is a dynamically built list of placeholders. */
+		/* phpcs:disable WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber -- Placeholders and values are dynamically built. */
 		
 		$sql = $wpdb->prepare(
 			"SELECT 
@@ -169,8 +173,10 @@ class ABNet_PostStats_DataSource {
 			array_merge(array($limit), $categoryIds, array($limit))
 		);
 
-		// phpcs:enable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-		
+		/* phpcs:enable WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber */
+		/* phpcs:enable WordPress.DB.PreparedSQL.InterpolatedNotPrepared */
+
+		/* phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- $sql is prepared immediately above. */
 		$rawResults = $wpdb->get_results($sql, ARRAY_A);
 
 		$normalizedResults = array();
@@ -226,6 +232,9 @@ class ABNet_PostStats_DataSource {
 			count($categoryIds), 
 			'%d'));
 		
+		/* phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $categoryIdsPlaceholder is a dynamically built list of placeholders. */
+		/* phpcs:disable WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber -- Placeholders and values are dynamically built. */
+
 		$sql = $wpdb->prepare(
 			"SELECT 
 				YEAR(p.post_date) as year_key,
@@ -243,7 +252,11 @@ class ABNet_PostStats_DataSource {
 			LIMIT %d", 
 			array_merge(array($limit), $categoryIds, array($limit))
 		);
+
+		/* phpcs:enable WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber */
+		/* phpcs:enable WordPress.DB.PreparedSQL.InterpolatedNotPrepared */
 		
+		/* phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- $sql is prepared immediately above. */
 		$rawResults = $wpdb->get_results($sql, ARRAY_A);
 
 		$normalizedResults = array();

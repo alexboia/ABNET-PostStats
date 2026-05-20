@@ -1,8 +1,8 @@
 === Condei Simple Post Stats for WordPress ===
 Contributors: alexboia
 Tags: statistics, analytics, content analysis, stylometrics, readability, post stats, writing analysis
-Requires at least: 5.0
-Tested up to: 6.4
+Requires at least: 6.2
+Tested up to: 6.9
 Requires PHP: 8.0
 Stable tag: 1.1.0
 License: GPL-v2

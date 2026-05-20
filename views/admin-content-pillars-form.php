@@ -54,7 +54,9 @@ if (!defined('ABSPATH')) {
 				<input type="color" 
 					id="pillar_color" 
 					name="pillar_color" 
-					value="<?php echo $editingPillar ? esc_attr($editingPillar->getColor()) : ABNET_POST_STATS_DEFAULT_CHART_COLOR; ?>" 
+					value="<?php echo $editingPillar 
+						? esc_attr($editingPillar->getColor()) 
+						: esc_attr(ABNET_POST_STATS_DEFAULT_CHART_COLOR); ?>" 
 					class="color-picker" 
 				/>
 				<p class="description"><?php esc_html_e('Choose the color for this content pillar\'s charts and statistics.', 'abnet-post-stats'); ?></p>

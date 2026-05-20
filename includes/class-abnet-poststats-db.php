@@ -45,28 +45,29 @@ class ABNet_PostStats_Db {
 		);
 	}
 
-	private function _ensureColumn(string $tableName, string $columnName, bool $defIfNotExists): void {
+	private function _ensureColumn(string $tableName, string $columnName, string $defIfNotExists): void {
 		/**
 		 * @var \wpdb $wpdb
 		 */
 		global $wpdb;
 		
-		// Check if color column exists
+		// Check if column exists
 		$columnExists = $wpdb->get_var($wpdb->prepare("
 			SELECT COLUMN_NAME 
 			FROM INFORMATION_SCHEMA.COLUMNS 
 			WHERE TABLE_SCHEMA = %s 
 			AND TABLE_NAME = %s 
-			AND COLUMN_NAME = '$columnName'
-		", DB_NAME, $tableName));
+			AND COLUMN_NAME = %s
+		", DB_NAME, $tableName, $columnName));
 		
-		// Add color column if it doesn't exist
 		if (!$columnExists) {
-			$wpdb->query("
-				ALTER TABLE $tableName 
-				ADD COLUMN $defIfNotExists
-				AFTER content_pillar_definition
-			");
+			/* phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $defIfNotExists is statically passed by callers in this class. */
+			$wpdb->query($wpdb->prepare(
+				"ALTER TABLE %i ADD COLUMN %i $defIfNotExists", 
+				$tableName, 
+				$columnName 
+			));
+			/* phpcs:enable WordPress.DB.PreparedSQL.InterpolatedNotPrepared */
 		}
 	}
 

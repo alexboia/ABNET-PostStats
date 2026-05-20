@@ -28,7 +28,7 @@ class ABNet_PostStats_ContentPillar_DataSource {
 		$tableName = $this->_getTableName();
 		
 		$dbRows = $wpdb->get_results(
-			"SELECT * FROM $tableName ORDER BY content_pillar_name ASC",
+			$wpdb->prepare("SELECT * FROM %i ORDER BY content_pillar_name ASC", $tableName),
 			ARRAY_A
 		);
 		
@@ -50,7 +50,7 @@ class ABNet_PostStats_ContentPillar_DataSource {
 		$tableName = $this->_getTableName();
 		
 		$dbRow = $wpdb->get_row(
-			$wpdb->prepare("SELECT * FROM $tableName WHERE content_pillar_id = %d", $id),
+			$wpdb->prepare("SELECT * FROM %i WHERE content_pillar_id = %d", $tableName, $id),
 			ARRAY_A
 		);
 		
@@ -146,6 +146,7 @@ class ABNet_PostStats_ContentPillar_DataSource {
 			$params[] = $excludeId;
 		}
 		
+		/* phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- False positive: $wpdb->prepare() is actually called with $sql parameter. */
 		$count = $wpdb->get_var($wpdb->prepare($sql, $params));
 		return intval($count) > 0;
 	}
