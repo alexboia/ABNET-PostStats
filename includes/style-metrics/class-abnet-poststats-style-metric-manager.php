@@ -110,6 +110,11 @@ class ABNet_PostStats_StyleMetric_Manager {
 
 	private function _getSupportedPostTypes(): array {
 		$defaultPostTypes = array('post', 'page');		
+		/**
+		 * Filters the post types that should display the style metrics metabox.
+		 *
+		 * @param string[] $defaultPostTypes Default supported post types.
+		 */
 		$postTypes = apply_filters('abnet_poststats_enable_style_metrics_post_types', $defaultPostTypes);
 		
 		if (empty($postTypes) || !is_array($postTypes)) {
@@ -122,6 +127,12 @@ class ABNet_PostStats_StyleMetric_Manager {
 	private function _getMetaboxTitle(string $postType): string {
 		$defaultTitle = __('Condei Style Metrics', 'abnet-post-stats');
 		
+		/**
+		 * Filters the style metrics metabox title for a given post type.
+		 *
+		 * @param string $defaultTitle Default metabox title.
+		 * @param string $postType Current post type.
+		 */
 		$title = apply_filters('abnet_poststats_style_metrics_metabox_title', 
 			$defaultTitle, 
 			$postType);
@@ -134,6 +145,12 @@ class ABNet_PostStats_StyleMetric_Manager {
 	}
 
 	private function _getInitialMetaboxContext(string $postType): string {
+		/**
+		 * Filters the metabox context used for the style metrics metabox.
+		 *
+		 * @param string $context Default metabox context.
+		 * @param string $postType Current post type.
+		 */
 		$context = apply_filters('abnet_poststats_style_metrics_metabox_context', 
 			$this->_defaultMetaboxContext, 
 			$postType
@@ -169,8 +186,24 @@ class ABNet_PostStats_StyleMetric_Manager {
 
 	private function _computeStyleInfo(\WP_Post $post): ABNet_PostStats_StyleInfo {
 		$postId = intval($post->ID);
+
+		/**
+		 * Filters the post content used as the source for style metric computation.
+		 *
+		 * @param string $postContent Raw post content that will be analyzed.
+		 * @param WP_Post $post Current post instance.
+		 * @param ABNet_PostStats_StyleMetricOptions $options Current style metric options.
+		 */
+		$postContent = apply_filters('abnet_poststats_style_metrics_source_content', 
+			$post->post_content, 
+			$post,
+			$this->_getOptions());
+
+		if (empty($postContent)) {
+			$postContent = $post->post_content;
+		}
 		
-		$styleSource = new ABNet_PostStats_StyleSource($post->post_content);
+		$styleSource = new ABNet_PostStats_StyleSource($postContent);
 		$styleInfoProvider = $this->_getStyleInfoProvider();
 		
 		$info = $styleInfoProvider->calculateStyleInfo($styleSource);
@@ -198,7 +231,23 @@ class ABNet_PostStats_StyleMetric_Manager {
 
 		$post = get_post($usePostId);
 		if (!!$post) {
-			$this->_computeStyleInfo($post);
+			/**
+			 * Filters whether style metrics should be recomputed for a saved post.
+			 *
+			 * @param bool $shouldRecomputeMetrics Whether recomputation should proceed.
+			 * @param WP_Post $post Current post instance.
+			 * @param ABNet_PostStats_StyleMetricOptions $options Current style metric options.
+			 */
+			$shouldRecomputeMetrics = apply_filters('abnet_poststats_should_recompute_style_metrics', 
+				true,
+				$post,
+				$this->_getOptions());
+
+			if ($shouldRecomputeMetrics === true) {
+				$this->_computeStyleInfo($post);
+			} else {
+				error_log('[DEBUG] Recompute disabled via action hook.');
+			}			
 		} else {
 			error_log('[DEBUG] Post not found. Style metrics did not recompute on save.');
 		}
@@ -244,6 +293,20 @@ class ABNet_PostStats_StyleMetric_Manager {
 					$genericBracketDescription
 				);
 			}
+
+			/**
+			 * Fires when third parties can register additional style metric settings fields.
+			 *
+			 * @param string $pageSlug Settings page slug.
+			 * @param string $settingsGroup Settings API group name.
+			 * @param ABNet_PostStats_StyleMetricOptions $options Current style metric options.
+			 * @param ABNet_PostStats_StyleMetric_Manager $manager Current manager instance.
+			 */
+			do_action('abnet_poststats_register_style_metric_settings_fields', 
+				self::PAGE_SLUG,
+				self::SETTINGS_GROUP,
+				$this->_getOptions(),
+				$this);
 		}
 
 		add_settings_field(

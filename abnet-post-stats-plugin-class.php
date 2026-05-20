@@ -49,6 +49,9 @@ class ABNet_PostStats {
 
 		$this->_createTables();
 		$this->_migrateTables();
+		/**
+		 * Fires after the plugin activation routine finishes creating and migrating tables.
+		 */
 		do_action('abnet_post_stats_activated');
 	}
 

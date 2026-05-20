@@ -61,6 +61,11 @@ class ABNet_PostStats_Feature {
 			}
 		}
 
+		/**
+		 * Fires before a feature's PHP files are loaded.
+		 *
+		 * Dynamic hook name: `abnet_poststats_before_feature_setup_{$featureId}`.
+		 */
 		do_action('abnet_poststats_before_feature_setup_' . $this->_featureId);
 
 		// Include all files
@@ -68,6 +73,11 @@ class ABNet_PostStats_Feature {
 			require_once $file;
 		}
 
+		/**
+		 * Fires after a feature's PHP files have been loaded.
+		 *
+		 * Dynamic hook name: `abnet_poststats_after_feature_setup_{$featureId}`.
+		 */
 		do_action('abnet_poststats_after_feature_setup_' . $this->_featureId);
 	}
 

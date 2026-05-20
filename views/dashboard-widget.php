@@ -19,6 +19,12 @@ if (!defined('ABSPATH')) {
  * @var bool $showSummary Whether to show the summary stats, can be filtered
  */
 
+/**
+ * Filters the maximum bar height used when rendering the dashboard widget chart.
+ *
+ * @param int $maxHeight Maximum bar height in pixels.
+ * @param ABNet_PostStats_Result $data Dataset rendered by the widget.
+ */
 $maxHeight = apply_filters('abnet_posts_stats_max_bar_height', 
 	ABNET_POST_STATS_DEFAULT_MAX_BAR_HEIGHT, 
 	$data);
@@ -27,11 +33,23 @@ if ($maxHeight <= 0) {
 	$maxHeight = ABNET_POST_STATS_DEFAULT_MAX_BAR_HEIGHT;
 }
 
+/**
+ * Filters whether the dashboard widget title should be displayed.
+ *
+ * @param bool $showTitle Whether to show the title.
+ * @param ABNet_PostStats_Result $data Dataset rendered by the widget.
+ */
 $showTitle = apply_filters('abnet_posts_stats_show_widget_title', 
 	ABNET_POST_STATS_DEFAULT_SHOW_TITLE, 
 	$data) 
 	=== true; 
 
+/**
+ * Filters whether the dashboard widget summary section should be displayed.
+ *
+ * @param bool $showSummary Whether to show summary statistics.
+ * @param ABNet_PostStats_Result $data Dataset rendered by the widget.
+ */
 $showSummary = apply_filters('abnet_posts_stats_show_widget_summary', 
 	ABNET_POST_STATS_DEFAULT_SHOW_SUMMARY, 
 	$data)
@@ -54,11 +72,25 @@ $showSummary = apply_filters('abnet_posts_stats_show_widget_summary',
 						? ($item->getValue() / $data->getMaxValue()) * $maxHeight 
 						: 0;
 
+					/**
+					 * Filters the computed bar height for a single chart item.
+					 *
+					 * @param float|int $height Computed item bar height in pixels.
+					 * @param ABNet_PostStats_Item $item Current chart item.
+					 * @param ABNet_PostStats_Result $data Dataset rendered by the widget.
+					 */
 					$height = apply_filters('abnet_posts_stats_item_bar_height', 
 						$defaultItemHeight, 
 						$item, 
 						$data);
 
+					/**
+					 * Filters the bar color for a single chart item.
+					 *
+					 * @param string $color Current bar color.
+					 * @param ABNet_PostStats_Item $item Current chart item.
+					 * @param ABNet_PostStats_Result $data Dataset rendered by the widget.
+					 */
 					$color = apply_filters('abnet_post_stats_item_bar_color', 
 						$item->getBarColor(), 
 						$item, 

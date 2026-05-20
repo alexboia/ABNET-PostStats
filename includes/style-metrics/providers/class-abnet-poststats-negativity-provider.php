@@ -43,6 +43,11 @@ class ABNet_PostStats_StyleMetricNegativityProvider implements ABNet_PostStats_S
 
 	public static function getDefaultNegativeWordList(): array {
 		$defaultList = self::getDefaultNegativeWordListRo();
+		/**
+		 * Filters the default negative word list used when no explicit list is configured.
+		 *
+		 * @param string[] $defaultList Default negative word list.
+		 */
 		return apply_filters('abnet_posts_stats_default_negative_word_list', $defaultList);
 	}
 
