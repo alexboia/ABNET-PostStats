@@ -31,13 +31,13 @@
 
 <p align="center">
    <img align="center" src="https://github.com/alexboia/ABNET-PostStats/blob/main/screenshots/abnet-post-stats.png?raw=true" style="margin-bottom: 20px; margin-right: 20px;" />
-   <br />
+   
    <img align="center" src="https://github.com/alexboia/ABNET-PostStats/blob/main/screenshots/abnet-content-pillar-post-stats.png?raw=true" style="margin-bottom: 20px; margin-right: 20px;" />
-   <br />
+   
    <img align="center" src="https://github.com/alexboia/ABNET-PostStats/blob/main/screenshots/content-pillars.png?raw=true" style="margin-bottom: 20px; margin-right: 20px;" />
-   <br />
+   
    <img align="center" src="https://github.com/alexboia/ABNET-PostStats/blob/main/screenshots/syle-metrics-post-editor.png?raw=true" style="margin-bottom: 20px; margin-right: 20px;" />
-   <br />
+   
    <img align="center" src="https://github.com/alexboia/ABNET-PostStats/blob/main/screenshots/style-metrics-settings.png?raw=true" style="margin-bottom: 20px; margin-right: 20px;" />
 </p>
 
