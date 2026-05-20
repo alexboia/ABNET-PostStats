@@ -29,17 +29,15 @@
 
 ## Screenshots
 
-<p align="center">
-   <img align="center" src="https://github.com/alexboia/ABNET-PostStats/blob/main/screenshots/abnet-post-stats.png?raw=true" style="margin-bottom: 20px; margin-right: 20px;" />
-   
-   <img align="center" src="https://github.com/alexboia/ABNET-PostStats/blob/main/screenshots/abnet-content-pillar-post-stats.png?raw=true" style="margin-bottom: 20px; margin-right: 20px;" />
-   
-   <img align="center" src="https://github.com/alexboia/ABNET-PostStats/blob/main/screenshots/content-pillars.png?raw=true" style="margin-bottom: 20px; margin-right: 20px;" />
-   
-   <img align="center" src="https://github.com/alexboia/ABNET-PostStats/blob/main/screenshots/syle-metrics-post-editor.png?raw=true" style="margin-bottom: 20px; margin-right: 20px;" />
-   
-   <img align="center" src="https://github.com/alexboia/ABNET-PostStats/blob/main/screenshots/style-metrics-settings.png?raw=true" style="margin-bottom: 20px; margin-right: 20px;" />
-</p>
+![Dashboard - default statistics](screenshots/abnet-post-stats.png)
+
+![Dashboard - custom content pillar statistics](screenshots/abnet-content-pillar-post-stats.png)
+
+![Dashboard - custom content pillar management](screenshots/content-pillars.png)
+
+![Dashboard - style metrics on post editor page](screenshots/style-metrics-post-editor.png)
+
+![Dashboard - style metric settings](screenshots/style-metrics-settings.png)
 
 ## Install
 
