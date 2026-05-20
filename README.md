@@ -25,8 +25,9 @@
    - [Punctuation](https://github.com/alexboia/ABNET-PostStats/blob/main/docs/punctuation.md);
    - [Shannon Entryopy](https://github.com/alexboia/ABNET-PostStats/blob/main/docs/shannon-entropy.md);
    - [Yule's K](https://github.com/alexboia/ABNET-PostStats/blob/main/docs/yuk.md).
-- Lightweight and fast performance
-- Clean and intuitive interface
+- Lightweight and fast performance;
+- Clean and intuitive interface;
+- Available languages: `English` (default) and `Romanian`.
 
 ## Some thoughts
 
@@ -60,6 +61,10 @@ That is why the plugin supports preferred ranges. I do not treat them as univers
 Condei Simple Post Stats is free. It may also be the first step in a broader suite of WordPress tools for people who still care about composing text.
 
 The goal is modest: fewer distractions, better editorial awareness, and a writing environment that treats the author as an author, not as a block arrangement technician.
+
+## Credits
+
+For the style metrics part I shameless plugged the idea from Victor's [Paradigma project](https://www.paradigma.ro).
 
 ## Screenshots
 
