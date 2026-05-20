@@ -5,7 +5,7 @@
 <h1 align="center">Condei Simple Post Stats for WordPress</h1>
 
 <p align="center">
-   A WordPress plugin for displaying simple content creation statistics. Initially built for usage on my own website: https://alexboia.net/.
+   A WordPress plugin for displaying simple content creation statistics, while also handling stylometry markers. Initially built for usage on my own website: https://alexboia.net/.
    See features below.
 </p>
 
