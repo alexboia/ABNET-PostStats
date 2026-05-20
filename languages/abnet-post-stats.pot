@@ -1,0 +1,360 @@
+# Copyright (C) 2026 S.C. MyClar Software Solutions S.R.L.
+# This file is distributed under the GPL v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Condei Simple Post Stats for WordPress 1.1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/abnet-post-stats\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-05-20T13:12:21+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: abnet-post-stats\n"
+
+#. Plugin Name of the plugin
+#: abnet-post-stats.php
+msgid "Condei Simple Post Stats for WordPress"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: abnet-post-stats.php
+msgid "https://github.com/alexboia/ABNET-PostStats"
+msgstr ""
+
+#. Description of the plugin
+#: abnet-post-stats.php
+msgid "A WordPress plugin for displaying simple content creation statistics. Part of the Condei plug-in suite."
+msgstr ""
+
+#. Author of the plugin
+#: abnet-post-stats.php
+msgid "S.C. MyClar Software Solutions S.R.L."
+msgstr ""
+
+#. Author URI of the plugin
+#: abnet-post-stats.php
+msgid "https://alexboia.net"
+msgstr ""
+
+#: includes/class-abnet-poststats-datasource.php:66
+msgid "Post Counts Per Month"
+msgstr ""
+
+#: includes/class-abnet-poststats-datasource.php:119
+msgid "Post Counts Per Year"
+msgstr ""
+
+#: includes/class-abnet-poststats-datasource.php:136
+#: includes/class-abnet-poststats-widget-manager.php:122
+#, php-format
+msgid "Posts in %s (Monthly)"
+msgstr ""
+
+#: includes/class-abnet-poststats-datasource.php:205
+#: includes/class-abnet-poststats-widget-manager.php:131
+#, php-format
+msgid "Posts in %s (Yearly)"
+msgstr ""
+
+#: includes/class-abnet-poststats-widget-manager.php:49
+msgid "Post Statistics per Month"
+msgstr ""
+
+#: includes/class-abnet-poststats-widget-manager.php:55
+msgid "Post Statistics per Year"
+msgstr ""
+
+#: includes/content-pillars/class-abnet-poststas-content-pillar-manager.php:110
+msgid "Are you sure you want to remove all selected categories?"
+msgstr ""
+
+#: includes/content-pillars/class-abnet-poststas-content-pillar-manager.php:112
+msgid "Most Used Categories"
+msgstr ""
+
+#: includes/content-pillars/class-abnet-poststas-content-pillar-manager.php:117
+#: views/admin-content-pillars.php:24
+msgid "Condei Simple Post Stats - Content Pillars Definitions"
+msgstr ""
+
+#: includes/content-pillars/class-abnet-poststas-content-pillar-manager.php:190
+msgid "Security check failed."
+msgstr ""
+
+#: includes/content-pillars/class-abnet-poststas-content-pillar-manager.php:205
+msgid "Invalid action."
+msgstr ""
+
+#: includes/content-pillars/class-abnet-poststas-content-pillar-manager.php:219
+#: includes/content-pillars/class-abnet-poststas-content-pillar-manager.php:263
+msgid "Content pillar name is required."
+msgstr ""
+
+#: includes/content-pillars/class-abnet-poststas-content-pillar-manager.php:226
+#: includes/content-pillars/class-abnet-poststas-content-pillar-manager.php:270
+msgid "At least one category must be selected."
+msgstr ""
+
+#: includes/content-pillars/class-abnet-poststas-content-pillar-manager.php:233
+#: includes/content-pillars/class-abnet-poststas-content-pillar-manager.php:277
+msgid "A content pillar with this name already exists."
+msgstr ""
+
+#: includes/content-pillars/class-abnet-poststas-content-pillar-manager.php:247
+msgid "Content pillar created successfully."
+msgstr ""
+
+#: includes/content-pillars/class-abnet-poststas-content-pillar-manager.php:252
+msgid "Failed to create content pillar."
+msgstr ""
+
+#: includes/content-pillars/class-abnet-poststas-content-pillar-manager.php:292
+msgid "Content pillar updated successfully."
+msgstr ""
+
+#: includes/content-pillars/class-abnet-poststas-content-pillar-manager.php:297
+msgid "Failed to update content pillar."
+msgstr ""
+
+#: includes/content-pillars/class-abnet-poststas-content-pillar-manager.php:309
+msgid "Content pillar deleted successfully."
+msgstr ""
+
+#: includes/content-pillars/class-abnet-poststas-content-pillar-manager.php:314
+msgid "Failed to delete content pillar."
+msgstr ""
+
+#: includes/style-metrics/class-abnet-poststats-style-metric-manager.php:77
+#: views/admin-style-metrics-settings-page.php:19
+msgid "Condei Simple Post Stats - Style Metrics"
+msgstr ""
+
+#: includes/style-metrics/class-abnet-poststats-style-metric-manager.php:128
+msgid "Condei Style Metrics"
+msgstr ""
+
+#: includes/style-metrics/class-abnet-poststats-style-metric-manager.php:269
+msgid "Metric Providers"
+msgstr ""
+
+#: includes/style-metrics/class-abnet-poststats-style-metric-manager.php:287
+msgid "Controls the minimum and maximum expected values used to evaluate this metric."
+msgstr ""
+
+#: includes/style-metrics/class-abnet-poststats-style-metric-manager.php:292
+#, php-format
+msgid "%s bracket"
+msgstr ""
+
+#: includes/style-metrics/class-abnet-poststats-style-metric-manager.php:314
+msgid "Yule's K multiplier"
+msgstr ""
+
+#: includes/style-metrics/class-abnet-poststats-style-metric-manager.php:322
+msgid "Negative word list"
+msgstr ""
+
+#: includes/style-metrics/class-abnet-poststats-style-metric-manager.php:368
+msgid "Choose which style metrics are computed and tune provider-specific values."
+msgstr ""
+
+#: includes/style-metrics/class-abnet-poststats-style-metric-manager.php:402
+msgid "Used by the Yule's K provider. Must be a positive integer."
+msgstr ""
+
+#: includes/style-metrics/class-abnet-poststats-style-metric-manager.php:451
+msgid "One word per line. Used by the negativity provider. The provider will use default English negative word list if nothing entered here."
+msgstr ""
+
+#: includes/style-metrics/providers/class-abnet-poststats-asl-provider.php:56
+msgid "Average Sentence Length"
+msgstr ""
+
+#: includes/style-metrics/providers/class-abnet-poststats-asl-provider.php:60
+msgid "ASL (Average Sentence Length) is a classic indicator of readability and clarity of expression."
+msgstr ""
+
+#: includes/style-metrics/providers/class-abnet-poststats-entropy-provider.php:69
+msgid "Shannon's Entropy"
+msgstr ""
+
+#: includes/style-metrics/providers/class-abnet-poststats-entropy-provider.php:73
+msgid "In stylometry, entropy measures the diversity and unpredictability of the language used in a text. It indicates how much new information each unit (word or character) brings and how predictable their distribution is."
+msgstr ""
+
+#: includes/style-metrics/providers/class-abnet-poststats-hapax-to-types-provider.php:67
+msgid "Hapax to Types Ratio"
+msgstr ""
+
+#: includes/style-metrics/providers/class-abnet-poststats-hapax-to-types-provider.php:71
+msgid "In linguistics and stylometry, hapax legomena are words that appear only once in a text."
+msgstr ""
+
+#: includes/style-metrics/providers/class-abnet-poststats-lix-provider.php:79
+msgid "LIX Score"
+msgstr ""
+
+#: includes/style-metrics/providers/class-abnet-poststats-lix-provider.php:83
+msgid "The LIX score is a simple formula for measuring the degree of difficulty of a written text."
+msgstr ""
+
+#: includes/style-metrics/providers/class-abnet-poststats-negativity-provider.php:157
+msgid "Negativity"
+msgstr ""
+
+#: includes/style-metrics/providers/class-abnet-poststats-negativity-provider.php:161
+msgid "Negativity is a simple score that estimates the negative tone of a text by measuring the percentage of negative sentences."
+msgstr ""
+
+#: includes/style-metrics/providers/class-abnet-poststats-punctuation-provider.php:58
+msgid "Punctuation"
+msgstr ""
+
+#: includes/style-metrics/providers/class-abnet-poststats-punctuation-provider.php:62
+msgid "The Punctuation indicator measures the frequency of punctuation marks in a text and reflects the writing style, rhythm, and complexity of the sentences used by the author."
+msgstr ""
+
+#: includes/style-metrics/providers/class-abnet-poststats-yuk-provider.php:95
+msgid "Yule's K"
+msgstr ""
+
+#: includes/style-metrics/providers/class-abnet-poststats-yuk-provider.php:99
+msgid "Yule's K is a stylometric index that measures the richness of vocabulary in a text."
+msgstr ""
+
+#: views/admin-content-pillars-form.php:36
+msgid "Content Pillar Name"
+msgstr ""
+
+#: views/admin-content-pillars-form.php:46
+msgid "Enter a unique name for this content pillar."
+msgstr ""
+
+#: views/admin-content-pillars-form.php:51
+msgid "Chart Color"
+msgstr ""
+
+#: views/admin-content-pillars-form.php:60
+msgid "Choose the color for this content pillar's charts and statistics."
+msgstr ""
+
+#: views/admin-content-pillars-form.php:65
+#: views/admin-content-pillars-list.php:34
+msgid "Categories"
+msgstr ""
+
+#: views/admin-content-pillars-form.php:72
+msgid "Search for categories..."
+msgstr ""
+
+#: views/admin-content-pillars-form.php:94
+msgid "Clear All Categories"
+msgstr ""
+
+#: views/admin-content-pillars-form.php:98
+msgid "Search and select categories for this content pillar. At least one category is required."
+msgstr ""
+
+#: views/admin-content-pillars-form.php:103
+#: views/admin-content-pillars-list.php:35
+msgid "Show by default"
+msgstr ""
+
+#: views/admin-content-pillars-form.php:114
+msgid "Whether the dashboard chart widgets are automatically displayed on the WP Admin dashboard. Unchecking this will require you add them manually using the standard dashboard configuration panel."
+msgstr ""
+
+#: views/admin-content-pillars-form.php:121
+msgid "Update Content Pillar"
+msgstr ""
+
+#: views/admin-content-pillars-form.php:121
+msgid "Create Content Pillar"
+msgstr ""
+
+#: views/admin-content-pillars-form.php:125
+msgid "Cancel"
+msgstr ""
+
+#: views/admin-content-pillars-list.php:25
+msgid "Existing Content Pillars"
+msgstr ""
+
+#: views/admin-content-pillars-list.php:27
+msgid "No content pillars defined yet."
+msgstr ""
+
+#: views/admin-content-pillars-list.php:32
+msgid "Name"
+msgstr ""
+
+#: views/admin-content-pillars-list.php:33
+msgid "Color"
+msgstr ""
+
+#: views/admin-content-pillars-list.php:36
+msgid "Created"
+msgstr ""
+
+#: views/admin-content-pillars-list.php:37
+msgid "Actions"
+msgstr ""
+
+#: views/admin-content-pillars-list.php:63
+msgid "Yes"
+msgstr ""
+
+#: views/admin-content-pillars-list.php:63
+msgid "No"
+msgstr ""
+
+#: views/admin-content-pillars-list.php:71
+msgid "Edit"
+msgstr ""
+
+#: views/admin-content-pillars-list.php:73
+msgid "Are you sure you want to delete this content pillar?"
+msgstr ""
+
+#: views/admin-content-pillars-list.php:78
+msgid "Delete"
+msgstr ""
+
+#: views/admin-content-pillars.php:35
+msgid "Edit Content Pillar"
+msgstr ""
+
+#: views/admin-content-pillars.php:35
+msgid "Add New Content Pillar"
+msgstr ""
+
+#: views/admin-style-metrics-metabox.php:69
+msgid "No style metrics enabled"
+msgstr ""
+
+#: views/dashboard-widget.php:120
+msgid "Total Posts"
+msgstr ""
+
+#: views/dashboard-widget.php:124
+msgid "Average"
+msgstr ""
+
+#: views/dashboard-widget.php:128
+msgid "Peak"
+msgstr ""
+
+#: views/settings-controls/admin-style-metric-boolean-toggle-input-control.php:29
+msgid "Enabled"
+msgstr ""
+
+#: views/settings-controls/admin-style-metric-min-max-input-control.php:29
+msgid "Min"
+msgstr ""
+
+#: views/settings-controls/admin-style-metric-min-max-input-control.php:39
+msgid "Max"
+msgstr ""

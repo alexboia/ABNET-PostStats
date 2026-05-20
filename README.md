@@ -38,9 +38,9 @@ The first version was plain post statistics:
    - how many per year, 
    - the total count, 
    - the average, 
-   - and the peak. Nothing
+   - and the peak. 
    
-   revolutionary. Just enough to see whether the blog is alive, asleep, or pretending to be a quarterly journal by accident.
+Nothing revolutionary. Just enough to see whether the blog is alive, asleep, or pretending to be a quarterly journal by accident.
 
 Then I added content pillars as a sort of "what-if". WordPress categories are useful, but they do not always match the larger editorial directions of a site. A pillar lets me group several categories under one theme and see how much I actually write in that area. For example, a travel pillar can include several travel-related categories without changing the public taxonomy of the site.
 
@@ -78,6 +78,12 @@ The goal is modest: fewer distractions, better editorial awareness, and a writin
 ### Dashboard - style metric settings
 ![Dashboard - style metric settings](screenshots/style-metrics-settings.png)
 
+## Requirements
+
+- Requires `WordPress` at least: 6.8;
+- Requires `PHP` at least: 7.4;
+- Ideally `mbstring` PHP extension should be enabled, but not mandatory.
+
 ## Install
 
 Fetch the archive and download it as you would any WordPress plugin. 
@@ -100,7 +106,7 @@ Call it either from the root plugin directory or from the `build` directory.
 ### Example
 
 ```powershell
-.\build\package-plugin.ps1 -Version "1.0.1"
+.\build\package-plugin.ps1 -Version "1.1.0"
 ```
 
 Will create an archive in the local `.\dist` folder (within the plugin root).
