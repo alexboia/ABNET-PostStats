@@ -45,6 +45,39 @@
 ### Dashboard - style metric settings
 ![Dashboard - style metric settings](screenshots/style-metrics-settings.png)
 
+## Some thoughts
+
+I built this because I wanted a small editorial mirror inside WordPress. Something beyond an optimized vending machine, something simpler and more personal: a way to see my own publishing rhythm.
+
+The first version was plain post statistics: 
+
+   - how many posts I published per month, 
+   - how many per year, 
+   - the total count, 
+   - the average, 
+   - and the peak. Nothing
+   
+   revolutionary. Just enough to see whether the blog is alive, asleep, or pretending to be a quarterly journal by accident.
+
+Then I added content pillars as a sort of "what-if". WordPress categories are useful, but they do not always match the larger editorial directions of a site. A pillar lets me group several categories under one theme and see how much I actually write in that area. For example, a travel pillar can include several travel-related categories without changing the public taxonomy of the site.
+
+The third layer is even more experimental: style metrics. For each post, the plugin can compute indicators as those mentioned above.
+
+These metrics are first and foremost editorial signals: 
+
+   - a high readability score may mean the article is dense; 
+   - a high punctuation score may reveal a fragmented or rhetorical rhythm; 
+   - a high Yule’s K may suggest too much lexical repetition;
+   - a high negativity score may simply mean that the article is doing honest critical work and should be left alone with a cup of coffee and a sharpened axe.
+
+The useful part is less the number itself and more the question it raises: should I split this sentence, vary this vocabulary, reduce this repetition, soften this passage, or deliberately keep the text exactly as it is?
+
+That is why the plugin supports preferred ranges. I do not treat them as universal standards. They are closer to a house style: a personal editorial profile for the kind of writing I want to publish.
+
+Condei Simple Post Stats is free. It may also be the first step in a broader suite of WordPress tools for people who still care about composing text.
+
+The goal is modest: fewer distractions, better editorial awareness, and a writing environment that treats the author as an author, not as a block arrangement technician.
+
 ## Install
 
 Fetch the archive and download it as you would any WordPress plugin. 
