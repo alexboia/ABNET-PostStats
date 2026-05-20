@@ -72,6 +72,13 @@ Call it either from the root plugin directory or from the `build` directory.
 
 Will create an archive in the local `.\dist` folder (within the plugin root).
 
+## Version history
+
+| Version | Changes |
+|---------|---------|
+| `1.0.0` | Simple per year and per month statistics. |
+| `1.1.0` | Introduced per year and per month statistics for custom content pillars; introduced stylometry. |
+
 ## Privacy
 
 The plugin does not collect any data. It uses the current WordPress posts table to compute its statistics
