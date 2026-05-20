@@ -30,14 +30,19 @@
 
 ## Screenshots
 
+### Dashboard - default statistics
 ![Dashboard - default statistics](screenshots/abnet-post-stats.png)
 
+### Dashboard - custom content pillar statistics
 ![Dashboard - custom content pillar statistics](screenshots/abnet-content-pillar-post-stats.png)
 
+### Dashboard - custom content pillar management
 ![Dashboard - custom content pillar management](screenshots/content-pillars.png)
 
+### Dashboard - style metrics on post editor page
 ![Dashboard - style metrics on post editor page](screenshots/style-metrics-post-editor.png)
 
+### Dashboard - style metric settings
 ![Dashboard - style metric settings](screenshots/style-metrics-settings.png)
 
 ## Install
