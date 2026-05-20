@@ -1,4 +1,9 @@
 <?php
+/**
+ * @package ABNet_PostStats
+ * @since 1.1.0
+ */
+
 if (!defined('ABSPATH')) {
 	exit;
 }

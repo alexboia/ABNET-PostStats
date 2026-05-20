@@ -3,7 +3,7 @@
  * Represents a content pillar data object
  * 
  * @package ABNet_PostStats
- * @since 1.0.0
+ * @since 1.1.0
  */
 
 declare(strict_types=1);

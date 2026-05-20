@@ -2,7 +2,7 @@
 /**
  * Represents a single result set of post statistics
  * 
- * @package ABNet_Post_Stats_Result
+ * @package ABNet_PostStats
  * @since 1.0.0
  */
 

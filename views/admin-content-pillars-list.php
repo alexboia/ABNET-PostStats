@@ -3,7 +3,7 @@
  * Admin page for managing content pillars - LIST EXISTING PILLARS
  * 
  * @package ABNet_PostStats
- * @since 1.0.0
+ * @since 1.1.0
  * 
  * Variables passed from the main plugin file:
  * @var string $message Success/error message
