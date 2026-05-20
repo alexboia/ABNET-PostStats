@@ -138,8 +138,8 @@ class ABNet_PostStats_ContentPillar_DataSource {
 		global $wpdb;
 		$tableName = $this->_getTableName();
 		
-		$sql = "SELECT COUNT(*) FROM $tableName WHERE content_pillar_name = %s";
-		$params = array($name);
+		$sql = "SELECT COUNT(*) FROM %i WHERE content_pillar_name = %s";
+		$params = array($tableName, $name);
 		
 		if ($excludeId > 0) {
 			$sql .= " AND content_pillar_id != %d";

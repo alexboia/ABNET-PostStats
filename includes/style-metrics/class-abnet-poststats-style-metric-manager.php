@@ -289,6 +289,7 @@ class ABNet_PostStats_StyleMetric_Manager {
 			if (!empty($bracketOptionKey)) {
 				$this->_registerBracketField(
 					$bracketOptionKey,
+					/* translators: Field label for metric bracket settings (e.g., "Shannon's Entropy bracket") */
 					sprintf(__('%s bracket', 'abnet-post-stats'), $label),
 					$genericBracketDescription
 				);
@@ -393,9 +394,10 @@ class ABNet_PostStats_StyleMetric_Manager {
 	public function renderYulesKMultiplierField(): void {
 		$options = $this->_getOptions();
 		$value = (int) ($options->getYulesKMultiplier() ?? 10000);
+		$fieldName = ABNet_PostStats_StyleMetricOptions::OPTION_NAME . '[' . ABNet_PostStats_StyleMetricOptions::KEY_YULES_K_MULTIPLIER . ']';
 
 		echo '<input type="number" min="1" step="1" class="regular-text" ' . 
-			'name="' . (ABNet_PostStats_StyleMetricOptions::OPTION_NAME . '[' . ABNet_PostStats_StyleMetricOptions::KEY_YULES_K_MULTIPLIER . ']') . '" ' . 
+			'name="' . esc_attr($fieldName) . '" ' . 
 			'value="' . esc_attr((string) $value) . '" />';
 
 		echo '<p class="description">' . 

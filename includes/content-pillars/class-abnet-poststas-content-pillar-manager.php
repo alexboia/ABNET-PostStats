@@ -273,7 +273,7 @@ class ABNet_PostStats_ContentPillar_Manager {
 		}
 		
 		if ($this->_contentPillarDataSource->contentPillarNameExists($input->getName(), $input->getId())) {
-			return array(
+			return array(				
 				'message' => __('A content pillar with this name already exists.', 'abnet-post-stats'),
 				'type' => 'error'
 			);

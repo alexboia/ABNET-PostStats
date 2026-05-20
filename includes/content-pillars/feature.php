@@ -9,6 +9,6 @@ if (!defined('ABSPATH')) {
 }
 
 // Get the current directory
-$currentDir = dirname(__FILE__);
-$contentPillars = new ABNet_PostStats_Feature($currentDir);
+$contentPillarsCurrentDir = dirname(__FILE__);
+$contentPillars = new ABNet_PostStats_Feature($contentPillarsCurrentDir);
 $contentPillars->setup();

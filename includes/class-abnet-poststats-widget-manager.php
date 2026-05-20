@@ -46,12 +46,14 @@ class ABNet_PostStats_WidgetManager {
 		if ($this->shouldIncludeDashboardWidgets()) {
 			wp_add_dashboard_widget(
 				'abnet_monthly_post_stats_widget',
+				/* translators: Dashboard widget title for monthly post statistics */
 				__('Post Statistics per Month', 'abnet-post-stats'),
 				array($this, 'renderMonthlyCountsDashboardWidget')
 			);
 
 			wp_add_dashboard_widget(
 				'abnet_yearly_post_stats_widget',
+				/* translators: Dashboard widget title for yearly post statistics */
 				__('Post Statistics per Year', 'abnet-post-stats'),
 				array($this, 'renderYearlyCountsDashboardWidget')
 			);
@@ -119,6 +121,7 @@ class ABNet_PostStats_WidgetManager {
 			// Monthly widget
 			wp_add_dashboard_widget(
 				'abnet_pillar_monthly_' . $pillar->getId(),
+				/* translators: Monthly posts stats subheading - Generic */
 				sprintf(__('Posts in %s (Monthly)', 'abnet-post-stats'), $pillar->getName()),
 				function() use ($pillar) {
 					$this->_renderContentPillarMonthlyWidget($pillar);
@@ -128,6 +131,7 @@ class ABNet_PostStats_WidgetManager {
 			// Yearly widget
 			wp_add_dashboard_widget(
 				'abnet_pillar_yearly_' . $pillar->getId(),
+				/* translators: Yearly posts stats subheading - Generic */
 				sprintf(__('Posts in %s (Yearly)', 'abnet-post-stats'), $pillar->getName()),
 				function() use ($pillar) {
 					$this->_renderContentPillarYearlyWidget($pillar);

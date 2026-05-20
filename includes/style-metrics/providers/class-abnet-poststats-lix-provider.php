@@ -79,7 +79,7 @@ class ABNet_PostStats_StyleMetricLixProvider implements ABNet_PostStats_StyleMet
 		return __('LIX Score', 'abnet-post-stats');
 	}
 
-    public function getShortDescription(): string { 
+	public function getShortDescription(): string {
 		return __(
 			'The LIX score is a simple formula for measuring the degree of difficulty of a written text.', 
 			'abnet-post-stats'

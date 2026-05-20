@@ -37,7 +37,7 @@ class ABNet_PostStats_View {
 		if ($return) {
 			return $contents;
 		} else {
-			echo $contents;
+			echo $contents; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			return null;
 		}
 	}
@@ -52,7 +52,7 @@ class ABNet_PostStats_View {
 		if ($return) {
 			return $contents;
 		} else {
-			echo $contents;
+			echo $contents; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			return null;
 		}
 	}

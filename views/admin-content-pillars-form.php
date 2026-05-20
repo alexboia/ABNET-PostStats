@@ -33,7 +33,7 @@ if (!defined('ABSPATH')) {
 	<table class="form-table">
 		<tr>
 			<th scope="row">
-				<label for="pillar_name"><?php _e('Content Pillar Name', 'abnet-post-stats'); ?></label>
+				<label for="pillar_name"><?php esc_html_e('Content Pillar Name', 'abnet-post-stats'); ?></label>
 			</th>
 			<td>
 				<input type="text" 
@@ -43,12 +43,12 @@ if (!defined('ABSPATH')) {
 					class="regular-text" 
 					required="required" 
 				/>
-				<p class="description"><?php _e('Enter a unique name for this content pillar.', 'abnet-post-stats'); ?></p>
+				<p class="description"><?php esc_html_e('Enter a unique name for this content pillar.', 'abnet-post-stats'); ?></p>
 			</td>
 		</tr>
 		<tr>
 			<th scope="row">
-				<label for="pillar_color"><?php _e('Chart Color', 'abnet-post-stats'); ?></label>
+				<label for="pillar_color"><?php esc_html_e('Chart Color', 'abnet-post-stats'); ?></label>
 			</th>
 			<td>
 				<input type="color" 
@@ -57,12 +57,12 @@ if (!defined('ABSPATH')) {
 					value="<?php echo $editingPillar ? esc_attr($editingPillar->getColor()) : ABNET_POST_STATS_DEFAULT_CHART_COLOR; ?>" 
 					class="color-picker" 
 				/>
-				<p class="description"><?php _e('Choose the color for this content pillar\'s charts and statistics.', 'abnet-post-stats'); ?></p>
+				<p class="description"><?php esc_html_e('Choose the color for this content pillar\'s charts and statistics.', 'abnet-post-stats'); ?></p>
 			</td>
 		</tr>
 		<tr>
 			<th scope="row">
-				<label for="category_search"><?php _e('Categories', 'abnet-post-stats'); ?></label>
+				<label for="category_search"><?php esc_html_e('Categories', 'abnet-post-stats'); ?></label>
 			</th>
 			<td>
 				<div id="abnet-category-selector">
@@ -91,16 +91,16 @@ if (!defined('ABSPATH')) {
 					</div>
 					<div class="category-actions">
 						<button type="button" id="clear-all-categories" class="button button-secondary" style="margin-top: 10px;">
-							<?php _e('Clear All Categories', 'abnet-post-stats'); ?>
+							<?php esc_html_e('Clear All Categories', 'abnet-post-stats'); ?>
 						</button>
 					</div>
 				</div>
-				<p class="description"><?php _e('Search and select categories for this content pillar. At least one category is required.', 'abnet-post-stats'); ?></p>
+				<p class="description"><?php esc_html_e('Search and select categories for this content pillar. At least one category is required.', 'abnet-post-stats'); ?></p>
 			</td>
 		</tr>
 		<tr>
 			<th scope="row">
-				<label for="show_by_default"><?php _e('Show by default', 'abnet-post-stats'); ?></label>
+				<label for="show_by_default"><?php esc_html_e('Show by default', 'abnet-post-stats'); ?></label>
 			</th>
 			<td>
 				<?php $showByDefaultChecked = !$editingPillar || $editingPillar->showByDefault(); ?>
@@ -111,18 +111,18 @@ if (!defined('ABSPATH')) {
 					value="yes" 
 					<?php echo $showByDefaultChecked ? 'checked="checked"' : ''; ?>
 				/>
-				<p class="description"><?php _e('Whether the dashboard chart widgets are automatically displayed on the WP Admin dashboard. Unchecking this will require you add them manually using the standard dashboard configuration panel.', 'abnet-post-stats'); ?></p>
+				<p class="description"><?php esc_html_e('Whether the dashboard chart widgets are automatically displayed on the WP Admin dashboard. Unchecking this will require you add them manually using the standard dashboard configuration panel.', 'abnet-post-stats'); ?></p>
 			</td>
 		</tr>
 	</table>
 	
 	<p class="submit">
 		<button type="submit" class="button button-primary">
-			<?php echo $editingPillar ? __('Update Content Pillar', 'abnet-post-stats') : __('Create Content Pillar', 'abnet-post-stats'); ?>
+			<?php echo $editingPillar ? esc_html__('Update Content Pillar', 'abnet-post-stats') : esc_html__('Create Content Pillar', 'abnet-post-stats'); ?>
 		</button>
 		<?php if ($editingPillar): ?>
 			<a href="<?php echo esc_url(admin_url('options-general.php?page=abnet-post-stats-content-pillars')); ?>" class="button">
-				<?php _e('Cancel', 'abnet-post-stats'); ?>
+				<?php esc_html_e('Cancel', 'abnet-post-stats'); ?>
 			</a>
 		<?php endif; ?>
 	</p>

@@ -17,12 +17,12 @@ if (!defined('ABSPATH')) {
  */
 
 $minFieldName = sprintf('%s[%s][min]', 
-	esc_attr($optionName),
-	 esc_attr($optionKey));
+	$optionName,
+	 $optionKey);
 
 $maxFieldName = sprintf('%s[%s][max]', 
-	esc_attr($optionName), 
-	esc_attr($optionKey));
+	$optionName, 
+	$optionKey);
 ?>
 
 <label class="abnet-post-stats-interval-input-container abnet-post-stats-interval-input-min-container">
@@ -30,7 +30,7 @@ $maxFieldName = sprintf('%s[%s][max]',
 	<input type="number" 
 		step="1.0" 
 		class="small-text" 
-		name="<?php echo $minFieldName ?>" 
+		name="<?php echo esc_attr($minFieldName) ?>" 
 		value="<?php echo esc_attr((string) $min); ?>" 
 	/>
 </label>
@@ -40,7 +40,7 @@ $maxFieldName = sprintf('%s[%s][max]',
 	<input type="number" 
 		step="1.0" 
 		class="small-text" 
-		name="<?php echo $maxFieldName ?>" 
+		name="<?php echo esc_attr($maxFieldName) ?>" 
 		value="<?php echo esc_attr((string) $max); ?>" 
 	/>
 </label>

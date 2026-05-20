@@ -22,19 +22,19 @@ if (!defined('ABSPATH')) {
 
 <!-- Content Pillars List -->
 <div class="card abnet-poststats-content-pillar-list-container">
-	<h2><?php _e('Existing Content Pillars', 'abnet-post-stats'); ?></h2>
+	<h2><?php esc_html_e('Existing Content Pillars', 'abnet-post-stats'); ?></h2>
 	<?php if (empty($contentPillars)): ?>
-		<p><?php _e('No content pillars defined yet.', 'abnet-post-stats'); ?></p>
+		<p><?php esc_html_e('No content pillars defined yet.', 'abnet-post-stats'); ?></p>
 	<?php else: ?>
 		<table class="wp-list-table widefat fixed striped abnet-content-pillars-table">
 			<thead>
 				<tr>
-					<th><?php _e('Name', 'abnet-post-stats'); ?></th>
-					<th><?php _e('Color', 'abnet-post-stats'); ?></th>
-					<th><?php _e('Categories', 'abnet-post-stats'); ?></th>
-					<th><?php _e('Show by default', 'abnet-post-stats'); ?></th>
-					<th><?php _e('Created', 'abnet-post-stats'); ?></th>
-					<th><?php _e('Actions', 'abnet-post-stats'); ?></th>
+					<th><?php esc_html_e('Name', 'abnet-post-stats'); ?></th>
+					<th><?php esc_html_e('Color', 'abnet-post-stats'); ?></th>
+					<th><?php esc_html_e('Categories', 'abnet-post-stats'); ?></th>
+					<th><?php esc_html_e('Show by default', 'abnet-post-stats'); ?></th>
+					<th><?php esc_html_e('Created', 'abnet-post-stats'); ?></th>
+					<th><?php esc_html_e('Actions', 'abnet-post-stats'); ?></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -60,7 +60,9 @@ if (!defined('ABSPATH')) {
 							?>
 						</td>
 						<td>
-							<?php echo $pillar->showByDefault() ? __('Yes', 'abnet-post-stats') : __('No', 'abnet-post-stats') ?>
+							<?php echo $pillar->showByDefault() 
+								? esc_html__('Yes', 'abnet-post-stats')
+								: esc_html__('No', 'abnet-post-stats') ?>
 						</td>
 						<td>
 							<?php echo esc_html(date_i18n(get_option('date_format'), strtotime($pillar->getCreatedAt()))); ?>
@@ -68,14 +70,14 @@ if (!defined('ABSPATH')) {
 						<td>
 							<a href="<?php echo esc_url(admin_url('options-general.php?page=abnet-post-stats-content-pillars&edit=' . $pillar->getId())); ?>" 
 								class="button button-small">
-								<?php _e('Edit', 'abnet-post-stats'); ?>
-							</a>
-							<form id="abnet_content_pillar_action_form_<?php echo esc_attr($pillar->getId()); ?>" method="post" style="display: inline;" onsubmit="return confirm('<?php esc_attr_e('Are you sure you want to delete this content pillar?', 'abnet-post-stats'); ?>');">
+								<?php esc_html_e('Edit', 'abnet-post-stats'); ?>
+						</a>
+						<form id="abnet_content_pillar_action_form_<?php echo esc_attr($pillar->getId()); ?>" method="post" style="display: inline;" onsubmit="return confirm('<?php esc_attr_e('Are you sure you want to delete this content pillar?', 'abnet-post-stats'); ?>');">
 								<?php wp_nonce_field('abnet_content_pillar_action', 'abnet_content_pillar_nonce'); ?>
 								<input type="hidden" name="action" value="delete" />
 								<input type="hidden" name="pillar_id" value="<?php echo esc_attr($pillar->getId()); ?>" />
-								<button type="submit" class="button button-small button-link-delete">
-									<?php _e('Delete', 'abnet-post-stats'); ?>
+								<button type="submit" class="button button-small button-link-delete">								
+									<?php esc_html_e('Delete', 'abnet-post-stats'); ?>
 								</button>
 							</form>
 						</td>

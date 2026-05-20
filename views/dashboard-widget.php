@@ -104,8 +104,8 @@ $showSummary = apply_filters('abnet_posts_stats_show_widget_summary',
 					$label = $item->getLabel();
 				?>
 				<div class="abnet-bar-item" title="<?php echo esc_attr($label . ': ' . $item->getValue() . ' posts'); ?>">
-					<div class="abnet-bar" style="height: <?php echo $height; ?>px; background: linear-gradient(to top, <?php echo $color ?>cc, <?php echo $color ?>66);">
-						<span class="abnet-bar-value"><?php echo $item->hasValue() ? $item->getValue() : ''; ?></span>
+					<div class="abnet-bar" style="height: <?php echo esc_attr($height); ?>px; background: linear-gradient(to top, <?php echo esc_attr($color) ?>cc, <?php echo esc_attr($color) ?>66);">
+						<span class="abnet-bar-value"><?php echo $item->hasValue() ? esc_html($item->getValue()) : ''; ?></span>
 					</div>
 					<div class="abnet-bar-label">
 						<?php echo esc_html($label); ?>
@@ -118,15 +118,15 @@ $showSummary = apply_filters('abnet_posts_stats_show_widget_summary',
 			<div class="abnet-graph-stats">
 				<div class="abnet-stat-item">
 					<span class="abnet-stat-label"><?php esc_html_e('Total Posts', 'abnet-post-stats'); ?>:</span>
-					<span class="abnet-stat-value"><?php echo $data->getSumOfValues(); ?></span>
+					<span class="abnet-stat-value"><?php echo esc_html($data->getSumOfValues()); ?></span>
 				</div>
-				<div class="abnet-stat-item">
+				<div class="abnet-stat-item">							
 					<span class="abnet-stat-label"><?php esc_html_e('Average', 'abnet-post-stats'); ?>:</span>
-					<span class="abnet-stat-value"><?php echo $data->getAverageValue(); ?></span>
+					<span class="abnet-stat-value"><?php echo esc_html($data->getAverageValue()); ?></span>
 				</div>
 				<div class="abnet-stat-item">
 					<span class="abnet-stat-label"><?php esc_html_e('Peak', 'abnet-post-stats'); ?>:</span>
-					<span class="abnet-stat-value"><?php echo $data->getMaxValue(); ?></span>
+					<span class="abnet-stat-value"><?php echo esc_html($data->getMaxValue()); ?></span>
 				</div>
 			</div>
 		<?php endif; ?>

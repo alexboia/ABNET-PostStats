@@ -1,18 +1,18 @@
-=== ABNet Post Stats ===
+=== Condei Simple Post Stats for WordPress ===
 Contributors: alexboia
 Tags: statistics, analytics, content analysis, stylometrics, readability, post stats, writing analysis
 Requires at least: 5.0
 Tested up to: 6.4
 Requires PHP: 8.0
 Stable tag: 1.1.0
-License: GPLv3 or later
-License URI: https://www.gnu.org/licenses/gpl-3.0.html
+License: GPL-v2
+License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
 
 Advanced post statistics and stylometric analysis for WordPress. Track publishing patterns, analyze writing style, and organize content with custom pillars.
 
 == Description ==
 
-ABNet Post Stats is a comprehensive WordPress plugin that provides advanced post statistics, content organization, and professional-grade stylometric analysis for your WordPress site.
+Condei Simple Post Stats for WordPress is a comprehensive WordPress plugin that provides advanced post statistics, content organization, and professional-grade stylometric analysis for your WordPress site.
 
 **Key Features:**
 

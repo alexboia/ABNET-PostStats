@@ -16,13 +16,13 @@ if (!defined('ABSPATH')) {
  */
 
 $fieldName = sprintf('%s[%s]', 
-	esc_attr($optionName), 
-	esc_attr($optionKey));
+	$optionName, 
+	$optionKey);
 ?>
 
 <label>
 	<input type="checkbox" 
-		name="<?php echo $fieldName ?>" 
+		name="<?php echo esc_attr($fieldName) ?>" 
 		value="1" 
 		<?php echo checked(true, $enabled, false) ?> 
 	/>

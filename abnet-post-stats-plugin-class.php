@@ -27,6 +27,8 @@ class ABNet_PostStats {
 
 	private ABNet_PostStats_StyleMetric_Manager $_styleMetricManager;
 
+	private bool $_isInitialized = false;
+
 	public static function getInstance(): ABNet_PostStats {
 		if (null === self::$_instance) {
 			self::$_instance = new self();
@@ -87,6 +89,7 @@ class ABNet_PostStats {
 
 		$this->_styleMetricManager->init();
 		$this->_widgetManger->init();
+		$this->_isInitialized = true;
 	}
 
 	private function _shouldIncludeDashboardWidgets(): bool {
@@ -117,5 +120,9 @@ class ABNet_PostStats {
 				ABNET_POST_STATS_VERSION
 			);
 		}
+	}
+
+	public function isInitialized(): bool {
+		return $this->_isInitialized;
 	}
 }

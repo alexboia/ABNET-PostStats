@@ -36,8 +36,8 @@ if (!defined('ABSPATH')) {
 					if (empty($bracketMarkerCssClass)) {
 						$bracketMarkerCssClass = $defaultBracketMarkerCssClass;
 					}
-
-					$defaultBracketDescription = sprintf(__('Between %s and %s'), 
+						/* translators: Text describing the bracket range (e.g., "Between 4 and 6"), used for style metrics */
+						$defaultBracketDescription = sprintf(__('Between %1$s and %2$s', 'abnet-post-stats'), 
 						$metric->getBracket()->getMin(), 
 						$metric->getBracket()->getMax());
 

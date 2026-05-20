@@ -67,7 +67,7 @@ class ABNet_PostStats_StyleMetricHapaxToTypesProvider implements ABNet_PostStats
 		return __('Hapax to Types Ratio', 'abnet-post-stats');
 	}
 
-    public function getShortDescription(): string { 
+	public function getShortDescription(): string {
 		return __('In linguistics and stylometry, hapax legomena are words that appear only once in a text.', 'abnet-post-stats');
 	}
 

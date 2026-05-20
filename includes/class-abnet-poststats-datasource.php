@@ -41,7 +41,7 @@ class ABNet_PostStats_DataSource {
 
 		$normalizedResults = array();
 		for ($i = 0; $i < $limit; $i++) {
-			$monthKey = date('Y-m', strtotime("-$i month"));
+			$monthKey = gmdate('Y-m', strtotime("-$i month"));
 			$normalizedResults[$monthKey] = 0;
 		}
 
@@ -93,12 +93,12 @@ class ABNet_PostStats_DataSource {
 			$limit, 
 			$limit
 		);
-		
+	
 		$rawResults = $wpdb->get_results($sql, ARRAY_A);
 
 		$normalizedResults = array();
 		for ($i = 0; $i < $limit; $i++) {
-			$yearKey = date('Y', strtotime("-$i year"));
+			$yearKey = gmdate('Y', strtotime("-$i year"));
 			$normalizedResults[$yearKey] = 0;
 		}
 
@@ -133,6 +133,7 @@ class ABNet_PostStats_DataSource {
 		global $wpdb;
 		
 		$categoryIds = $contentPillar->getCategoryIds();
+		/* translators: Monthly posts stats subheading for a content pillar */
 		$pillarTitle = sprintf(__('Posts in %s (Monthly)', 'abnet-post-stats'), 
 			$contentPillar->getName());
 
@@ -143,7 +144,12 @@ class ABNet_PostStats_DataSource {
 			);
 		}
 		
-		$categoryIdsPlaceholder = implode(',', array_fill(0, count($categoryIds), '%d'));
+		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		$categoryIdsPlaceholder = implode(',', 
+			array_fill(0, 
+				count($categoryIds), 
+				'%d')
+		);
 		
 		$sql = $wpdb->prepare(
 			"SELECT 
@@ -162,12 +168,14 @@ class ABNet_PostStats_DataSource {
 			LIMIT %d", 
 			array_merge(array($limit), $categoryIds, array($limit))
 		);
+
+		// phpcs:enable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 		
 		$rawResults = $wpdb->get_results($sql, ARRAY_A);
 
 		$normalizedResults = array();
 		for ($i = 0; $i < $limit; $i++) {
-			$monthKey = date('Y-m', strtotime("-$i month"));
+			$monthKey = gmdate('Y-m', strtotime("-$i month"));
 			$normalizedResults[$monthKey] = 0;
 		}
 
@@ -202,6 +210,7 @@ class ABNet_PostStats_DataSource {
 		global $wpdb;
 		
 		$categoryIds = $contentPillar->getCategoryIds();
+		/* translators: Yearly posts stats subheading for a content pillar */
 		$pillarTitle = sprintf(__('Posts in %s (Yearly)', 'abnet-post-stats'), 
 			$contentPillar->getName());
 
@@ -239,7 +248,7 @@ class ABNet_PostStats_DataSource {
 
 		$normalizedResults = array();
 		for ($i = 0; $i < $limit; $i++) {
-			$yearKey = date('Y', strtotime("-$i year"));
+			$yearKey = gmdate('Y', strtotime("-$i year"));
 			$normalizedResults[$yearKey] = 0;
 		}
 

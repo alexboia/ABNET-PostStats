@@ -21,7 +21,7 @@ if (!defined('ABSPATH')) {
 ?>
 
 <div class="wrap abnet-poststats-wrap">
-	<h1><?php _e('Condei Simple Post Stats - Content Pillars Definitions', 'abnet-post-stats'); ?></h1>
+	<h1><?php esc_html_e('Condei Simple Post Stats - Content Pillars Definitions', 'abnet-post-stats'); ?></h1>
 	
 	<?php if ($message): ?>
 		<div class="notice notice-<?php echo esc_attr($messageType); ?> is-dismissible">
@@ -32,7 +32,10 @@ if (!defined('ABSPATH')) {
 	<div id="abnet-content-pillars-container" class="abnet-poststats-admin-container">
 		<!-- Add/Edit Form -->
 		<div class="card abnet-poststats-content-pillar-form-container">
-			<h2><?php echo $editingPillar ? __('Edit Content Pillar', 'abnet-post-stats') : __('Add New Content Pillar', 'abnet-post-stats'); ?></h2>
+			<h2><?php echo $editingPillar 
+				? esc_html__('Edit Content Pillar', 'abnet-post-stats') 
+				: esc_html__('Add New Content Pillar', 'abnet-post-stats'); ?></h2>
+				
 			<?php require_once ABNET_POST_STATS_VIEWS_DIR . 'admin-content-pillars-form.php' ?>	
 		</div>
 		
