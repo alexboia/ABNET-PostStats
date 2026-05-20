@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Condei Simple Post Stats for WordPress
+ * Plugin Name: Condei Simple Post Stats
  * Plugin URI: https://github.com/alexboia/ABNET-PostStats
  * Description: A WordPress plugin for displaying simple content creation statistics. Part of the Condei plug-in suite.
  * Version: 1.1.0

@@ -21,7 +21,7 @@ class ABNet_PostStats_PublicApi {
 	private ?ABNet_PostStats_ContentPillar_DataSource $_contentPillarDataSource = null;
 
 	public function __construct(){
-		$this->_plugin = _abnet_post_stats();
+		$this->_plugin = abnet_post_stats();
 		$this->_statsDataSource = new ABNet_PostStats_DataSource();
 		$this->_contentPillarDataSource = new ABNet_PostStats_ContentPillar_DataSource();
 	}

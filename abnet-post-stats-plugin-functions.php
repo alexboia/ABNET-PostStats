@@ -12,14 +12,14 @@ if (!defined('ABSPATH')) {
 }
 
 function abnet_post_stats_run(): void {
-	_abnet_post_stats()->run();
+	abnet_post_stats()->run();
 }
 
 /**
  * @access private
  * @return ABNet_PostStats 
  */
-function _abnet_post_stats(): ABNet_PostStats {
+function abnet_post_stats(): ABNet_PostStats {
 	return ABNet_PostStats::getInstance();
 }
 
