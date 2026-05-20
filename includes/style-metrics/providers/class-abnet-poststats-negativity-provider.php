@@ -29,7 +29,7 @@ class ABNet_PostStats_StyleMetricNegativityProvider implements ABNet_PostStats_S
 	private ABNet_PostStats_StyleMetricBracket $_bracket;
 	
 	public function __construct(array $negativeWordList = array(), ?ABNet_PostStats_StyleMetricBracket $bracket = null) {
-		$negativeWordList = $negativeWordList ?: self::getDefaultNegativeWordList();
+		$negativeWordList = !empty($negativeWordList) ? $negativeWordList : self::getDefaultNegativeWordList();
 		$this->_negativeWordList = $this->_prepareWordList($negativeWordList);
 
 		$this->_bracket = $bracket ?? ABNet_PostStats_StyleMetricBracket::unbounded();
@@ -61,9 +61,14 @@ class ABNet_PostStats_StyleMetricNegativityProvider implements ABNet_PostStats_S
 		$jsonFile = ABNET_POST_STATS_DATA_DIR . $fileName;
 		if (is_readable($jsonFile)) {
 			$jsonContent = file_get_contents($jsonFile);
+			if (empty($jsonContent)) {
+				return [];
+			}
+
 			$wordList = json_decode($jsonContent, false);
 			return is_array($wordList) ? $wordList : [];
 		} else {
+			error_log(sprintf('[ERROR] Default negative word list file <%s> not readable or not found.', $jsonFile));
 			return [];
 		}
 	}

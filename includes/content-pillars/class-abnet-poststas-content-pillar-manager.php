@@ -14,7 +14,10 @@ if (!defined('ABSPATH')) {
 class ABNet_PostStats_ContentPillar_Manager {
 	private ABNet_PostStats_ContentPillar_DataSource $_contentPillarDataSource;
 
+	private ABNet_PostStats_View $_view;
+
 	public function __construct() {
+		$this->_view = ABNet_PostStats_View::getInstance();
 		$this->_contentPillarDataSource = new ABNet_PostStats_ContentPillar_DataSource();
 	}
 
@@ -151,7 +154,14 @@ class ABNet_PostStats_ContentPillar_Manager {
 		// Get editing pillar if edit mode
 		$editingPillar = $this->_getContentPillarToEditFromHttpGet();
 
-		require ABNET_POST_STATS_VIEWS_DIR . '/admin-content-pillars.php';
+		$this->_view->render('admin-content-pillars.php', compact(
+			'message',
+			'messageType',
+			'contentPillars',
+			'categories',
+			'mostUsedCategories',
+			'editingPillar'
+		));
 	}
 
 	private function _isContentPillarFormSubmitted(): bool {

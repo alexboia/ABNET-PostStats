@@ -18,10 +18,13 @@ class ABNet_PostStats_WidgetManager {
 
 	private ABNet_PostStats_ContentPillar_DataSource $_contentPillarDataSource;
 
+	private ABNet_PostStats_View $_view;
+
 	public function __construct(ABNet_PostStats_DataSource $dataSource, 
 		ABNet_PostStats_ContentPillar_DataSource $contentPillarDataSource) {
 		$this->_dataSource = $dataSource;
 		$this->_contentPillarDataSource = $contentPillarDataSource;
+		$this->_view = ABNet_PostStats_View::getInstance();
 	}
 
 	public function init() {
@@ -68,6 +71,12 @@ class ABNet_PostStats_WidgetManager {
 	}
 
 	public function renderMonthlyCountsDashboardWidget(): void {
+		/**
+		 * Filters the number of months shown in the global monthly dashboard widget.
+		 *
+		 * @param int $count Number of months to include.
+		 * @param ABNet_PostStats_ContentPillar|null $pillar Pillar context, null for the global widget.
+		 */
 		$nMonths = apply_filters('abnet_posts_stats_months_count', 
 			self::DEFAULT_MONTLY_UPPER_LIMIT, 
 			null);
@@ -81,10 +90,16 @@ class ABNet_PostStats_WidgetManager {
 	}
 
 	private function _renderDashboardWidget(ABNet_PostStats_Result $data): void {
-		require ABNET_POST_STATS_VIEWS_DIR . '/dashboard-widget.php';
+		$this->_view->render('dashboard-widget.php', compact('data'));
 	}
 
 	public function renderYearlyCountsDashboardWidget(): void {
+		/**
+		 * Filters the number of years shown in the global yearly dashboard widget.
+		 *
+		 * @param int $count Number of years to include.
+		 * @param ABNet_PostStats_ContentPillar|null $pillar Pillar context, null for the global widget.
+		 */
 		$nYears = apply_filters('abnet_posts_stats_years_count', 
 			self::DEFAULT_YEARLY_UPPER_LIMIT, 
 			null);
@@ -122,6 +137,12 @@ class ABNet_PostStats_WidgetManager {
 	}
 
 	private function _renderContentPillarMonthlyWidget(ABNet_PostStats_ContentPillar $pillar): void {
+		/**
+		 * Filters the number of months shown in a content-pillar monthly dashboard widget.
+		 *
+		 * @param int $count Number of months to include.
+		 * @param ABNet_PostStats_ContentPillar $pillar Current content pillar context.
+		 */
 		$nMonths = apply_filters('abnet_posts_stats_months_count', 
 			self::DEFAULT_MONTLY_UPPER_LIMIT, 
 			$pillar);
@@ -135,6 +156,12 @@ class ABNet_PostStats_WidgetManager {
 	}
 
 	private function _renderContentPillarYearlyWidget(ABNet_PostStats_ContentPillar $pillar): void {
+		/**
+		 * Filters the number of years shown in a content-pillar yearly dashboard widget.
+		 *
+		 * @param int $count Number of years to include.
+		 * @param ABNet_PostStats_ContentPillar $pillar Current content pillar context.
+		 */
 		$nYears = apply_filters('abnet_posts_stats_years_count', 
 			self::DEFAULT_YEARLY_UPPER_LIMIT, 
 			$pillar);

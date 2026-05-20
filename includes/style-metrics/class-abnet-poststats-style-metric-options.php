@@ -6,6 +6,8 @@
 
 declare(strict_types=1);
 
+use PhpParser\Node\Expr\StaticCall;
+
 // Prevent direct access
 if (!defined('ABSPATH')) {
 	exit;
@@ -91,6 +93,7 @@ class ABNet_PostStats_StyleMetricOptions {
 		$this->_punctuationBracket = new ABNet_PostStats_StyleMetricBracket(20, 40);
 		$this->_lixBracket = new ABNet_PostStats_StyleMetricBracket(42, 56);
 		$this->_hapaxBracket = new ABNet_PostStats_StyleMetricBracket(55, 75);
+		$this->_negativeWordList = ABNet_PostStats_StyleMetricNegativityProvider::getDefaultNegativeWordListEn();
 	}
 
 	public static function defaults(): ABNet_PostStats_StyleMetricOptions {
@@ -160,6 +163,58 @@ class ABNet_PostStats_StyleMetricOptions {
 		);
 
 		return $options;
+	}
+
+	public static function sanitizeRawOptionsInputArray(array $rawOptions): array {
+		foreach (self::_getOptionToggleKeys() as $key) {
+			if (!isset($rawOptions[$key])) {
+				$rawOptions[$key] = false;
+			}
+		}
+	
+		return self::sanitizeRawOptionsArray($rawOptions);
+	}	
+
+	private static function _getOptionToggleKeys(): array {
+		return array_values(self::getProviderOptionToggleKeyMapping());
+	}
+
+	public static function getProviderOptionToggleKeyMapping(): array {
+		return array(
+			ABNet_PostStats_StyleMetricAverageSentenceLengthProvider::KEY 
+				=> self::KEY_USE_AVERAGE_SENTENCE_LENGTH,
+			ABNet_PostStats_StyleMetricEntropyProvider::KEY 
+				=> self::KEY_USE_ENTROPY,
+			ABNet_PostStats_StyleMetricNegativityProvider::KEY
+				=> self::KEY_USE_NEGATIVITY,
+			ABNet_PostStats_StyleMetricPunctuationProvider::KEY
+				=> self::KEY_USE_PUNCTUATION,
+			ABNet_PostStats_StyleMetricLixProvider::KEY
+				=> self::KEY_USE_LIX,
+			ABNet_PostStats_StyleMetricYulesKProvider::KEY
+				=> self::KEY_USE_YULES_K,
+			ABNet_PostStats_StyleMetricHapaxToTypesProvider::KEY
+				=> self::KEY_USE_HAPAX_TO_TYPES
+		);
+	}
+
+	public static function getProviderBracketOptionKeyMapping(): array {
+		return array(
+			ABNet_PostStats_StyleMetricAverageSentenceLengthProvider::KEY
+				=> ABNet_PostStats_StyleMetricOptions::KEY_AVERAGE_SENTENCE_LENGTH_BRACKET,
+			ABNet_PostStats_StyleMetricEntropyProvider::KEY
+				=> ABNet_PostStats_StyleMetricOptions::KEY_ENTROPY_BRACKET,
+			ABNet_PostStats_StyleMetricNegativityProvider::KEY
+				=> ABNet_PostStats_StyleMetricOptions::KEY_NEGATIVITY_BRACKET,
+			ABNet_PostStats_StyleMetricPunctuationProvider::KEY
+				=> ABNet_PostStats_StyleMetricOptions::KEY_PUNCTUATION_BRACKET,
+			ABNet_PostStats_StyleMetricLixProvider::KEY
+				=> ABNet_PostStats_StyleMetricOptions::KEY_LIX_BRACKET,
+			ABNet_PostStats_StyleMetricYulesKProvider::KEY
+				=> ABNet_PostStats_StyleMetricOptions::KEY_YULES_K_BRACKET,
+			ABNet_PostStats_StyleMetricHapaxToTypesProvider::KEY
+				=> ABNet_PostStats_StyleMetricOptions::KEY_HAPAX_TO_TYPES_BRACKET
+		);
 	}
 
 	public static function sanitizeRawOptionsArray(array $rawOptions): array {

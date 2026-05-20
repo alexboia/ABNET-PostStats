@@ -24,18 +24,16 @@ class ABNet_PostStats_StyleMetric_Manager {
 		'advanced'
 	);
 
-	/**
-	 * @var ABNet_PostStats_StyleMetricOptions
-	 */
-	private $_options = null;
+	private ?ABNet_PostStats_StyleMetricOptions $_options = null;
 
-	/**
-	 * @var ABNet_PostStats_StyleMetric_DataSource
-	 */
-	private $_styleMetricsDataSource = null;
+	private ?ABNet_PostStats_StyleMetric_DataSource $_styleMetricsDataSource = null;
+
+	private ?ABNet_PostStats_StyleInfoProvider $_styleInfoProvider = null;
+
+	private ABNet_PostStats_View $_view;
 
 	public function __construct() {
-		return;
+		$this->_view = ABNet_PostStats_View::getInstance();
 	}
 
 	public function isOnOptionsPage(): bool {
@@ -156,20 +154,24 @@ class ABNet_PostStats_StyleMetric_Manager {
 
 		$dataSource = $this->_getStyleMetricsDataSource();
 		$styleInfo = $dataSource->getStyleInfo($postId);
-		if ($styleInfo === null) {
+		$styleProvider = $this->_getStyleInfoProvider();
+
+		if (!$styleInfo || !$styleProvider->matchesEnabledProviders($styleInfo)) {
 			$styleInfo = $this->_computeStyleInfo($post);
 		} else {
 			error_log('[DEBUG] Using pre-computed style metrics.');
 		}
 
-		require_once ABNET_POST_STATS_VIEWS_DIR . '/admin-style-metrics-metabox.php';
+		$this->_view->render('admin-style-metrics-metabox.php', compact(
+			'styleInfo'
+		));
 	}
 
 	private function _computeStyleInfo(\WP_Post $post): ABNet_PostStats_StyleInfo {
 		$postId = intval($post->ID);
 		
 		$styleSource = new ABNet_PostStats_StyleSource($post->post_content);
-		$styleInfoProvider = new ABNet_PostStats_StyleInfoProvider($this->_getOptions());
+		$styleInfoProvider = $this->_getStyleInfoProvider();
 		
 		$info = $styleInfoProvider->calculateStyleInfo($styleSource);
 		if ($postId > 0) {
@@ -208,7 +210,7 @@ class ABNet_PostStats_StyleMetric_Manager {
 			ABNet_PostStats_StyleMetricOptions::OPTION_NAME,
 			array(
 				'type' => 'array',
-				'sanitize_callback' => array('ABNet_PostStats_StyleMetricOptions', 'sanitizeRawOptionsArray'),
+				'sanitize_callback' => array('ABNet_PostStats_StyleMetricOptions', 'sanitizeRawOptionsInputArray'),
 				'default' => ABNet_PostStats_StyleMetricOptions::defaults()->toArray()
 			)
 		);
@@ -220,7 +222,7 @@ class ABNet_PostStats_StyleMetric_Manager {
 			self::PAGE_SLUG
 		);
 
-		$providerToggles = $this->_getProviderOptionToggles();
+		$providerToggles = $this->_getProviderOptionToggleKeyMapping();
 		$providerBracketKeys = $this->_getProviderBracketOptionKeys();
 		$styleInfoProvider = new ABNet_PostStats_StyleInfoProvider($this->_getOptions());
 
@@ -233,11 +235,13 @@ class ABNet_PostStats_StyleMetric_Manager {
 				$description);
 
 			$bracketOptionKey = $providerBracketKeys[$key] ?? null;
+			$genericBracketDescription = __('Controls the minimum and maximum expected values used to evaluate this metric.', 'abnet-post-stats');
+
 			if (!empty($bracketOptionKey)) {
 				$this->_registerBracketField(
 					$bracketOptionKey,
 					sprintf(__('%s bracket', 'abnet-post-stats'), $label),
-					__('Controls the minimum and maximum expected values used to evaluate this metric.', 'abnet-post-stats')
+					$genericBracketDescription
 				);
 			}
 		}
@@ -259,42 +263,12 @@ class ABNet_PostStats_StyleMetric_Manager {
 		);
 	}
 
-	private function _getProviderOptionToggles(): array {
-		return array(
-			ABNet_PostStats_StyleMetricAverageSentenceLengthProvider::KEY 
-				=> ABNet_PostStats_StyleMetricOptions::KEY_USE_AVERAGE_SENTENCE_LENGTH,
-			ABNet_PostStats_StyleMetricEntropyProvider::KEY 
-				=> ABNet_PostStats_StyleMetricOptions::KEY_USE_ENTROPY,
-			ABNet_PostStats_StyleMetricNegativityProvider::KEY
-				=> ABNet_PostStats_StyleMetricOptions::KEY_USE_NEGATIVITY,
-			ABNet_PostStats_StyleMetricPunctuationProvider::KEY
-				=> ABNet_PostStats_StyleMetricOptions::KEY_USE_PUNCTUATION,
-			ABNet_PostStats_StyleMetricLixProvider::KEY
-				=> ABNet_PostStats_StyleMetricOptions::KEY_USE_LIX,
-			ABNet_PostStats_StyleMetricYulesKProvider::KEY
-				=> ABNet_PostStats_StyleMetricOptions::KEY_USE_YULES_K,
-			ABNet_PostStats_StyleMetricHapaxToTypesProvider::KEY
-				=> ABNet_PostStats_StyleMetricOptions::KEY_USE_HAPAX_TO_TYPES
-		);
+	private function _getProviderOptionToggleKeyMapping(): array {
+		return ABNet_PostStats_StyleMetricOptions::getProviderOptionToggleKeyMapping();
 	}
 
 	private function _getProviderBracketOptionKeys(): array {
-		return array(
-			ABNet_PostStats_StyleMetricAverageSentenceLengthProvider::KEY
-				=> ABNet_PostStats_StyleMetricOptions::KEY_AVERAGE_SENTENCE_LENGTH_BRACKET,
-			ABNet_PostStats_StyleMetricEntropyProvider::KEY
-				=> ABNet_PostStats_StyleMetricOptions::KEY_ENTROPY_BRACKET,
-			ABNet_PostStats_StyleMetricNegativityProvider::KEY
-				=> ABNet_PostStats_StyleMetricOptions::KEY_NEGATIVITY_BRACKET,
-			ABNet_PostStats_StyleMetricPunctuationProvider::KEY
-				=> ABNet_PostStats_StyleMetricOptions::KEY_PUNCTUATION_BRACKET,
-			ABNet_PostStats_StyleMetricLixProvider::KEY
-				=> ABNet_PostStats_StyleMetricOptions::KEY_LIX_BRACKET,
-			ABNet_PostStats_StyleMetricYulesKProvider::KEY
-				=> ABNet_PostStats_StyleMetricOptions::KEY_YULES_K_BRACKET,
-			ABNet_PostStats_StyleMetricHapaxToTypesProvider::KEY
-				=> ABNet_PostStats_StyleMetricOptions::KEY_HAPAX_TO_TYPES_BRACKET
-		);
+		return ABNet_PostStats_StyleMetricOptions::getProviderBracketOptionKeyMapping();
 	}
 
 	private function _registerToggleField(string $key, string $label, string $description): void {
@@ -333,25 +307,24 @@ class ABNet_PostStats_StyleMetric_Manager {
 	}
 
 	public function renderBooleanToggleField(array $args): void {
-		$key = $args['key'] ?? '';
+		$optionKey = $args['key'] ?? '';
+		$optionName = ABNet_PostStats_StyleMetricOptions::OPTION_NAME;
 		$label = $args['label'] ?? '';
 		$description = $args['description'] ?? '';
 
-		if ($key === '') {
+		if (empty($optionKey)) {
 			return;
 		}
 
 		$options = $options = $this->_getOptions()->toArray();
-		$enabled = !empty($options[$key]);
+		$enabled = !empty($options[$optionKey]);
 
-		echo '<label>';
-		echo 	'<input type="checkbox" name="' . esc_attr(ABNet_PostStats_StyleMetricOptions::OPTION_NAME . '[' . $key . ']') . '" value="1" ' . checked(true, $enabled, false) . ' /> ';
-		echo 	esc_html__('Enabled', 'abnet-post-stats');
-		echo '</label>';
-
-		echo '<p class="description">' . 
-				esc_html($description) . 
-			'</p>';
+		$this->_view->renderSettingsControl('admin-style-metric-boolean-toggle-input-control.php', compact(
+			'optionName',
+			'optionKey',
+			'enabled',
+			'description'
+		));
 	}
 
 	public function renderYulesKMultiplierField(): void {
@@ -388,7 +361,13 @@ class ABNet_PostStats_StyleMetric_Manager {
 			? (float) $bracket['max'] 
 			: 0.0;
 
-		require ABNET_POST_STATS_VIEWS_DIR . '/settings-controls/admin-min-max-input-control.php';
+		$this->_view->renderSettingsControl('admin-style-metric-min-max-input-control.php', compact(
+			'optionName',
+			'optionKey',
+			'min',
+			'max',
+			'description'
+		));
 	}
 
 	public function renderNegativeWordListField(): void {
@@ -406,7 +385,7 @@ class ABNet_PostStats_StyleMetric_Manager {
 			'</textarea>';
 
 		echo '<p class="description">' . 
-				esc_html__('One word per line. Used by the negativity provider. The provider will not be used unless at least a word is provided.', 'abnet-post-stats') . 
+				esc_html__('One word per line. Used by the negativity provider. The provider will use default English negative word list if nothing entered here.', 'abnet-post-stats') . 
 			'</p>';
 	}
 
@@ -418,8 +397,12 @@ class ABNet_PostStats_StyleMetric_Manager {
 		$pageSlug = self::PAGE_SLUG;
 		$settingsGroup = self::SETTINGS_GROUP;
 		$options = $this->_getOptions();
-		
-		require_once ABNET_POST_STATS_VIEWS_DIR . '/admin-style-metrics-settings-page.php';
+
+		$this->_view->render('admin-style-metrics-settings-page.php', compact(
+			'pageSlug',
+			'settingsGroup',
+			'options'
+		));
 	}
 
 	private function _getOptions(): ABNet_PostStats_StyleMetricOptions {
@@ -430,15 +413,23 @@ class ABNet_PostStats_StyleMetric_Manager {
 		return $this->_options;
 	}
 
-	private function _getStyleMetricsDataSource() {
+	private function _getStyleMetricsDataSource(): ABNet_PostStats_StyleMetric_DataSource {
 		if ($this->_styleMetricsDataSource === null) {
 			$this->_styleMetricsDataSource = new ABNet_PostStats_StyleMetric_DataSource(
-				new ABNet_PostStats_StyleInfoProvider(
-					$this->_getOptions()
-				)
+				$this->_getStyleInfoProvider()
 			);
 		}
 
 		return $this->_styleMetricsDataSource;
+	}
+
+	private function _getStyleInfoProvider(): ABNet_PostStats_StyleInfoProvider {
+		if ($this->_styleInfoProvider === null) {
+			$this->_styleInfoProvider = new ABNet_PostStats_StyleInfoProvider(
+				$this->_getOptions()
+			);
+		}
+
+		return $this->_styleInfoProvider;
 	}
 }

@@ -34,6 +34,11 @@ class ABNet_PostStats_StyleInfoProvider {
 	 */
 	private ?array $_styleMetricBracketMap = null;
 
+	/**
+	 * @var array<string, bool>
+	 */
+	private array $_enabledProviders = array();
+
 	public function __construct(ABNet_PostStats_StyleMetricOptions $options) {
 		$this->_options = $options;
 	}
@@ -92,60 +97,103 @@ class ABNet_PostStats_StyleInfoProvider {
 		$providers = $this->_getProviders();
 
 		foreach ($providers as $p) {
-			$styleMetrics[] = $p->compute($source);
+			if ($this->isProviderEnabled($p->getKey())) {
+				$styleMetrics[] = $p->compute($source);
+			}
 		}
 
 		return new ABNet_PostStats_StyleInfo($styleMetrics);
+	}
+
+	public function matchesEnabledProviders(ABNet_PostStats_StyleInfo $info) {
+		$enabledProviderCount = 0;
+		$enabledProviders = $this->_getEnabledProviders();
+
+		foreach ($enabledProviders as $key => $enabled) {
+			if ($enabled) {
+				$enabledProviderCount ++;
+			}
+		}
+
+		$givenMetrics = $info->getMetrics();
+		if ($enabledProviderCount !== count($givenMetrics)) {
+			return false;
+		}
+
+		foreach ($givenMetrics as $m) {
+			$key = $m->getKey();
+			if (!isset($enabledProviders[$key]) || $enabledProviders[$key] !== true) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	/**
 	 * @return ABNet_PostStats_StyleMetricProvider[]
 	 */
 	private function _getProviders(): array {
+		$this->_initProvidersIfNeeded();
+		return $this->_providers;
+	}
+
+	/**
+	 * @return array<string, bool>
+	 */
+	private function _getEnabledProviders(): array {
+		$this->_initProvidersIfNeeded();
+		return $this->_enabledProviders;
+	}
+
+	private function _initProvidersIfNeeded(): void {
 		if ($this->_providers === null) {
 			$providers = [];
+			$enabledProviders = [];
 
-			if ($this->_options->getUseAverageSentenceLength()) {
-				$aslBracket = $this->_options->getAverageSentenceLengthBracket();
-				$providers[] = new ABNet_PostStats_StyleMetricAverageSentenceLengthProvider($aslBracket);
-			}
-			
-			if ($this->_options->getUseEntropy()) {
-				$entropyBracket = $this->_options->getEntropyBracket();
-				$providers[] = new ABNet_PostStats_StyleMetricEntropyProvider($entropyBracket);
-			}
-			
-			if ($this->_options->getUseNegativity()) {
-				if ($this->_options->hasNegativeWordList()) {
-					$negativeWordList = $this->_options->getNegativeWordList();
-					$negativityBracket = $this->_options->getNegativityBracket();
-					$providers[] = new ABNet_PostStats_StyleMetricNegativityProvider($negativeWordList, $negativityBracket);
-				} else {
-					write_log('[DEBUG] Negativity provider enabled, but no negative word list configured. Will not register.');
-				}				
-			}
-			
-			if ($this->_options->getUsePunctuation()) {
-				$punctuationBracket = $this->_options->getPunctuationBracket();
-				$providers[] = new ABNet_PostStats_StyleMetricPunctuationProvider($punctuationBracket);
-			}
-			
-			if ($this->_options->getUseLix()) {
-				$lixBracket = $this->_options->getLixBracket();
-				$providers[] = new ABNet_PostStats_StyleMetricLixProvider($lixBracket);
-			}
+			$aslBracket = $this->_options->getAverageSentenceLengthBracket();
+			$aslProvider = new ABNet_PostStats_StyleMetricAverageSentenceLengthProvider($aslBracket);
+			$providers[] = $aslProvider;
+			$enabledProviders[$aslProvider->getKey()] = $this->_options->getUseAverageSentenceLength();
 
-			if ($this->_options->getUseYulesK()) {
-				$yulsesKMultiplier = $this->_options->getYulesKMultiplier();
-				$yulesKBracket = $this->_options->getYulesKBracket();
-				$providers[] = new ABNet_PostStats_StyleMetricYulesKProvider($yulsesKMultiplier, $yulesKBracket);
-			}
+			$entropyBracket = $this->_options->getEntropyBracket();
+			$entropyProvider = new ABNet_PostStats_StyleMetricEntropyProvider($entropyBracket);
+			$providers[] = $entropyProvider;
+			$enabledProviders[$entropyProvider->getKey()] = $this->_options->getUseEntropy();
 
-			if ($this->_options->getUseHapaxToTypes()) {
-				$hapaxBracket = $this->_options->getHapaxToTypesBracket();
-				$providers[] = new ABNet_PostStats_StyleMetricHapaxToTypesProvider($hapaxBracket);
-			}
+			$negativeWordList = $this->_options->getNegativeWordList();
+			$negativityBracket = $this->_options->getNegativityBracket();
+			$negativityProvider = new ABNet_PostStats_StyleMetricNegativityProvider($negativeWordList, $negativityBracket);
+			$providers[] = $negativityProvider;
+			$enabledProviders[$negativityProvider->getKey()] = $this->_options->getUseNegativity();
+
+			$punctuationBracket = $this->_options->getPunctuationBracket();
+			$punctuationProvider = new ABNet_PostStats_StyleMetricPunctuationProvider($punctuationBracket);
+			$providers[] = $punctuationProvider;
+			$enabledProviders[$punctuationProvider->getKey()] = $this->_options->getUsePunctuation();
 			
+			$lixBracket = $this->_options->getLixBracket();
+			$lixProvider = new ABNet_PostStats_StyleMetricLixProvider($lixBracket);
+			$providers[] = $lixProvider;
+			$enabledProviders[$lixProvider->getKey()] = $this->_options->getUseLix();
+
+			$yulsesKMultiplier = $this->_options->getYulesKMultiplier();
+			$yulesKBracket = $this->_options->getYulesKBracket();
+			$yulesKProvider = new ABNet_PostStats_StyleMetricYulesKProvider($yulsesKMultiplier, $yulesKBracket);
+			$providers[] = $yulesKProvider;
+			$enabledProviders[$yulesKProvider->getKey()] = $this->_options->getUseYulesK();
+
+			$hapaxBracket = $this->_options->getHapaxToTypesBracket();
+			$hapaxProvider = new ABNet_PostStats_StyleMetricHapaxToTypesProvider($hapaxBracket);
+			$providers[] = $hapaxProvider;
+			$enabledProviders[$hapaxProvider->getKey()] = $this->_options->getUseHapaxToTypes();
+			
+			/**
+			 * Filters the list of registered style metric providers.
+			 *
+			 * @param ABNet_PostStats_StyleMetricProvider[] $providers Registered provider instances.
+			 * @param ABNet_PostStats_StyleMetricOptions $options Current style metric options.
+			 */
 			$providers = apply_filters('abnet_posts_stats_style_metric_providers', 
 				$providers, 
 				$this->_options);
@@ -154,9 +202,36 @@ class ABNet_PostStats_StyleInfoProvider {
 				return $provider instanceof ABNet_PostStats_StyleMetricProvider;
 			});
 
+			/**
+			 * Filters the list of enabled style metric providers. 
+			 * 	Keys are provider keys (getKey()), values are boolean true or false.
+			 *	This will also affect what's displayed, as well as what's computed.
+			 *
+			 * @param array<string, bool> $enabledProviders Active provider status map.
+			 * @param ABNet_PostStats_StyleMetricProvider[] $providers Registered provider instances.
+			 * @param ABNet_PostStats_StyleMetricOptions $options Current style metric options.
+			 */
+			$enabledProviders = apply_filters('abnet_posts_stats_style_metric_enabled_providers', 
+				$enabledProviders, 
+				$providers,
+				$this->_options);
+
+			foreach ($providers as $p) {
+				$key = $p->getKey();
+				if (!isset($enabledProviders[$key])) {
+					$enabledProviders[$key] = false;
+				} else {
+					$enabledProviders[$key] = ($enabledProviders[$key] === true);
+				}
+			}
+
 			$this->_providers = $providers;
-		}		
-		
-		return $this->_providers;
+			$this->_enabledProviders = $enabledProviders;
+		}	
+	}
+
+	public function isProviderEnabled(string $key): bool {
+		return isset($this->_enabledProviders[$key]) 
+			&& $this->_enabledProviders[$key] === true;
 	}
 }

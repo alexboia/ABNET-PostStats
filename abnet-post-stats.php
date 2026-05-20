@@ -19,6 +19,7 @@ if (!defined('ABSPATH')) {
 
 require_once 'abnet-post-stats-plugin-header.php';
 
+require_once ABNET_POST_STATS_INC_DIR . 'class-abnet-poststats-view.php';
 require_once ABNET_POST_STATS_INC_DIR . 'class-abnet-poststats-feature.php';
 require_once ABNET_POST_STATS_INC_DIR . 'class-abnet-poststats-item.php';
 require_once ABNET_POST_STATS_INC_DIR . 'class-abnet-poststats-result.php';

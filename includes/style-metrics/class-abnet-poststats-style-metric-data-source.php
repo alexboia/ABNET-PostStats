@@ -57,6 +57,11 @@ class ABNet_PostStats_StyleMetric_DataSource {
 				if ($metricName === null || $metricDescription === null) {
 					continue;
 				}
+
+				// Skip disabled metrics
+				if (!$this->_styleInfoProvider->isProviderEnabled($metricKey)) {
+					continue;
+				}
 				
 				$metrics[] = new ABNet_PostStats_StyleMetric(
 					$metricKey,

@@ -22,6 +22,13 @@ if (!defined('ABSPATH')) {
 						? 'abnet-post-stats-metric-ok' 
 						: 'abnet-post-stats-metric-outside';
 
+					/**
+					 * Filters the row CSS class used to indicate 
+					 * 	whether the metric is within its configured bracket.
+					 *
+					 * @param string $defaultBracketMarkerCssClass Default CSS class name.
+					 * @param ABNet_PostStats_StyleMetric $metric Current metric instance.
+					 */
 					$bracketMarkerCssClass = apply_filters('abnet_post_stats_style_metrics_bracket_marker_css_class', 
 						$defaultBracketMarkerCssClass, 
 						$metric);
@@ -34,6 +41,13 @@ if (!defined('ABSPATH')) {
 						$metric->getBracket()->getMin(), 
 						$metric->getBracket()->getMax());
 
+					/**
+					 * Filters the tooltip/description text rendered as tooltip (HTML title attribute) 
+					 * 	for a metric bracket in the metabox.
+					 *
+					 * @param string $defaultBracketDescription Default bracket description.
+					 * @param ABNet_PostStats_StyleMetric $metric Current metric instance.
+					 */
 					$bracketDescription = apply_filters('abnet_post_stats_style_metrics_bracket_description', 
 						$defaultBracketDescription, 
 						$metric);
