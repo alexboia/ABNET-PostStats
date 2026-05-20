@@ -28,23 +28,6 @@
 - Lightweight and fast performance
 - Clean and intuitive interface
 
-## Screenshots
-
-### Dashboard - default statistics
-![Dashboard - default statistics](screenshots/abnet-post-stats.png)
-
-### Dashboard - custom content pillar statistics
-![Dashboard - custom content pillar statistics](screenshots/abnet-content-pillar-post-stats.png)
-
-### Dashboard - custom content pillar management
-![Dashboard - custom content pillar management](screenshots/content-pillars.png)
-
-### Dashboard - style metrics on post editor page
-![Dashboard - style metrics on post editor page](screenshots/style-metrics-post-editor.png)
-
-### Dashboard - style metric settings
-![Dashboard - style metric settings](screenshots/style-metrics-settings.png)
-
 ## Some thoughts
 
 I built this because I wanted a small editorial mirror inside WordPress. Something beyond an optimized vending machine, something simpler and more personal: a way to see my own publishing rhythm.
@@ -77,6 +60,23 @@ That is why the plugin supports preferred ranges. I do not treat them as univers
 Condei Simple Post Stats is free. It may also be the first step in a broader suite of WordPress tools for people who still care about composing text.
 
 The goal is modest: fewer distractions, better editorial awareness, and a writing environment that treats the author as an author, not as a block arrangement technician.
+
+## Screenshots
+
+### Dashboard - default statistics
+![Dashboard - default statistics](screenshots/abnet-post-stats.png)
+
+### Dashboard - custom content pillar statistics
+![Dashboard - custom content pillar statistics](screenshots/abnet-content-pillar-post-stats.png)
+
+### Dashboard - custom content pillar management
+![Dashboard - custom content pillar management](screenshots/content-pillars.png)
+
+### Dashboard - style metrics on post editor page
+![Dashboard - style metrics on post editor page](screenshots/style-metrics-post-editor.png)
+
+### Dashboard - style metric settings
+![Dashboard - style metric settings](screenshots/style-metrics-settings.png)
 
 ## Install
 
