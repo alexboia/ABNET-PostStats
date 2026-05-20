@@ -17,13 +17,13 @@
 
 - Track post publishing statistics per month and per year;
 - Define content pillars for custom statistics (also per month and per year);
-- Advanced stylometry with the following supported metrics: 
+- Lightweight stylometry with the following supported metrics: 
    - [Average Sentence Length](https://github.com/alexboia/ABNET-PostStats/blob/main/docs/average-sentence-length.md);
    - [Hapax Legomena - Hapax to Types](https://github.com/alexboia/ABNET-PostStats/blob/main/docs/hapax-to-types.md);
    - [LIX](https://github.com/alexboia/ABNET-PostStats/blob/main/docs/lix.md);
    - [Negativity](https://github.com/alexboia/ABNET-PostStats/blob/main/docs/negativity.md);
    - [Punctuation](https://github.com/alexboia/ABNET-PostStats/blob/main/docs/punctuation.md);
-   - [Shannon Entryopy](https://github.com/alexboia/ABNET-PostStats/blob/main/docs/shannon-entropy.md);
+   - [Shannon Entropy](https://github.com/alexboia/ABNET-PostStats/blob/main/docs/shannon-entropy.md);
    - [Yule's K](https://github.com/alexboia/ABNET-PostStats/blob/main/docs/yuk.md).
 - Lightweight and fast performance;
 - Clean and intuitive interface;
@@ -58,13 +58,13 @@ The useful part is less the number itself and more the question it raises: shoul
 
 That is why the plugin supports preferred ranges. I do not treat them as universal standards. They are closer to a house style: a personal editorial profile for the kind of writing I want to publish.
 
-Condei Simple Post Stats is free. It may also be the first step in a broader suite of WordPress tools for people who still care about composing text.
+Condei Simple Post Stats is free. It may also become part of a broader family of small WordPress tools for people who still care about writing, editing, and publishing in a calmer, more text-centered way.
 
 The goal is modest: fewer distractions, better editorial awareness, and a writing environment that treats the author as an author, not as a block arrangement technician.
 
 ## Credits
 
-For the style metrics part I shameless plugged the idea from Victor's [Paradigma project](https://www.paradigma.ro).
+For the style metrics part I shameless borrowed the idea from Victor's [Paradigma project](https://www.paradigma.ro).
 
 ## Screenshots
 
@@ -139,6 +139,6 @@ Feel free to fork and use as you please.
 ## Donate
 
 I put some of my free time into developing and maintaining this plugin.
-If helped you in your projects and you are happy with it, you can...
+If it helped you in your projects and you are happy with it, you can...
 
 [![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/Q5Q01KGLM)
