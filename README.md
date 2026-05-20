@@ -2,10 +2,11 @@
    <img align="center" width="210" height="200" src="https://github.com/alexboia/ABNET-PostStats/blob/main/logo.png?raw=true" style="margin-bottom: 20px; margin-right: 20px; border-radius: 5px;" />
 </p>
 
-<h1 align="center">ABNet Post Stats</h1>
+<h1 align="center">Condei Simple Post Stats for WordPress</h1>
 
 <p align="center">
-   A WordPress plugin for displaying statistics about published post counts per month and per year. Initially built for usage on my own website: https://alexboia.net/.
+   A WordPress plugin for displaying simple content creation statistics. Initially built for usage on my own website: https://alexboia.net/.
+   See features below.
 </p>
 
 <p align="center">
