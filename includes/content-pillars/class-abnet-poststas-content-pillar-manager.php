@@ -165,14 +165,21 @@ class ABNet_PostStats_ContentPillar_Manager {
 	}
 
 	private function _isContentPillarFormSubmitted(): bool {
+		/* phpcs:disable WordPress.Security.ValidatedSanitizedInput -- Variable explicitly checked against valid values. */
+		/* phpcs:disable WordPress.Security.NonceVerification -- False positive: No form processing is carried out here. */
+		
 		return !empty($_SERVER['REQUEST_METHOD']) 
 			&& strtoupper($_SERVER['REQUEST_METHOD']) === 'POST' 
 			&& isset($_POST['abnet_content_pillar_nonce']);
+
+		/* phpcs:disable WordPress.Security.NonceVerification */
+		/* phpcs:enable WordPress.Security.ValidatedSanitizedInput */
 	}
 
 	private function _getContentPillarToEditFromHttpGet(): ?ABNet_PostStats_ContentPillar {
-		$editingPillar = null;
+		/* phpcs:disable WordPress.Security.NonceVerification -- False positive: No form processing is carried out here. */
 
+		$editingPillar = null;
 		if (isset($_GET['edit']) && is_numeric($_GET['edit'])) {
 			$editPillarId = intval($_GET['edit']);
 			if ($editPillarId > 0) {
@@ -180,11 +187,13 @@ class ABNet_PostStats_ContentPillar_Manager {
 			}
 		}
 
+		/* phpcs:enable WordPress.Security.NonceVerification */
+
 		return $editingPillar;
 	}
 
 	private function _processContentPillarForm(): array {
-		$nonce = $_POST['abnet_content_pillar_nonce'] ?? '';
+		$nonce = sanitize_text_field(wp_unslash($_POST['abnet_content_pillar_nonce'] ?? ''));
 		if (!wp_verify_nonce($nonce, 'abnet_content_pillar_action')) {
 			return array(
 				'message' => __('Security check failed.', 'abnet-post-stats'),
@@ -192,7 +201,7 @@ class ABNet_PostStats_ContentPillar_Manager {
 			);
 		}
 		
-		$action = sanitize_text_field($_POST['action'] ?? '');
+		$action = sanitize_text_field(wp_unslash($_POST['action'] ?? ''));
 		switch ($action) {
 			case 'create':
 				return $this->_processCreateContentPillar();
@@ -301,8 +310,12 @@ class ABNet_PostStats_ContentPillar_Manager {
 	}
 
 	private function _processDeleteContentPillar(): array {
+		/* phpcs:disable WordPress.Security.NonceVerification -- False positive: Nonce validation is carried out by caller method. */
+		
 		$id = intval($_POST['pillar_id'] ?? 0);
 		$result = $this->_contentPillarDataSource->deleteContentPillar($id);
+
+		/* phpcs:enable WordPress.Security.NonceVerification */
 		
 		if ($result) {
 			return array(
