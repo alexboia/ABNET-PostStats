@@ -234,4 +234,20 @@ class ABNet_PostStats_StyleInfoProvider {
 		return isset($this->_enabledProviders[$key]) 
 			&& $this->_enabledProviders[$key] === true;
 	}
+
+	public function getAvailableStyleMetricKeys(bool $onlyEnabled = false): array {
+		$keys = array();
+		$providers = $this->_getProviders();
+		$enabledProviders = $this->_getEnabledProviders();
+
+		if ($onlyEnabled) {
+			return array_keys($enabledProviders);
+		}
+
+		foreach ($providers as $p) {
+			$keys[] = $p->getKey();
+		}
+
+		return $keys;
+	}
 }

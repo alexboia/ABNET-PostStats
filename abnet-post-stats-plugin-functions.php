@@ -30,3 +30,15 @@ function abnet_posts_stats_api(): ABNet_PostStats_PublicApi {
 	}
 	return $api;
 }
+
+if (!function_exists('abnet_write_log')) {
+	function abnet_write_log(mixed $data) {
+		if (defined('WP_DEBUG') && true === WP_DEBUG) {
+			if ( is_array($data) || is_object($data)) {
+				error_log(print_r( $data, true));
+			} else {
+				error_log($data);
+			}
+		}
+	}
+}

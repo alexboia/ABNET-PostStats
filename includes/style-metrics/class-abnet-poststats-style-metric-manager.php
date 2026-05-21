@@ -32,8 +32,11 @@ class ABNet_PostStats_StyleMetric_Manager {
 
 	private ABNet_PostStats_View $_view;
 
+	private ABNet_PostStats_PublicApi $_api;
+
 	public function __construct() {
 		$this->_view = ABNet_PostStats_View::getInstance();
+		$this->_api = new ABNet_PostStats_PublicApi();
 	}
 
 	public function isOnOptionsPage(): bool {
@@ -185,47 +188,13 @@ class ABNet_PostStats_StyleMetric_Manager {
 	}
 
 	private function _computeStyleInfo(\WP_Post $post): ABNet_PostStats_StyleInfo {
-		$postId = intval($post->ID);
-
-		/**
-		 * Filters the post content used as the source for style metric computation.
-		 *
-		 * @param string $postContent Raw post content that will be analyzed.
-		 * @param WP_Post $post Current post instance.
-		 * @param ABNet_PostStats_StyleMetricOptions $options Current style metric options.
-		 */
-		$postContent = apply_filters('abnet_poststats_style_metrics_source_content', 
-			$post->post_content, 
-			$post,
-			$this->_getOptions());
-
-		if (empty($postContent)) {
-			$postContent = $post->post_content;
-		}
-		
-		$styleSource = new ABNet_PostStats_StyleSource($postContent);
-		$styleInfoProvider = $this->_getStyleInfoProvider();
-		
-		$info = $styleInfoProvider->calculateStyleInfo($styleSource);
-		if ($postId > 0) {
-			$dataSource = $this->_getStyleMetricsDataSource();
-			$result = $dataSource->saveStyleInfo($postId, $info);
-			if (!$result) {
-				error_log('[ERROR] Failed to save style metrics.');	
-			} else {
-				error_log('[INFO] Style metrics successfully saved.');
-			}
-		} else {
-			error_log('[DEBUG] Post ID was empty. Style metrics info was not saved.');
-		}
-
-		return $info;
+		return $this->_api->recomputeStyleMetricsForPost($post);
 	}
 
 	public function recomputeStyleMetricsOnPostSave($postId): void {
 		$usePostId = intval($postId);
 		if ($usePostId <= 0) {
-			error_log('[DEBUG] Post ID was empty. Style metrics did not recompute on save.');
+			abnet_write_log('[DEBUG] Post ID was empty. Style metrics did not recompute on save.');
 			return;
 		}
 
@@ -273,7 +242,7 @@ class ABNet_PostStats_StyleMetric_Manager {
 
 		$providerToggles = $this->_getProviderOptionToggleKeyMapping();
 		$providerBracketKeys = $this->_getProviderBracketOptionKeys();
-		$styleInfoProvider = new ABNet_PostStats_StyleInfoProvider($this->_getOptions());
+		$styleInfoProvider = $this->_getStyleInfoProvider();
 
 		foreach ($providerToggles as $key => $toggleKey) {
 			$label = $styleInfoProvider->getName($key);
