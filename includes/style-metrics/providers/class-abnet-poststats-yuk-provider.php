@@ -40,12 +40,16 @@ class ABNet_PostStats_StyleMetricYulesKProvider implements ABNet_PostStats_Style
 		$secondMoment = $this->_computeYulesKSecondMoment($distribution);
 		$totalWordCount = $source->getRawWordCount();
 
-		$yulesK = $this->_yulesKMultiplier * (
-			($secondMoment - $totalWordCount) / 
-			($totalWordCount * $totalWordCount)
-		);
-		
-		$yulesK = round($yulesK, self::DEFAULT_PRECISION);
+		if ($totalWordCount > 0) {
+			$yulesK = $this->_yulesKMultiplier * (
+				($secondMoment - $totalWordCount) / 
+				($totalWordCount * $totalWordCount)
+			);
+			
+			$yulesK = round($yulesK, self::DEFAULT_PRECISION);
+		} else {
+			$yulesK = 0;
+		}
 
 		$friendly = $this->_getFriendRepresentation($yulesK);;
 

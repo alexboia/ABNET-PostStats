@@ -30,7 +30,10 @@ class ABNet_PostStats_StyleMetricHapaxToTypesProvider implements ABNet_PostStats
 		$wordsThatAppearOnlyOnce = $this->_countWordsThatAppearOnlyOnce($source);
 		$totalTypes = $source->getUniqueWordCount();
 
-		$hapax = round($wordsThatAppearOnlyOnce / $totalTypes, self::DEFAULT_PRECISION);
+		$hapax = $totalTypes > 0 
+			? round($wordsThatAppearOnlyOnce / $totalTypes, self::DEFAULT_PRECISION)
+			: 0;
+			
 		$friendly = $this->_friendlyRepresentation($hapax);
 
 		return new ABNet_PostStats_StyleMetric(

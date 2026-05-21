@@ -256,7 +256,11 @@ class ABNet_PostStats_StyleMetric_DataSource {
 			return array();
 		}
 
-		global $wpdb;	
+		/**
+		 * @var \wpdb $wpdb
+		 */
+		global $wpdb;
+
 		$tableName = $this->_getTableName();		
 		$postIds = $this->_sanitizePostIds($postIds);
 		
@@ -264,11 +268,13 @@ class ABNet_PostStats_StyleMetric_DataSource {
 			return array();
 		}
 		
-		$placeholders = implode(',', array_fill(0, count($postIds), '%d'));
+		$placeholders = implode(',', 
+			array_fill(0, 
+				count($postIds), 
+				'%d'
+			)
+		);	
 		
-		/**
-		 * @var \wpdb $wpdb
-		 */
 		$results = $wpdb->get_results(
 			$wpdb->prepare(
 				"SELECT post_id, metric_key, metric_value, metric_unit, metric_friendly_representation 

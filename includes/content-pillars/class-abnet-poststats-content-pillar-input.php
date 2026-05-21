@@ -40,11 +40,15 @@ class ABNet_PostStats_ContentPillar_Input {
 	public static function fromHttpPOST(): ABNet_PostStats_ContentPillar_Input {
 		$input = new self();
 
+		/* phpcs:disable WordPress.Security.NonceVerification -- False positive: No form processing is carried out here. */
+
 		$input->_id = max(intval($_POST['pillar_id'] ?? 0), 0);
-		$input->_name = sanitize_text_field($_POST['pillar_name'] ?? '');
+		$input->_name = sanitize_text_field(wp_unslash($_POST['pillar_name'] ?? ''));
 		$input->_categoryIds = array_map('intval', $_POST['category_ids'] ?? array());
-		$input->_color = sanitize_text_field($_POST['pillar_color'] ?? ABNET_POST_STATS_DEFAULT_CHART_COLOR);
+		$input->_color = sanitize_text_field(wp_unslash($_POST['pillar_color'] ?? ABNET_POST_STATS_DEFAULT_CHART_COLOR));
 		$input->_showByDefault = !empty($_POST['show_by_default']) && $_POST['show_by_default'] === 'yes';
+
+		/* phpcs:enable WordPress.Security.NonceVerification */
 	
 		return $input;
 	}

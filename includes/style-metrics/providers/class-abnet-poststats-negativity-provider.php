@@ -85,7 +85,10 @@ class ABNet_PostStats_StyleMetricNegativityProvider implements ABNet_PostStats_S
 		$sentenceCount = count($sentences);
 		$negativeSenteceCount  = $this->_computeNegativeSentenceCount($sentences);
 
-		$negativity = round(($negativeSenteceCount / $sentenceCount) * 100, 0);
+		$negativity = $sentenceCount > 0 
+			? round(($negativeSenteceCount / $sentenceCount) * 100, 0)
+			: 0;
+			
 		$friendly = $this->_friendlyRepresentation($negativity);
 
 		return new ABNet_PostStats_StyleMetric(

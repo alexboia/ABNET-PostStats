@@ -33,8 +33,9 @@ class ABNet_PostStats_StyleMetricLixProvider implements ABNet_PostStats_StyleMet
 		$totalSentenceCount = $this->_countSentences($source);
 		$longWordCount = $this->_countLongWords($source);
 
-		$lix = ($totalWordCount /  $totalSentenceCount) 
-			+ (($longWordCount / $totalWordCount) * 100);
+		$lix = $totalSentenceCount > 0 && $totalWordCount > 0 
+			? ($totalWordCount /  $totalSentenceCount) + (($longWordCount / $totalWordCount) * 100)
+			: 0;
 
 		$lix = round($lix, self::DEFAULT_PRECISION);
 		$friendly = sprintf('%d (LIX)', (int)$lix);

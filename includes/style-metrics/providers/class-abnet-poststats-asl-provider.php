@@ -30,7 +30,9 @@ class ABNet_PostStats_StyleMetricAverageSentenceLengthProvider implements ABNet_
 		$wordCount = $source->getRawWordCount();
 		$sentenceCount = $this->_countSentences($source);
 
-		$asl = round($wordCount / $sentenceCount, self::DEFAULT_PRECISION);
+		$asl = $sentenceCount > 0 
+			?  round($wordCount / $sentenceCount, self::DEFAULT_PRECISION)
+			: 0;
 		$friendly = sprintf('%.' . self::DEFAULT_PRECISION . 'f (ASL)', $asl);
 
 		return new ABNet_PostStats_StyleMetric(

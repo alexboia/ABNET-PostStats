@@ -22,15 +22,15 @@ class ABNet_PostStats_StyleSource {
 
 	private string $_plainText;
 
-	private array $_allWords;
+	private array $_allWords =  array();
 
-	private array $_wordCountMap;
+	private array $_wordCountMap = array();
 
-	private array $_punctuationCountMap;
+	private array $_punctuationCountMap = array();
 
-	private int $_rawWordCount;
+	private int $_rawWordCount = 0;
 
-	private int $_rawPunctuationCount;
+	private int $_rawPunctuationCount = 0;
 
 	public function __construct(string $rawText, array $completelyRemoveTags = array('pre', 'code', 'table', 'img')) {
 		$this->_rawText = $rawText;
