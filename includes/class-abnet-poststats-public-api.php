@@ -43,6 +43,10 @@ class ABNet_PostStats_PublicApi {
 		return $this->_getStyleInfoProvider()->getAvailableStyleMetricKeys($onlyEnabled);
 	}
 
+	public function matchesEnabledProviders(ABNet_PostStats_StyleInfo $info): bool {
+		return $this->_getStyleInfoProvider()->matchesEnabledProviders($info);
+	}
+
 	public function getStyleMetricOptions(): ABNet_PostStats_StyleMetricOptions {
 		if ($this->_options === null) {
 			$configured = ABNet_PostStats_StyleMetricOptions::configured();
@@ -62,6 +66,17 @@ class ABNet_PostStats_PublicApi {
 
 	public function getYearlyPostStats(int $limit): ABNet_PostStats_Result {
 		return $this->_getStatsDataSource()->getPostCountsPerYear($limit);
+	}
+
+	public function getStyleMetricMeta(string $key): ?ABNet_PostStats_StyleMetric_Meta {
+		$provider = $this->_getStyleInfoProvider();
+		$name = $provider->getName($key);
+		if (empty($name)) {
+			return null;
+		}
+
+		$description = $provider->getShortDescription($key) ?? "";
+		return new ABNet_PostStats_StyleMetric_Meta($name, $description);
 	}
 
 	public function getStyleMetricsForPost(int $postId, bool $recomputeIfNotFound = false): ?ABNet_PostStats_StyleInfo {

@@ -90,6 +90,8 @@ class ABNet_PostStats {
 		$this->_styleMetricManager->init();
 		$this->_widgetManger->init();
 		$this->_isInitialized = true;
+
+		do_action('abnet_post_stats_init', abnet_posts_stats_api());
 	}
 
 	private function _shouldIncludeDashboardWidgets(): bool {

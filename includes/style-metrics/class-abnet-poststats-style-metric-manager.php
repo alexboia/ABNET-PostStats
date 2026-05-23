@@ -24,19 +24,12 @@ class ABNet_PostStats_StyleMetric_Manager {
 		'advanced'
 	);
 
-	private ?ABNet_PostStats_StyleMetricOptions $_options = null;
-
-	private ?ABNet_PostStats_StyleMetric_DataSource $_styleMetricsDataSource = null;
-
-	private ?ABNet_PostStats_StyleInfoProvider $_styleInfoProvider = null;
-
 	private ABNet_PostStats_View $_view;
 
-	private ABNet_PostStats_PublicApi $_api;
+	private ?ABNet_PostStats_PublicApi $_api = null;
 
 	public function __construct() {
 		$this->_view = ABNet_PostStats_View::getInstance();
-		$this->_api = new ABNet_PostStats_PublicApi();
 	}
 
 	public function isOnOptionsPage(): bool {
@@ -92,7 +85,7 @@ class ABNet_PostStats_StyleMetric_Manager {
 	public function addPostMetaboxes() {
 		$postTypes = $this->_getSupportedPostTypes();
 		if (empty($postTypes)) {
-			error_log('[WARN] No post types returned from hook. The feature will not be available.');
+			abnet_write_log('[WARN] No post types returned from hook. The feature will not be available.');
 			return;
 		}
 
@@ -118,7 +111,8 @@ class ABNet_PostStats_StyleMetric_Manager {
 		 *
 		 * @param string[] $defaultPostTypes Default supported post types.
 		 */
-		$postTypes = apply_filters('abnet_poststats_enable_style_metrics_post_types', $defaultPostTypes);
+		$postTypes = apply_filters('abnet_poststats_enable_style_metrics_post_types', 
+			$defaultPostTypes);
 		
 		if (empty($postTypes) || !is_array($postTypes)) {
 			$postTypes = array();
@@ -172,14 +166,13 @@ class ABNet_PostStats_StyleMetric_Manager {
 			return;
 		}
 
-		$dataSource = $this->_getStyleMetricsDataSource();
-		$styleInfo = $dataSource->getStyleInfo($postId);
-		$styleProvider = $this->_getStyleInfoProvider();
+		$api = $this->_getApi();
+		$styleInfo = $api->getStyleMetricsForPost($postId, false);
 
-		if (!$styleInfo || !$styleProvider->matchesEnabledProviders($styleInfo)) {
+		if (!$styleInfo || !$api->matchesEnabledProviders($styleInfo)) {
 			$styleInfo = $this->_computeStyleInfo($post);
 		} else {
-			error_log('[DEBUG] Using pre-computed style metrics.');
+			abnet_write_log('[DEBUG] Using pre-computed style metrics.');
 		}
 
 		$this->_view->render('admin-style-metrics-metabox.php', compact(
@@ -188,7 +181,7 @@ class ABNet_PostStats_StyleMetric_Manager {
 	}
 
 	private function _computeStyleInfo(\WP_Post $post): ABNet_PostStats_StyleInfo {
-		return $this->_api->recomputeStyleMetricsForPost($post);
+		return $this->_getApi()->recomputeStyleMetricsForPost($post);
 	}
 
 	public function recomputeStyleMetricsOnPostSave($postId): void {
@@ -240,26 +233,28 @@ class ABNet_PostStats_StyleMetric_Manager {
 			self::PAGE_SLUG
 		);
 
+		$api = $this->_getApi();
 		$providerToggles = $this->_getProviderOptionToggleKeyMapping();
 		$providerBracketKeys = $this->_getProviderBracketOptionKeys();
-		$styleInfoProvider = $this->_getStyleInfoProvider();
 
 		foreach ($providerToggles as $key => $toggleKey) {
-			$label = $styleInfoProvider->getName($key);
-			$description = $styleInfoProvider->getShortDescription($key);
+			$metricMeta = $api->getStyleMetricMeta($key);
 
 			$this->_registerToggleField($toggleKey, 
-				$label, 
-				$description);
+				$metricMeta->getName(), 
+				$metricMeta->getDescription());
 
 			$bracketOptionKey = $providerBracketKeys[$key] ?? null;
 			$genericBracketDescription = __('Controls the minimum and maximum expected values used to evaluate this metric.', 'abnet-post-stats');
 
 			if (!empty($bracketOptionKey)) {
+				/* translators: Field label for metric bracket settings (e.g., "Shannon's Entropy bracket") */
+				$bracketLabel = sprintf(__('%s bracket', 'abnet-post-stats'), 
+					$metricMeta->getName());
+
 				$this->_registerBracketField(
 					$bracketOptionKey,
-					/* translators: Field label for metric bracket settings (e.g., "Shannon's Entropy bracket") */
-					sprintf(__('%s bracket', 'abnet-post-stats'), $label),
+					$bracketLabel,
 					$genericBracketDescription
 				);
 			}
@@ -440,30 +435,14 @@ class ABNet_PostStats_StyleMetric_Manager {
 	}
 
 	private function _getOptions(): ABNet_PostStats_StyleMetricOptions {
-		if ($this->_options === null) {
-			$this->_options = ABNet_PostStats_StyleMetricOptions::configured();
-		}
-
-		return $this->_options;
+		return $this->_getApi()->getStyleMetricOptions();
 	}
 
-	private function _getStyleMetricsDataSource(): ABNet_PostStats_StyleMetric_DataSource {
-		if ($this->_styleMetricsDataSource === null) {
-			$this->_styleMetricsDataSource = new ABNet_PostStats_StyleMetric_DataSource(
-				$this->_getStyleInfoProvider()
-			);
+	private function _getApi(): ABNet_PostStats_PublicApi {
+		if ($this->_api === null) {
+			$this->_api = new ABNet_PostStats_PublicApi();
 		}
 
-		return $this->_styleMetricsDataSource;
-	}
-
-	private function _getStyleInfoProvider(): ABNet_PostStats_StyleInfoProvider {
-		if ($this->_styleInfoProvider === null) {
-			$this->_styleInfoProvider = new ABNet_PostStats_StyleInfoProvider(
-				$this->_getOptions()
-			);
-		}
-
-		return $this->_styleInfoProvider;
+		return $this->_api;
 	}
 }

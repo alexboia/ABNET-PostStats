@@ -43,7 +43,7 @@ class ABNet_PostStats_StyleInfoProvider {
 		$this->_options = $options;
 	}
 
-	public function getShortDescription(string $key) {
+	public function getShortDescription(string $key): ?string {
 		if (empty($key)) {
 			return null;
 		}
@@ -74,7 +74,7 @@ class ABNet_PostStats_StyleInfoProvider {
 			?? ABNet_PostStats_StyleMetricBracket::unbounded();
 	}
 
-	public function getName(string $key) {
+	public function getName(string $key): ?string {
 		if (empty($key)) {
 			return null;
 		}
@@ -105,7 +105,7 @@ class ABNet_PostStats_StyleInfoProvider {
 		return new ABNet_PostStats_StyleInfo($styleMetrics);
 	}
 
-	public function matchesEnabledProviders(ABNet_PostStats_StyleInfo $info) {
+	public function matchesEnabledProviders(ABNet_PostStats_StyleInfo $info): bool {
 		$enabledProviderCount = 0;
 		$enabledProviders = $this->_getEnabledProviders();
 

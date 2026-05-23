@@ -30,6 +30,7 @@ require_once ABNET_POST_STATS_INC_DIR . 'class-abnet-poststats-result.php';
 require_once ABNET_POST_STATS_INC_DIR . 'class-abnet-poststats-datasource.php';
 require_once ABNET_POST_STATS_INC_DIR . 'class-abnet-poststats-db.php';
 require_once ABNET_POST_STATS_INC_DIR . 'class-abnet-poststats-widget-manager.php';
+require_once ABNET_POST_STATS_INC_DIR . 'class-abnet-poststats-public-api.php';
 require_once ABNET_POST_STATS_INC_DIR . 'style-metrics/feature.php';
 require_once ABNET_POST_STATS_INC_DIR . 'content-pillars/feature.php';
 
