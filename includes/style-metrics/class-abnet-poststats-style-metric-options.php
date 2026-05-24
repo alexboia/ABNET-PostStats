@@ -110,6 +110,12 @@ class ABNet_PostStats_StyleMetricOptions {
 		return self::fromArray($storedOptions);
 	}
 
+	public static function configure(array $rawOptionsArray): ABNet_PostStats_StyleMetricOptions {
+		$saveOptions = self::sanitizeRawOptionsInputArray($rawOptionsArray);
+		update_option(self::OPTION_NAME, $saveOptions);
+		return self::fromArray($saveOptions);
+	}
+
 	public static function fromArray(array $rawOptions): ABNet_PostStats_StyleMetricOptions {
 		$defaults = self::defaults();
 		$sanitized = self::sanitizeRawOptionsArray($rawOptions);
@@ -166,6 +172,15 @@ class ABNet_PostStats_StyleMetricOptions {
 	}
 
 	public static function sanitizeRawOptionsInputArray(array $rawOptions): array {
+		$allRawKeys = array_keys($rawOptions);
+		$allowedKesy = self::_getAllowedOptionKeys();
+
+		foreach ($allRawKeys as $rawKey) {
+			if (!in_array($rawKey, $allowedKesy)) {
+				unset($rawOptions[$rawKey]);
+			}
+		}
+
 		foreach (self::_getOptionToggleKeys() as $key) {
 			if (!isset($rawOptions[$key])) {
 				$rawOptions[$key] = false;
@@ -174,6 +189,18 @@ class ABNet_PostStats_StyleMetricOptions {
 	
 		return self::sanitizeRawOptionsArray($rawOptions);
 	}	
+
+	private static function _getAllowedOptionKeys(): array {
+		$allowed = array();
+
+		$allowed = array_merge($allowed, self::_getOptionToggleKeys());
+		$allowed = array_merge($allowed, self::_getOptionBracketKeys());
+
+		$allowed[] = self::KEY_NEGATIVE_WORD_LIST;
+		$allowed[] = self::KEY_YULES_K_MULTIPLIER;
+		
+		return $allowed;
+	}
 
 	private static function _getOptionToggleKeys(): array {
 		return array_values(self::getProviderOptionToggleKeyMapping());
@@ -196,6 +223,10 @@ class ABNet_PostStats_StyleMetricOptions {
 			ABNet_PostStats_StyleMetricHapaxToTypesProvider::KEY
 				=> self::KEY_USE_HAPAX_TO_TYPES
 		);
+	}
+
+	private static function _getOptionBracketKeys(): array {
+		return array_values(self::getProviderBracketOptionKeyMapping());
 	}
 
 	public static function getProviderBracketOptionKeyMapping(): array {

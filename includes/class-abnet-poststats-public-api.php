@@ -31,7 +31,6 @@ class ABNet_PostStats_PublicApi {
 	}
 
 	public function getPluginVersion(): string {
-		// This will surface the plugin version as a stable capability check for consumers.
 		return ABNET_POST_STATS_VERSION;
 	}
 
@@ -176,9 +175,8 @@ class ABNet_PostStats_PublicApi {
 		}
 	}
 
-	public function saveStyleMetricOptions(array $options): array {
-		// This should persist a normalized style-metric option payload and return the saved state.
-		throw new \LogicException('Not implemented yet.');
+	public function saveStyleMetricOptions(array $options): ABNet_PostStats_StyleMetricOptions {
+		return ABNet_PostStats_StyleMetricOptions::configure($options);
 	}
 
 	public function createContentPillar(string $name, 

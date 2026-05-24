@@ -144,7 +144,8 @@ textarea.large-text.abnet-poststats-options-textarea {
 }
 
 .abnet-poststats-wrap .notice {
-	max-width: 750px;
+	width: 738px;
+	max-width: 738px;
 }
 
 .abnet-poststats-wrap .description {
