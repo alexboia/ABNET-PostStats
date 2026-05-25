@@ -4,7 +4,7 @@
 param(
     [string]$OutputPath = "./dist",
     [string]$PluginName = "abnet-post-stats",
-    [string]$Version = "1.1.0",
+    [string]$Version = "1.1.1",
     [switch]$IncludeDevFiles = $false,
     [switch]$ExportUnarchived = $false,
     [switch]$Verbose = $false
