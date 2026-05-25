@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Condei Simple Post Stats 1.1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/abnet-post-stats\n"
 "POT-Creation-Date: 2026-05-25T07:10:29+00:00\n"
-"PO-Revision-Date: 2026-05-25 12:02+0300\n"
+"PO-Revision-Date: 2026-05-25 18:27+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ro_RO\n"
@@ -50,14 +50,16 @@ msgstr "Număr de articole pe an"
 
 #. translators: Monthly posts stats subheading for a content pillar
 #. translators: Monthly posts stats subheading - Generic
-#: includes/class-abnet-poststats-datasource.php:139 includes/class-abnet-poststats-widget-manager.php:125
+#: includes/class-abnet-poststats-datasource.php:139
+#: includes/class-abnet-poststats-widget-manager.php:125
 #, php-format
 msgid "Posts in %s (Monthly)"
 msgstr "Articole în %s (lunar)"
 
 #. translators: Yearly posts stats subheading for a content pillar
 #. translators: Yearly posts stats subheading - Generic
-#: includes/class-abnet-poststats-datasource.php:220 includes/class-abnet-poststats-widget-manager.php:135
+#: includes/class-abnet-poststats-datasource.php:220
+#: includes/class-abnet-poststats-widget-manager.php:135
 #, php-format
 msgid "Posts in %s (Yearly)"
 msgstr "Articole în %s (anual)"
@@ -80,7 +82,8 @@ msgstr "Sigur ștergi toate categoriile selectate?"
 msgid "Most Used Categories"
 msgstr "Cele mai folosite categorii"
 
-#: includes/content-pillars/class-abnet-poststats-content-pillar-manager.php:117 views/admin-content-pillars.php:24
+#: includes/content-pillars/class-abnet-poststats-content-pillar-manager.php:117
+#: views/admin-content-pillars.php:24
 msgid "Condei Simple Post Stats - Content Pillars Definitions"
 msgstr "Condei - Ritm editorial și statistici - Definire direcții editoriale"
 
@@ -92,15 +95,18 @@ msgstr "Verificări de securitate cu rezultat dubios."
 msgid "Invalid action."
 msgstr "Acțiune incorectă."
 
-#: includes/content-pillars/class-abnet-poststats-content-pillar-manager.php:228 includes/content-pillars/class-abnet-poststats-content-pillar-manager.php:272
+#: includes/content-pillars/class-abnet-poststats-content-pillar-manager.php:228
+#: includes/content-pillars/class-abnet-poststats-content-pillar-manager.php:272
 msgid "Content pillar name is required."
 msgstr "Trebuie să completezi denumirea direcției editoriale."
 
-#: includes/content-pillars/class-abnet-poststats-content-pillar-manager.php:235 includes/content-pillars/class-abnet-poststats-content-pillar-manager.php:279
+#: includes/content-pillars/class-abnet-poststats-content-pillar-manager.php:235
+#: includes/content-pillars/class-abnet-poststats-content-pillar-manager.php:279
 msgid "At least one category must be selected."
 msgstr "Trebuie să alegi cel puțin o categorie, nu fi zgârcit."
 
-#: includes/content-pillars/class-abnet-poststats-content-pillar-manager.php:242 includes/content-pillars/class-abnet-poststats-content-pillar-manager.php:286
+#: includes/content-pillars/class-abnet-poststats-content-pillar-manager.php:242
+#: includes/content-pillars/class-abnet-poststats-content-pillar-manager.php:286
 msgid "A content pillar with this name already exists."
 msgstr "Ai deja o direcție editorială cu numele ales."
 
@@ -128,9 +134,10 @@ msgstr "Direcție editorială ștearsă cu succes."
 msgid "Failed to delete content pillar."
 msgstr "Direcția editorială nu a putut fi ștearsă."
 
-#: includes/style-metrics/class-abnet-poststats-style-metric-manager.php:73 views/admin-style-metrics-settings-page.php:19
+#: includes/style-metrics/class-abnet-poststats-style-metric-manager.php:73
+#: views/admin-style-metrics-settings-page.php:19
 msgid "Condei Simple Post Stats - Style Metrics"
-msgstr "Ritm editorial și statistici - Stilometrie"
+msgstr "Condei - Ritm editorial și statistici - Stilometrie"
 
 #: includes/style-metrics/class-abnet-poststats-style-metric-manager.php:125
 msgid "Condei Style Metrics"
@@ -148,7 +155,7 @@ msgstr "Controlează intervalul optim pentru evaluarea acestei metrici."
 #: includes/style-metrics/class-abnet-poststats-style-metric-manager.php:252
 #, php-format
 msgid "%s bracket"
-msgstr "%s interval"
+msgstr "Interval pentru %s"
 
 #: includes/style-metrics/class-abnet-poststats-style-metric-manager.php:279
 msgid "Yule's K multiplier"
@@ -242,7 +249,8 @@ msgstr "Culoarea graficului"
 msgid "Choose the color for this content pillar's charts and statistics."
 msgstr "Alege culoarea pentru graficele și statisticile acestei direcții editoriale."
 
-#: views/admin-content-pillars-form.php:67 views/admin-content-pillars-list.php:34
+#: views/admin-content-pillars-form.php:67
+#: views/admin-content-pillars-list.php:34
 msgid "Categories"
 msgstr "Categorii"
 
@@ -258,7 +266,8 @@ msgstr "Șterge toate categoriile"
 msgid "Search and select categories for this content pillar. At least one category is required."
 msgstr "Caută și selectează categorii pentru această direcție editorială. Trebuie selectată cel puțin o categorie."
 
-#: views/admin-content-pillars-form.php:105 views/admin-content-pillars-list.php:35
+#: views/admin-content-pillars-form.php:105
+#: views/admin-content-pillars-list.php:35
 msgid "Show by default"
 msgstr "Afișează implicit"
 

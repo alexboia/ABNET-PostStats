@@ -4,8 +4,9 @@
 param(
     [string]$OutputPath = "./dist",
     [string]$PluginName = "abnet-post-stats",
-    [string]$Version = "1.0.0",
+    [string]$Version = "1.1.0",
     [switch]$IncludeDevFiles = $false,
+    [switch]$ExportUnarchived = $false,
     [switch]$Verbose = $false
 )
 
@@ -23,6 +24,7 @@ $PluginPath = if ((Split-Path $CurrentPath -Leaf) -eq "build") {
 
 $TempPath = Join-Path $env:TEMP "abnet-plugin-build"
 $ArchiveName = "$PluginName-v$Version.zip"
+$ArchiveDirectoryName = [System.IO.Path]::GetFileNameWithoutExtension($ArchiveName)
 
 # Files and directories to exclude from the package
 $ExcludePatterns = @(
@@ -217,6 +219,21 @@ function New-PluginArchive {
     Write-Log "Archive created successfully ($sizeKB KB)" "SUCCESS"
 }
 
+function Export-UnarchivedPlugin {
+    param(
+        [string]$SourcePath,
+        [string]$OutputDirectory
+    )
+
+    Write-Log "Exporting unarchived plugin structure to: $OutputDirectory"
+    New-CleanDirectory $OutputDirectory
+
+    $destinationPath = Join-Path $OutputDirectory $PluginName
+    Copy-Item -Path $SourcePath -Destination $destinationPath -Recurse -Force
+
+    Write-Log "Unarchived plugin export completed" "SUCCESS"
+}
+
 function Test-PluginArchive {
     param([string]$ArchivePath)
     
@@ -229,12 +246,13 @@ function Test-PluginArchive {
         
         # Check for required files
         $requiredFiles = @(
-            "$PluginName\$PluginName.php",
-            "$PluginName\readme.txt"
+            "$PluginName/$PluginName.php",
+            "$PluginName/readme.txt"
         )
         
         $archiveEntries = $archive.Entries | ForEach-Object { $_.FullName }
         
+        Write-Host $archiveEntries
         foreach ($required in $requiredFiles) {
             if ($required -notin $archiveEntries) {
                 throw "Required file missing from archive: $required"
@@ -293,6 +311,12 @@ try {
     $outputFile = Join-Path $OutputPath $ArchiveName
 	Write-Host $outputFile
     New-PluginArchive $TempPath $outputFile
+
+    # Optionally export an unarchived copy for direct FTP upload
+    if ($ExportUnarchived) {
+        $unarchivedOutputPath = Join-Path $OutputPath $ArchiveDirectoryName
+        Export-UnarchivedPlugin -SourcePath $pluginDir -OutputDirectory $unarchivedOutputPath
+    }
     
     # Validate the archive
     if (-not (Test-PluginArchive $outputFile)) {
