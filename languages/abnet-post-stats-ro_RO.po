@@ -4,370 +4,362 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Condei Simple Post Stats 1.1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/abnet-post-stats\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: 2026-05-25T07:10:29+00:00\n"
+"PO-Revision-Date: 2026-05-25 12:02+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ro_RO\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-05-25T07:10:29+00:00\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.12.0\n"
+"X-Generator: Poedit 3.9\n"
 "X-Domain: abnet-post-stats\n"
 
 #. Plugin Name of the plugin
 #: abnet-post-stats.php
 msgid "Condei Simple Post Stats"
-msgstr ""
+msgstr "Condei - Ritm editorial și statistici"
 
 #. Plugin URI of the plugin
 #: abnet-post-stats.php
 msgid "https://github.com/alexboia/ABNET-PostStats"
-msgstr ""
+msgstr "https://github.com/alexboia/ABNET-PostStats"
 
 #. Description of the plugin
 #: abnet-post-stats.php
 msgid "A WordPress plugin for displaying simple content creation statistics. Part of the Condei plug-in suite."
-msgstr ""
+msgstr "Un modul WordPress pentru afișarea unor statistici editoriale simple. Parte a suitei Condei."
 
 #. Author of the plugin
 #: abnet-post-stats.php
 msgid "S.C. MyClar Software Solutions S.R.L."
-msgstr ""
+msgstr "S.C. MyClar Software Solutions S.R.L."
 
 #. Author URI of the plugin
 #: abnet-post-stats.php
 msgid "https://alexboia.net"
-msgstr ""
+msgstr "https://alexboia.net"
 
 #: includes/class-abnet-poststats-datasource.php:67
 msgid "Post Counts Per Month"
-msgstr ""
+msgstr "Număr de articole pe lună"
 
 #: includes/class-abnet-poststats-datasource.php:121
 msgid "Post Counts Per Year"
-msgstr ""
+msgstr "Număr de articole pe an"
 
 #. translators: Monthly posts stats subheading for a content pillar
 #. translators: Monthly posts stats subheading - Generic
-#: includes/class-abnet-poststats-datasource.php:139
-#: includes/class-abnet-poststats-widget-manager.php:125
+#: includes/class-abnet-poststats-datasource.php:139 includes/class-abnet-poststats-widget-manager.php:125
 #, php-format
 msgid "Posts in %s (Monthly)"
-msgstr ""
+msgstr "Articole în %s (lunar)"
 
 #. translators: Yearly posts stats subheading for a content pillar
 #. translators: Yearly posts stats subheading - Generic
-#: includes/class-abnet-poststats-datasource.php:220
-#: includes/class-abnet-poststats-widget-manager.php:135
+#: includes/class-abnet-poststats-datasource.php:220 includes/class-abnet-poststats-widget-manager.php:135
 #, php-format
 msgid "Posts in %s (Yearly)"
-msgstr ""
+msgstr "Articole în %s (anual)"
 
 #. translators: Dashboard widget title for monthly post statistics
 #: includes/class-abnet-poststats-widget-manager.php:50
 msgid "Post Statistics per Month"
-msgstr ""
+msgstr "Statistici articole pe lună"
 
 #. translators: Dashboard widget title for yearly post statistics
 #: includes/class-abnet-poststats-widget-manager.php:57
 msgid "Post Statistics per Year"
-msgstr ""
+msgstr "Statistici articole pe an"
 
 #: includes/content-pillars/class-abnet-poststats-content-pillar-manager.php:110
 msgid "Are you sure you want to remove all selected categories?"
-msgstr ""
+msgstr "Sigur ștergi toate categoriile selectate?"
 
 #: includes/content-pillars/class-abnet-poststats-content-pillar-manager.php:112
 msgid "Most Used Categories"
-msgstr ""
+msgstr "Cele mai folosite categorii"
 
-#: includes/content-pillars/class-abnet-poststats-content-pillar-manager.php:117
-#: views/admin-content-pillars.php:24
+#: includes/content-pillars/class-abnet-poststats-content-pillar-manager.php:117 views/admin-content-pillars.php:24
 msgid "Condei Simple Post Stats - Content Pillars Definitions"
-msgstr ""
+msgstr "Condei - Ritm editorial și statistici - Definire direcții editoriale"
 
 #: includes/content-pillars/class-abnet-poststats-content-pillar-manager.php:199
 msgid "Security check failed."
-msgstr ""
+msgstr "Verificări de securitate cu rezultat dubios."
 
 #: includes/content-pillars/class-abnet-poststats-content-pillar-manager.php:214
 msgid "Invalid action."
-msgstr ""
+msgstr "Acțiune incorectă."
 
-#: includes/content-pillars/class-abnet-poststats-content-pillar-manager.php:228
-#: includes/content-pillars/class-abnet-poststats-content-pillar-manager.php:272
+#: includes/content-pillars/class-abnet-poststats-content-pillar-manager.php:228 includes/content-pillars/class-abnet-poststats-content-pillar-manager.php:272
 msgid "Content pillar name is required."
-msgstr ""
+msgstr "Trebuie să completezi denumirea direcției editoriale."
 
-#: includes/content-pillars/class-abnet-poststats-content-pillar-manager.php:235
-#: includes/content-pillars/class-abnet-poststats-content-pillar-manager.php:279
+#: includes/content-pillars/class-abnet-poststats-content-pillar-manager.php:235 includes/content-pillars/class-abnet-poststats-content-pillar-manager.php:279
 msgid "At least one category must be selected."
-msgstr ""
+msgstr "Trebuie să alegi cel puțin o categorie, nu fi zgârcit."
 
-#: includes/content-pillars/class-abnet-poststats-content-pillar-manager.php:242
-#: includes/content-pillars/class-abnet-poststats-content-pillar-manager.php:286
+#: includes/content-pillars/class-abnet-poststats-content-pillar-manager.php:242 includes/content-pillars/class-abnet-poststats-content-pillar-manager.php:286
 msgid "A content pillar with this name already exists."
-msgstr ""
+msgstr "Ai deja o direcție editorială cu numele ales."
 
 #: includes/content-pillars/class-abnet-poststats-content-pillar-manager.php:256
 msgid "Content pillar created successfully."
-msgstr ""
+msgstr "Direcție editorială creată cu succes."
 
 #: includes/content-pillars/class-abnet-poststats-content-pillar-manager.php:261
 msgid "Failed to create content pillar."
-msgstr ""
+msgstr "Direcția editorială nu a putut fi creată."
 
 #: includes/content-pillars/class-abnet-poststats-content-pillar-manager.php:301
 msgid "Content pillar updated successfully."
-msgstr ""
+msgstr "Direcție editorială modificată cu succes."
 
 #: includes/content-pillars/class-abnet-poststats-content-pillar-manager.php:306
 msgid "Failed to update content pillar."
-msgstr ""
+msgstr "Direcția editorială nu a putut fi modificată."
 
 #: includes/content-pillars/class-abnet-poststats-content-pillar-manager.php:322
 msgid "Content pillar deleted successfully."
-msgstr ""
+msgstr "Direcție editorială ștearsă cu succes."
 
 #: includes/content-pillars/class-abnet-poststats-content-pillar-manager.php:327
 msgid "Failed to delete content pillar."
-msgstr ""
+msgstr "Direcția editorială nu a putut fi ștearsă."
 
-#: includes/style-metrics/class-abnet-poststats-style-metric-manager.php:73
-#: views/admin-style-metrics-settings-page.php:19
+#: includes/style-metrics/class-abnet-poststats-style-metric-manager.php:73 views/admin-style-metrics-settings-page.php:19
 msgid "Condei Simple Post Stats - Style Metrics"
-msgstr ""
+msgstr "Ritm editorial și statistici - Stilometrie"
 
 #: includes/style-metrics/class-abnet-poststats-style-metric-manager.php:125
 msgid "Condei Style Metrics"
-msgstr ""
+msgstr "Condei - Stilometrie"
 
 #: includes/style-metrics/class-abnet-poststats-style-metric-manager.php:231
 msgid "Metric Providers"
-msgstr ""
+msgstr "Calculatoare de metrici"
 
 #: includes/style-metrics/class-abnet-poststats-style-metric-manager.php:248
 msgid "Controls the minimum and maximum expected values used to evaluate this metric."
-msgstr ""
+msgstr "Controlează intervalul optim pentru evaluarea acestei metrici."
 
 #. translators: Field label for metric bracket settings (e.g., "Shannon's Entropy bracket")
 #: includes/style-metrics/class-abnet-poststats-style-metric-manager.php:252
 #, php-format
 msgid "%s bracket"
-msgstr ""
+msgstr "%s interval"
 
 #: includes/style-metrics/class-abnet-poststats-style-metric-manager.php:279
 msgid "Yule's K multiplier"
-msgstr ""
+msgstr "Multiplicator Yule's K"
 
 #: includes/style-metrics/class-abnet-poststats-style-metric-manager.php:287
 msgid "Negative word list"
-msgstr ""
+msgstr "Lista de cuvinte negative"
 
 #: includes/style-metrics/class-abnet-poststats-style-metric-manager.php:333
 msgid "Choose which style metrics are computed and tune provider-specific values."
-msgstr ""
+msgstr "Alege care metrici stilistice vor fi calculate și configurează valorile specifice fiecărui calculator."
 
 #: includes/style-metrics/class-abnet-poststats-style-metric-manager.php:368
 msgid "Used by the Yule's K provider. Must be a positive integer."
-msgstr ""
+msgstr "Folosit de calculatorul Indicelui K. Trebuie să fie un număr întreg pozitiv."
 
 #: includes/style-metrics/class-abnet-poststats-style-metric-manager.php:417
 msgid "One word per line. Used by the negativity provider. The provider will use default English negative word list if nothing entered here."
-msgstr ""
+msgstr "Un cuvânt pe rând. Folosit de calculatorul tonului negativ. Dacă nu completezi nimic, se vor folosi cuvintele negative implicite."
 
 #: includes/style-metrics/providers/class-abnet-poststats-asl-provider.php:58
 msgid "Average Sentence Length"
-msgstr ""
+msgstr "Lungimea medie a propozițiilor"
 
 #: includes/style-metrics/providers/class-abnet-poststats-asl-provider.php:62
 msgid "ASL (Average Sentence Length) is a classic indicator of readability and clarity of expression."
-msgstr ""
+msgstr "Lungimea medie a propozițiilor este un indicator clasic al ușurinței de citire și clarității exprimării."
 
 #: includes/style-metrics/providers/class-abnet-poststats-entropy-provider.php:69
 msgid "Shannon's Entropy"
-msgstr ""
+msgstr "Entropie"
 
 #: includes/style-metrics/providers/class-abnet-poststats-entropy-provider.php:73
 msgid "In stylometry, entropy measures the diversity and unpredictability of the language used in a text. It indicates how much new information each unit (word or character) brings and how predictable their distribution is."
-msgstr ""
+msgstr "În stilometrie, entropia măsoară diversitatea și impredictibilitatea limbajului folosit într-un text. Arată cât de multă informație nouă aduce fiecare unitate (cuvânt sau caracter) și cât de previzibilă este distribuția lor."
 
 #: includes/style-metrics/providers/class-abnet-poststats-hapax-to-types-provider.php:70
 msgid "Hapax to Types Ratio"
-msgstr ""
+msgstr "Raportul Hapax to Types"
 
 #: includes/style-metrics/providers/class-abnet-poststats-hapax-to-types-provider.php:74
 msgid "In linguistics and stylometry, hapax legomena are words that appear only once in a text."
-msgstr ""
+msgstr "În lingvistică și stilometrie, sunt numite hapax legomena cuvintele care apar o singură dată într-un text."
 
 #: includes/style-metrics/providers/class-abnet-poststats-lix-provider.php:80
 msgid "LIX Score"
-msgstr ""
+msgstr "Indicele LIX"
 
 #: includes/style-metrics/providers/class-abnet-poststats-lix-provider.php:84
 msgid "The LIX score is a simple formula for measuring the degree of difficulty of a written text."
-msgstr ""
+msgstr "Indicele LIX este o formulă simplă pentru măsurarea gradului de dificultate al unui text scris."
 
 #: includes/style-metrics/providers/class-abnet-poststats-negativity-provider.php:160
 msgid "Negativity"
-msgstr ""
+msgstr "Tonul negativ"
 
 #: includes/style-metrics/providers/class-abnet-poststats-negativity-provider.php:164
 msgid "Negativity is a simple score that estimates the negative tone of a text by measuring the percentage of negative sentences."
-msgstr ""
+msgstr "Tonul negativ este o măsură simplă care estimează tonul negativ al unui text prin măsurarea procentului de propoziții negative."
 
 #: includes/style-metrics/providers/class-abnet-poststats-punctuation-provider.php:61
 msgid "Punctuation"
-msgstr ""
+msgstr "Semne de punctuație"
 
 #: includes/style-metrics/providers/class-abnet-poststats-punctuation-provider.php:65
 msgid "The Punctuation indicator measures the frequency of punctuation marks in a text and reflects the writing style, rhythm, and complexity of the sentences used by the author."
-msgstr ""
+msgstr "Indicatorul de punctuație măsoară frecvența semnelor de punctuație dintr-un text și reflectă stilul de scriere, ritmul și complexitatea propozițiilor folosite de autor."
 
 #: includes/style-metrics/providers/class-abnet-poststats-yuk-provider.php:99
 msgid "Yule's K"
-msgstr ""
+msgstr "Yule's K"
 
 #: includes/style-metrics/providers/class-abnet-poststats-yuk-provider.php:103
 msgid "Yule's K is a stylometric index that measures the richness of vocabulary in a text."
-msgstr ""
+msgstr "Indicele Yule's K evaluează bogăția vocabularului dintr-un text."
 
 #: views/admin-content-pillars-form.php:36
 msgid "Content Pillar Name"
-msgstr ""
+msgstr "Denumirea direcției editoriale"
 
 #: views/admin-content-pillars-form.php:46
 msgid "Enter a unique name for this content pillar."
-msgstr ""
+msgstr "Introduce un nume unic pentru această direcție editorială."
 
 #: views/admin-content-pillars-form.php:51
 msgid "Chart Color"
-msgstr ""
+msgstr "Culoarea graficului"
 
 #: views/admin-content-pillars-form.php:62
 msgid "Choose the color for this content pillar's charts and statistics."
-msgstr ""
+msgstr "Alege culoarea pentru graficele și statisticile acestei direcții editoriale."
 
-#: views/admin-content-pillars-form.php:67
-#: views/admin-content-pillars-list.php:34
+#: views/admin-content-pillars-form.php:67 views/admin-content-pillars-list.php:34
 msgid "Categories"
-msgstr ""
+msgstr "Categorii"
 
 #: views/admin-content-pillars-form.php:74
 msgid "Search for categories..."
-msgstr ""
+msgstr "Caută categorii..."
 
 #: views/admin-content-pillars-form.php:96
 msgid "Clear All Categories"
-msgstr ""
+msgstr "Șterge toate categoriile"
 
 #: views/admin-content-pillars-form.php:100
 msgid "Search and select categories for this content pillar. At least one category is required."
-msgstr ""
+msgstr "Caută și selectează categorii pentru această direcție editorială. Trebuie selectată cel puțin o categorie."
 
-#: views/admin-content-pillars-form.php:105
-#: views/admin-content-pillars-list.php:35
+#: views/admin-content-pillars-form.php:105 views/admin-content-pillars-list.php:35
 msgid "Show by default"
-msgstr ""
+msgstr "Afișează implicit"
 
 #: views/admin-content-pillars-form.php:116
 msgid "Whether the dashboard chart widgets are automatically displayed on the WP Admin dashboard. Unchecking this will require you add them manually using the standard dashboard configuration panel."
-msgstr ""
+msgstr "Dacă widget-urile cu grafice vor fi afișate automat pe panoul administratorului WordPress. Dacă dezactivezi asta, trebuie să le adaugi manual folosind modalitatea standard de configurare al panoului de administrare."
 
 #: views/admin-content-pillars-form.php:123
 msgid "Update Content Pillar"
-msgstr ""
+msgstr "Modifică direcția editorială"
 
 #: views/admin-content-pillars-form.php:123
 msgid "Create Content Pillar"
-msgstr ""
+msgstr "Creează direcție editorială"
 
 #: views/admin-content-pillars-form.php:127
 msgid "Cancel"
-msgstr ""
+msgstr "Anulează"
 
 #: views/admin-content-pillars-list.php:25
 msgid "Existing Content Pillars"
-msgstr ""
+msgstr "Direcții editoriale existente"
 
 #: views/admin-content-pillars-list.php:27
 msgid "No content pillars defined yet."
-msgstr ""
+msgstr "Nu ai definit nici o direcție editorială."
 
 #: views/admin-content-pillars-list.php:32
 msgid "Name"
-msgstr ""
+msgstr "Nume"
 
 #: views/admin-content-pillars-list.php:33
 msgid "Color"
-msgstr ""
+msgstr "Culoare"
 
 #: views/admin-content-pillars-list.php:36
 msgid "Created"
-msgstr ""
+msgstr "Creată"
 
 #: views/admin-content-pillars-list.php:37
 msgid "Actions"
-msgstr ""
+msgstr "Acțiuni"
 
 #: views/admin-content-pillars-list.php:64
 msgid "Yes"
-msgstr ""
+msgstr "Da"
 
 #: views/admin-content-pillars-list.php:65
 msgid "No"
-msgstr ""
+msgstr "Nu"
 
 #: views/admin-content-pillars-list.php:73
 msgid "Edit"
-msgstr ""
+msgstr "Modificare"
 
 #: views/admin-content-pillars-list.php:75
 msgid "Are you sure you want to delete this content pillar?"
-msgstr ""
+msgstr "Sigur ștergi această direcție editorială?"
 
 #: views/admin-content-pillars-list.php:80
 msgid "Delete"
-msgstr ""
+msgstr "Șterge"
 
 #: views/admin-content-pillars.php:36
 msgid "Edit Content Pillar"
-msgstr ""
+msgstr "Modifică direcția editorială"
 
 #: views/admin-content-pillars.php:37
 msgid "Add New Content Pillar"
-msgstr ""
+msgstr "Adaugă noua direcție editorială"
 
 #. translators: Text describing the bracket range (e.g., "Between 4 and 6"), used for style metrics
 #: views/admin-style-metrics-metabox.php:40
 #, php-format
 msgid "Between %1$s and %2$s"
-msgstr ""
+msgstr "Între %1$s și %2$s"
 
 #: views/admin-style-metrics-metabox.php:69
 msgid "No style metrics enabled"
-msgstr ""
+msgstr "Nu sunt activate metrici stilistice"
 
 #: views/dashboard-widget.php:120
 msgid "Total Posts"
-msgstr ""
+msgstr "Total articole"
 
 #: views/dashboard-widget.php:124
 msgid "Average"
-msgstr ""
+msgstr "Medie"
 
 #: views/dashboard-widget.php:128
 msgid "Peak"
-msgstr ""
+msgstr "Vârf"
 
 #: views/settings-controls/admin-style-metric-boolean-toggle-input-control.php:29
 msgid "Enabled"
-msgstr ""
+msgstr "Activ"
 
 #: views/settings-controls/admin-style-metric-min-max-input-control.php:29
 msgid "Min"
-msgstr ""
+msgstr "Min"
 
 #: views/settings-controls/admin-style-metric-min-max-input-control.php:39
 msgid "Max"
-msgstr ""
+msgstr "Max"
