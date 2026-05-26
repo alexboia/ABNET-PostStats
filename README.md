@@ -64,7 +64,7 @@ The goal is modest: fewer distractions, better editorial awareness, and a writin
 
 ## Credits
 
-For the style metrics part I shameless borrowed the idea from Victor's [Paradigma project](https://www.paradigma.ro).
+For the style metrics part I shamelessly borrowed the idea from Victor's [Paradigma project](https://www.paradigma.ro).
 
 ## Screenshots
 
