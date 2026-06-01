@@ -30,7 +30,7 @@ class ABNet_PostStats_DataSource {
 			FROM {$wpdb->posts} 
 			WHERE post_status = 'publish' 
 				AND post_type = 'post'
-				AND post_date >= DATE_SUB(NOW(), INTERVAL %d MONTH)
+				AND post_date_gmt >= DATE(DATE_SUB(NOW(), INTERVAL %d MONTH))
 			GROUP BY DATE_FORMAT(post_date, '%%Y-%%m')
 			ORDER BY month_key DESC
 			LIMIT %d", 
@@ -55,12 +55,15 @@ class ABNet_PostStats_DataSource {
 		 * @see ABNet_PostStats_Item
 		 */
 		$resultItems = array();
+
 		foreach ($normalizedResults as $month => $count) {
-			$resultItems[] = new ABNet_PostStats_Item(
-				(int) $count, 
-				$month, 
-				ABNET_POST_STATS_DEFAULT_CHART_COLOR
-			);
+			if (count($resultItems) < $limit) {
+				$resultItems[] = new ABNet_PostStats_Item(
+					(int) $count, 
+					$month, 
+					ABNET_POST_STATS_DEFAULT_CHART_COLOR
+				);
+			}	
 		}
 		
 		return new ABNet_PostStats_Result(
@@ -87,7 +90,7 @@ class ABNet_PostStats_DataSource {
 			FROM {$wpdb->posts} 
 			WHERE post_status = 'publish' 
 				AND post_type = 'post'
-				AND post_date >= DATE_SUB(NOW(), INTERVAL %d YEAR)
+				AND post_date_gmt >= DATE(DATE_SUB(NOW(), INTERVAL %d YEAR))
 			GROUP BY YEAR(post_date)
 			ORDER BY year_key DESC
 			LIMIT %d", 
@@ -164,7 +167,7 @@ class ABNet_PostStats_DataSource {
 			INNER JOIN {$wpdb->term_taxonomy} tt ON tr.term_taxonomy_id = tt.term_taxonomy_id
 			WHERE p.post_status = 'publish' 
 				AND p.post_type = 'post'
-				AND p.post_date >= DATE_SUB(NOW(), INTERVAL %d MONTH)
+				AND p.post_date_gmt >= DATE(DATE_SUB(NOW(), INTERVAL %d MONTH))
 				AND tt.taxonomy = 'category'
 				AND tt.term_id IN ($categoryIdsPlaceholder)
 			GROUP BY DATE_FORMAT(p.post_date, '%%Y-%%m')
@@ -190,12 +193,15 @@ class ABNet_PostStats_DataSource {
 		}
 		
 		$resultItems = array();
+
 		foreach ($normalizedResults as $month => $count) {
-			$resultItems[] = new ABNet_PostStats_Item(
-				(int) $count, 
-				$month, 
-				$contentPillar->getColor()
-			);
+			if (count($resultItems) < $limit) {
+				$resultItems[] = new ABNet_PostStats_Item(
+					(int) $count, 
+					$month, 
+					$contentPillar->getColor()
+				);
+			}
 		}
 		
 		return new ABNet_PostStats_Result(
@@ -244,7 +250,7 @@ class ABNet_PostStats_DataSource {
 			INNER JOIN {$wpdb->term_taxonomy} tt ON tr.term_taxonomy_id = tt.term_taxonomy_id
 			WHERE p.post_status = 'publish' 
 				AND p.post_type = 'post'
-				AND p.post_date >= DATE_SUB(NOW(), INTERVAL %d YEAR)
+				AND p.post_date_gmt >= DATE(DATE_SUB(NOW(), INTERVAL %d YEAR))
 				AND tt.taxonomy = 'category'
 				AND tt.term_id IN ($categoryIdsPlaceholder)
 			GROUP BY YEAR(p.post_date)
