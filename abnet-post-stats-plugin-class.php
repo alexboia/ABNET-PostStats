@@ -56,6 +56,7 @@ class ABNet_PostStats {
 
 		$this->_createTables();
 		$this->_migrateTables();
+
 		/**
 		 * Fires after the plugin activation routine finishes creating and migrating tables.
 		 */
@@ -79,6 +80,10 @@ class ABNet_PostStats {
 	}
 
 	public function init(): void {
+		if ($this->isInitialized()) {
+			return;
+		}
+		
 		load_plugin_textdomain('abnet-post-stats', false, dirname(plugin_basename(__FILE__)) . '/languages');
 		$this->_initHooks();
 	}
