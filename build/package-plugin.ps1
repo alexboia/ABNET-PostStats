@@ -1,10 +1,12 @@
-# ABNet Post Stats - WordPress Plugin Packaging Script
+# ABNet WP-PostViews Addons - WordPress Plugin Packaging Script
 # Creates a ready-to-install WordPress plugin archive
 
 param(
     [string]$OutputPath = "./dist",
-    [string]$PluginName = "abnet-post-stats",
-    [string]$Version = "1.1.1",
+    [string]$PluginName = "abnet-wp-post-views-addons",
+    [string]$VersionConstant = "ABNET_WP_POST_VIEWS_VERSION",
+    [string]$PluginHeaderFile = "constants.php",
+    [string]$Version = "1.0.1",
     [switch]$IncludeDevFiles = $false,
     [switch]$ExportUnarchived = $false,
     [switch]$Verbose = $false
@@ -15,15 +17,20 @@ Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
 # Configuration
-$CurrentPath = $(pwd | Select -Expand Path)
-$PluginPath = if ((Split-Path $CurrentPath -Leaf) -eq "build") {
-    Split-Path $CurrentPath -Parent
+$ScriptPath = if ($PSScriptRoot) {
+    $PSScriptRoot
 } else {
-    $CurrentPath
+    Split-Path -Parent $MyInvocation.MyCommand.Path
+}
+
+$PluginPath = Split-Path $ScriptPath -Parent
+
+if (-not [System.IO.Path]::IsPathRooted($OutputPath)) {
+    $OutputPath = Join-Path $PluginPath $OutputPath
 }
 
 $TempPath = Join-Path $env:TEMP "abnet-plugin-build"
-$ArchiveName = "$PluginName-v$Version.zip"
+$ArchiveName = "$PluginName.zip"
 $ArchiveDirectoryName = [System.IO.Path]::GetFileNameWithoutExtension($ArchiveName)
 
 # Files and directories to exclude from the package
@@ -33,6 +40,8 @@ $ExcludePatterns = @(
     ".git*",
 	"*build*",
 	"*dist*",
+    "*screenshots*",
+    "*bin*",
     "*.code-workspace",
     ".vscode",
 	".gitignore",
@@ -42,7 +51,11 @@ $ExcludePatterns = @(
 
 # Development files to exclude unless explicitly included
 $DevFiles = @(
+    "bin\*",
+    "bin/*",
     "*examples*",
+    "support\*",
+    "support/*",
     "*tests*",
     "*docs*",
     "*.md",
@@ -178,12 +191,20 @@ function Update-VersionInfo {
         
         # Update version in plugin header
         $content = $content -replace '(\* Version:\s+)[\d\.]+', "`${1}$Version"
-        
-        # Update version constant
-        $content = $content -replace "(define\('ABNET_POST_STATS_VERSION',\s+')[^']*(')", "`${1}$Version`${2}"
-        
+
         Set-Content $mainFile $content -Encoding UTF8
         Write-Log "Updated version to $Version in main plugin file" "SUCCESS"
+    }
+
+    # Update version constant
+    if ($PluginHeaderFile -ne $null -and $PluginHeaderFile -ne "" -and $VersionConstant -ne $null -and $VersionConstant -ne "") {
+        $constantsFile = Join-Path $PluginDir $PluginHeaderFile
+        if (Test-Path $constantsFile) {
+            $content = Get-Content $constantsFile -Raw
+            $content = $content -replace "(define\('$VersionConstant',\s+')[^']*(')", "`${1}$Version`${2}"
+            Set-Content $constantsFile $content -Encoding UTF8
+            Write-Log "Updated version in constants.php" "SUCCESS"
+        }
     }
     
     # Update readme.txt if it exists
@@ -252,7 +273,6 @@ function Test-PluginArchive {
         
         $archiveEntries = $archive.Entries | ForEach-Object { $_.FullName }
         
-        Write-Host $archiveEntries
         foreach ($required in $requiredFiles) {
             if ($required -notin $archiveEntries) {
                 throw "Required file missing from archive: $required"
@@ -279,12 +299,12 @@ function Show-Summary {
     Write-Host "================================================" -ForegroundColor Green
     Write-Host "           PLUGIN PACKAGING COMPLETE" -ForegroundColor Green
     Write-Host "================================================" -ForegroundColor Green
-    Write-Host "Plugin Name    : $PluginName" -ForegroundColor White
-    Write-Host "Version        : $Version" -ForegroundColor White
-    Write-Host "Archive        : $($archiveInfo.Name)" -ForegroundColor White
-    Write-Host "Size           : $sizeKB KB" -ForegroundColor White
-    Write-Host "Location       : $($archiveInfo.FullName)" -ForegroundColor White
-    Write-Host "Build Time     : $BuildTime" -ForegroundColor White
+    Write-Host "Plugin Name : $PluginName" -ForegroundColor White
+    Write-Host "Version : $Version" -ForegroundColor White
+    Write-Host "Archive : $($archiveInfo.Name)" -ForegroundColor White
+    Write-Host "Size : $sizeKB KB" -ForegroundColor White
+    Write-Host "Location : $($archiveInfo.FullName)" -ForegroundColor White
+    Write-Host "Build Time : $BuildTime" -ForegroundColor White
     Write-Host "================================================" -ForegroundColor Green
     Write-Host "`nArchive is ready for WordPress installation!" -ForegroundColor Yellow
 }
@@ -292,7 +312,7 @@ function Show-Summary {
 # Main execution
 try {
     $startTime = Get-Date
-	$OutputPath = (Resolve-Path -Path $OutputPath)
+	$OutputPath = [System.IO.Path]::GetFullPath($OutputPath)
 
     # Check prerequisites
     Test-Prerequisites
@@ -309,7 +329,6 @@ try {
     
     # Create the archive
     $outputFile = Join-Path $OutputPath $ArchiveName
-	Write-Host $outputFile
     New-PluginArchive $TempPath $outputFile
 
     # Optionally export an unarchived copy for direct FTP upload
@@ -331,8 +350,7 @@ try {
     $buildTime = "{0:mm\:ss}" -f ($endTime - $startTime)
     Show-Summary $outputFile $buildTime
     
-}
-catch {
+} catch {
     Write-Log "Packaging failed: $($_.Exception.Message)" "ERROR"
     
     # Clean up on error
