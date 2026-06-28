@@ -31,7 +31,7 @@ class ABNet_PostStats_StyleMetricHapaxToTypesProvider implements ABNet_PostStats
 		$totalTypes = $source->getUniqueWordCount();
 
 		$hapax = $totalTypes > 0 
-			? round($wordsThatAppearOnlyOnce / $totalTypes, self::DEFAULT_PRECISION)
+			? round(($wordsThatAppearOnlyOnce / $totalTypes) * 100, self::DEFAULT_PRECISION)
 			: 0;
 			
 		$friendly = $this->_friendlyRepresentation($hapax);
@@ -59,7 +59,7 @@ class ABNet_PostStats_StyleMetricHapaxToTypesProvider implements ABNet_PostStats
 	}
 
 	private function _friendlyRepresentation(float $hapax): string {
-		return sprintf('%d%% (HTR %%)', $hapax * 100);
+		return sprintf('%d%% (HTR %%)', $hapax);
 	}
 
     public function getKey(): string { 
